@@ -23,14 +23,13 @@
 }
 
 
+@dynamic user;
 @dynamic sport;
 @dynamic networks;
+@dynamic simRanked;
 @dynamic dateTimePreferences;
 @dynamic location;
 @dynamic locationDesc;
-@dynamic playWho;
-@dynamic user;
-
 
 
 @end

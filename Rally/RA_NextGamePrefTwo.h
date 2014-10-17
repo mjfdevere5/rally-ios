@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MBProgressHUD.h"
-#import <CoreLocation/CoreLocation.h>
+#import "RA_NextGameBaseCell.h"
 
-@interface RA_NextGamePrefTwo : UIViewController<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MBProgressHUDDelegate>
+@interface RA_NextGamePrefTwo : UIViewController<UITableViewDelegate, UITableViewDataSource, RA_NextGameCellDelegate>
 
-
+// Storyboard stuff
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 -(IBAction)setPrefButtonPushed:(UIButton *)button;
 @property (weak, nonatomic) IBOutlet UILabel *separatorLine;
 
--(void)turnOffPrefThree;
--(void)turnOnPrefTwo;
+// Optional cell delegate methods
+//-(void)turnOffPrefThree; // TO DO
+//-(void)turnOnPrefTwo;
 
 @end

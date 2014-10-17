@@ -63,22 +63,22 @@
     
     // Preference bullets
     NSMutableString *preferenceBullets = [NSMutableString stringWithFormat:@"- %@ at %@",
-                                          [self.gamePref.dateTimePreferences[0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
-                                          [self.gamePref.dateTimePreferences[0] getCommonSpeechClock]];
+                                          [self.gamePref.dateTimePreferences[0][0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                          [self.gamePref.dateTimePreferences[0][1] getCommonSpeechClock]]; // TO DO
     if ([self.gamePref.dateTimePreferences count] > 1) {
         NSString *preferenceTwo = [NSString stringWithFormat:@"\n- %@ at %@",
-                                   [self.gamePref.dateTimePreferences[1] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
-                                   [self.gamePref.dateTimePreferences[1] getCommonSpeechClock]];
+                                   [self.gamePref.dateTimePreferences[1][0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                   [self.gamePref.dateTimePreferences[1][1] getCommonSpeechClock]];
         [preferenceBullets appendString:preferenceTwo];
         if ([self.gamePref.dateTimePreferences count] > 2) {
             NSString *preferenceThree = [NSString stringWithFormat:@"\n- %@ at %@",
-                                         [self.gamePref.dateTimePreferences[2] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
-                                         [self.gamePref.dateTimePreferences[2] getCommonSpeechClock]];
+                                         [self.gamePref.dateTimePreferences[2][0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                         [self.gamePref.dateTimePreferences[2][1] getCommonSpeechClock]];
             [preferenceBullets appendString:preferenceThree];
         }
     }
     self.preferenceBulletsLabel.text = preferenceBullets;
-    [self.preferenceBulletsLabel sizeToFit]; // Is this correct?
+    [self.preferenceBulletsLabel sizeToFit]; // TO DO: is this correct?
     
     // Network in common
     self.networksInCommonLabel.text = [NSString stringWithFormat:@"%@ networks in common:",
@@ -99,6 +99,7 @@
         [networkBullets appendString:bullet];
     }
     self.networkBulletsLabel.text = networkBullets;
+    [self.networkBulletsLabel sizeToFit]; // TO DO: is this correct?
 }
 
 -(void)configureCellPartTwo

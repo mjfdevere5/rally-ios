@@ -17,7 +17,6 @@
 @end
 
 
-
 @implementation RA_GamePrefConfig
 
 
@@ -50,63 +49,26 @@
 
 -(void)resetToDefaults
 {
-    // Hardcoded by self
-    self.possibleDates = [self getPossibleDates];
-    self.possibleTimes = [self getPossibleTimes];
-    
     // Selected by the user, game setup view
     self.sport = nil;
     self.networks = [NSMutableArray array];
     self.simRanked = nil;
     
-    
-    self.possibleDates = [self getPossibleDates];
-    self.possibleTimes = @[@0, @1, @2]; // corresponds to Morning, Afternoon, Evening
-    
-    self.firstPreference = [[RA_DateAndTimePreference alloc] initWithDate:self.possibleDates[0]
-                                                                  andTime:self.possibleTimes[0]
-                                                                  andIsEnabled:YES];
-    self.secondPreference = [[RA_DateAndTimePreference alloc] initWithDate:self.possibleDates[0]
-                                                                   andTime:self.possibleTimes[0]
-                                                                   andIsEnabled:NO];
-    self.thirdPreference = [[RA_DateAndTimePreference alloc] initWithDate:self.possibleDates[0]
-                                                                  andTime:self.possibleTimes[0]
-                                                                  andIsEnabled:NO];
-    
-    self.preferencesDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                            self.firstPreference, @"first",
-                            self.secondPreference, @"second",
-                            self.thirdPreference, @"third", nil];
+    // Selected by the user, game logistics view
+    self.firstPreference = [[RA_TimeAndDatePreference alloc] initWithDay:[NSDate date]
+                                                          andTimeInteger:RA_GamePrefPossibleTimesEvening];
+    self.hasBackupPreference = NO;
+    self.backupPreference = [[RA_TimeAndDatePreference alloc] initWithDay:[NSDate date]
+                                                           andTimeInteger:RA_GamePrefPossibleTimesEvening];
+    self.prefDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                           self.firstPreference,@"first",
+                           self.backupPreference,@"backup", nil];
     
     // Location stuff
     self.ladderLocation = nil;
     self.ladderLocationPlacemark = nil;
-}
-
--(NSArray *)getPossibleDates
-{
-    // Set possible days as the forthcoming Thursday through Sunday (weekdays 5, 6, 7 and 1)
-    // These should change on the preceding SUNDAY
-    // The desired effect is that users can always request a match for the following day (discouraged), however, on Sunday, it's too late and they can now only plan their matches for Thursday onwards.
-    // Users will get a push on Sunday saying they can now express their preferences for matches for Thursday onwards
-    // Note that the -weekday method gives Sunday as 1, Saturday as 7
-    // Note that if today is Friday, we only want Saturday and Sunday to be options
-    // Note that there will always be at least one option (the forthcoming Sunday)
-    NSDate *today = [NSDate date];
-    int todayWeekday = (int)[today weekday];
-    NSMutableArray *possibleDatesMut = [[NSMutableArray alloc] init];
-    for (int i = todayWeekday; i<= todayWeekday + 14; i++) {
-        NSLog(@"%i", i);
-        NSDate *possibleDate = [today dateByAddingDays:(NSInteger)(i-todayWeekday)];
-        [possibleDatesMut addObject:possibleDate];
-    }
-    NSLog(@"possibleDates = %@", [possibleDatesMut description]);
-    return (NSArray *)possibleDatesMut;
-}
-
--(NSArray *)getPossibleTimes
-{
-    // TO DO
+    self.ladderLocationString = @"...";
+    self.ladderLocationManuallySelected = NO;
 }
 
 -(BOOL)containsNetwork:(RA_ParseNetwork *)network
@@ -157,9 +119,7 @@
 
 -(BOOL)validDatesAndTimes
 {
-    return !([self.firstPreference bothActiveAndEqual:self.secondPreference] ||
-             [self.firstPreference bothActiveAndEqual:self.thirdPreference] ||
-             [self.secondPreference bothActiveAndEqual:self.thirdPreference]);
+    return !([self.firstPreference bothActiveAndEqual:self.backupPreference]);
 }
 
 -(BOOL)validLocation
@@ -173,30 +133,25 @@
 }
 
 -(RA_ParseGamePreferences *)createParseGamePreferencesObject
-{
-    COMMON_LOG
+{ COMMON_LOG
+    RA_ParseGamePreferences *gamePref = [RA_ParseGamePreferences object];
     
-    RA_ParseGamePreferences *config = [RA_ParseGamePreferences object];
+    gamePref.user = [RA_ParseUser currentUser];
+    gamePref.sport = self.sport;
+    gamePref.networks = [NSArray arrayWithArray:self.networks];
+    gamePref.simRanked = self.simRanked;
     
-//    config.network = self.network; // TO DO
-    
-    NSMutableArray *dateTimePreferencesMut = [NSMutableArray arrayWithObject:self.firstPreference.date];
-    if (self.secondPreference.isEnabled) {
-        [dateTimePreferencesMut addObject:self.secondPreference.date];
-        if (self.thirdPreference.isEnabled) {
-            [dateTimePreferencesMut addObject:self.thirdPreference.date];
-        }
+    if (self.hasBackupPreference) {
+        gamePref.dateTimePreferences = @[ [self.firstPreference databaseArray] , [self.backupPreference databaseArray] ];
     }
-    config.dateTimePreferences = [NSArray arrayWithArray:dateTimePreferencesMut];
+    else {
+        gamePref.dateTimePreferences = @[ [self.firstPreference databaseArray] ];
+    }
     
-    config.playWho = self.simRanked;
+    gamePref.location = [PFGeoPoint geoPointWithLocation:self.ladderLocation];
+    gamePref.locationDesc = self.ladderLocationString;
     
-    config.location = [PFGeoPoint geoPointWithLocation:self.ladderLocation];
-    config.locationDesc = self.ladderLocationString;
-    
-    config.user = [RA_ParseUser currentUser];
-    
-    return config;
+    return gamePref;
 }
 
 

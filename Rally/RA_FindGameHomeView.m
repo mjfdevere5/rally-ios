@@ -191,7 +191,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{ // TO DO: Make dynamic?
+{
     // Configure
     RA_ParseGamePreferences *gamePref = self.arrayOfBroadcastsMain[indexPath.row];
     self.prototypeCell.gamePref = gamePref;

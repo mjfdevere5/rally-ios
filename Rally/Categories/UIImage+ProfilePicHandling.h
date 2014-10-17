@@ -10,19 +10,6 @@
 
 @interface UIImage (ProfilePicHandling)
 
-//-(UIImage *)getProfilePicAfterResizeAndCropReturnImage;
-//-(UIImage *)getThumbnailAfterResizeAndCropReturnImage;
-//-(UIImage *)getRoundedImageAfterResizeAndCropReturnImage;
-//
-//-(NSData *)getProfilePicAfterResizeAndCropReturnData;
-//-(NSData *)getThumbnailAfterResizeAndCropReturnData;
-//-(NSData *)getRoundedImageAfterResizeAndCropReturnData;
-//
-//-(PFFile *)getProfilePicAfterResizeAndCropReturnFile;
-//-(PFFile *)getThumbnailAfterResizeAndCropReturnFile;
-//-(PFFile *)getRoundedImageAfterResizeAndCropReturnFile;
-
-
 -(UIImage *)getImageResizedAndCropped:(CGSize)size;
 -(UIImage *)getImageWithRoundedCorners:(NSInteger)radius;
 -(UIImage *)getImageCircularWithRadius:(CGFloat)radius;

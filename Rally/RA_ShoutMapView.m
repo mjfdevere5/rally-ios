@@ -15,24 +15,16 @@
 // Unique variable used as context for KVO for @"shoutLocationPlacemark"
 static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
 
-
-
 @interface RA_ShoutMapView ()
-
 @property BOOL gettingLocation; // used only as a tag during initial loadup
-
 @end
-
-
-// to do - fix all this placemark stuff
 
 
 @implementation RA_ShoutMapView
 
 
-#pragma mark -
 #pragma mark - load up
-
+// ******************** load up ********************
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,8 +35,6 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
     return self;
 }
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -54,13 +44,9 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
     // We're in manual location mode now
     [RA_GamePrefConfig gamePrefConfig].ladderLocationManuallySelected = YES;
     
-    
-    // Map view delegate
+    // Configure map
     self.mapView.delegate = self;
-    
-    // Show user location as blue dot
     self.mapView.showsUserLocation = YES;
-    
     
     // Move to Location if there is one
     if ([RA_GamePrefConfig gamePrefConfig].ladderLocation) {
@@ -93,9 +79,8 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
 }
 
 
-
-#pragma mark -
-#pragma mark - managing the placemark label and KVO
+#pragma mark - KVO and placemark
+// ******************** KVO and placemark ********************
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -106,8 +91,6 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
         [self updateAreaLabelIfValidPlacemark:[RA_GamePrefConfig gamePrefConfig].ladderLocationPlacemark];
     }
 }
-
-
 
 -(void)updateAreaLabelIfValidPlacemark:(CLPlacemark *)placemark
 {
@@ -122,8 +105,6 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
     }
 }
 
-
-
 // Unregister for KVO on deallocation
 -(void)dealloc
 {
@@ -135,10 +116,8 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
 }
 
 
-
-#pragma mark -
 #pragma mark - buttons
-
+// ******************** buttons ********************
 
 -(IBAction)moveToCurrentLocation:(id)sender
 {
@@ -168,11 +147,9 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
 }
 
 
+#pragma mark - map delegate
+// ******************** map delegate ********************
 
-#pragma mark - map delegate methods
-
-
-// Delegate method
 // Pick up the new location from the centre coordinate as the user drags the map
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
@@ -191,9 +168,6 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
     // Instead, we have registered this class to be notified of changes to the placemark
 }
 
-
-
-// Delegate method
 // User's current location moved
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
@@ -203,9 +177,6 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
     }
 }
 
-
-
-// Delegate method
 // Mapview failed to load
 -(void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
 {
@@ -213,10 +184,8 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
     [self.mapView setRegion:self.mapView.region animated:TRUE];
 }
 
-//-(void) backAction
-//{
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//}
 
 
 @end
+
+

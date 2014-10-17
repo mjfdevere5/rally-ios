@@ -11,13 +11,10 @@
 
 @interface RA_ShoutMapView : UIViewController <MKMapViewDelegate>
 
-
-
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
-
 @property (strong, nonatomic) IBOutlet UILabel *areaLabel;
-
 -(IBAction)moveToCurrentLocation:(id)sender;
-//-(IBAction)backAction:(id)sender;
 
 @end
+
+

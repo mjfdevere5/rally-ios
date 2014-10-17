@@ -13,16 +13,14 @@
 
 +(NSString *)parseClassName;
 
-// Everything from RA_GamePrefConfig -createParseGamePreferencesObject
+@property (strong, nonatomic) RA_ParseUser *user;
+// Everything else if from RA_GamePrefConfig -createParseGamePreferencesObject
 @property (strong, nonatomic) NSString *sport;
 @property (strong, nonatomic) NSArray *networks; // of RA_ParseNetwork objects
-@property (strong, nonatomic) NSArray *dateTimePreferences; // of NSDate objects
+@property (nonatomic) BOOL simRanked;
+@property (strong, nonatomic) NSArray *dateTimePreferences; // nested arrays of type @[NSDate, NSString]
 @property (strong, nonatomic) PFGeoPoint *location; // added for location of game
 @property (strong, nonatomic) NSString *locationDesc; // added for location of game
-@property (strong, nonatomic) NSString *playWho;
-
-// Pointer to the full user object
-@property (strong, nonatomic) RA_ParseUser *user;
 
 @end
 

@@ -12,9 +12,7 @@
 @protocol RA_NextGameCellDelegate
 @optional
 -(void)didPickSport;
-
 @end
-
 
 
 @interface RA_NextGameBaseCell : UITableViewCell
@@ -23,3 +21,5 @@
 -(void)configureCell;
 
 @end
+
+

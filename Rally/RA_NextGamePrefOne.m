@@ -9,9 +9,7 @@
 #import "RA_NextGamePrefOne.h"
 #import "RA_GamePrefConfig.h"
 #import "RA_ParseGamePreferences.h"
-#import "RA_NextGamePrefCell.h"
 #import "AppConstants.h"
-#import "RA_NextGamePrefCell.h"
 #import "MBProgressHUD.h"
 #import "RA_NextGameNetworkCheckmarkCell.h"
 

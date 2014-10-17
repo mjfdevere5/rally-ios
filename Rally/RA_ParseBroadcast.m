@@ -25,22 +25,6 @@
 @dynamic userDisplayName;
 @dynamic freeText;
 
-// Shout details
-@dynamic sportName;
-@dynamic network;
-@dynamic date;
-@dynamic time;
-@dynamic timeDesc;
-@dynamic skill;
-@dynamic skillDesc;
-@dynamic location;
-@dynamic locationDesc;
-@dynamic visibility;
-@dynamic networkName;
-
-// Game pref
-@dynamic gamePrefObject;
-
 
 @end
 

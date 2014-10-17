@@ -333,7 +333,6 @@
     
     // Segue to user profile
     RA_UserProfileDynamicTable *userView = [[RA_UserProfileDynamicTable alloc] initWithUser:user andContext:RA_UserProfileContextShoutOut];
-    userView.gamePref = broadcast.gamePrefObject;
     [self.navigationController pushViewController:userView animated:YES];
 }
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RA_ParseGamePreferences.h"
-#import "RA_DateAndTimePreference.h"
+#import "RA_TimeAndDatePreference.h"
 #import <CoreLocation/CoreLocation.h>
 
 
@@ -27,10 +27,10 @@
 @property (strong, nonatomic) NSString *simRanked;
 
 // Selected by the user, game logistics view
-@property (strong, nonatomic) RA_DateAndTimePreference *firstPreference;
-@property (strong, nonatomic) RA_DateAndTimePreference *secondPreference;
-@property (strong, nonatomic) RA_DateAndTimePreference *thirdPreference;
-@property (strong, nonatomic) NSDictionary *preferencesDict;
+@property (strong, nonatomic) RA_TimeAndDatePreference *firstPreference; // NSArray
+@property (nonatomic) BOOL hasBackupPreference;
+@property (strong, nonatomic) RA_TimeAndDatePreference *backupPreference; // NSArray
+@property (strong, nonatomic) NSDictionary *prefDictionary;
 
 // Passed in from RA_ShoutMapView and RA_LocationSingleton
 @property (strong, nonatomic) CLLocation *ladderLocation;
