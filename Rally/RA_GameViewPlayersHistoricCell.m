@@ -9,6 +9,7 @@
 #import "RA_GameViewPlayersHistoricCell.h"
 #import "UIImage+ProfilePicHandling.h"
 #import "RA_UserProfileDynamicTable.h"
+#import "RA_ParseBroadcast.h"
 
 @interface RA_GameViewPlayersHistoricCell()
 
@@ -20,6 +21,16 @@
 @property (strong, nonatomic) NSArray *scoreArray; // Array of NSNumbers
 @property (nonatomic) NSInteger leftSelection;
 @property (nonatomic) NSInteger rightSelection;
+
+// New properties from Bruno
+
+@property (nonatomic) NSNumber *rightNewElo;
+@property (nonatomic) NSNumber *leftNewElo;
+@property (nonatomic) NSNumber *resultLeft;
+@property (nonatomic) NSNumber *resultRight;
+@property (nonatomic) NSDictionary *updatedScores;
+
+@property (nonatomic) RA_ParseBroadcast *broadcast;
 
 @end
 
@@ -53,9 +64,6 @@
     
     // Score
     [self configureScores];
-    
-    // Score delegate
-    self.scoreField.delegate = self;
     
     // Profile pics and activity wheels
     PFFile *leftPlayerPicFile = self.leftPlayer.profilePicMedium;
@@ -204,8 +212,86 @@
     if (self.leftSelection || self.rightSelection) {
         [self.game.scores setValue:self.scoreArray[self.leftSelection] forKey:self.leftPlayer.objectId];
         [self.game.scores setValue:self.scoreArray[self.rightSelection] forKey:self.rightPlayer.objectId];
+        
+        // Bruno add code
+        
+        RA_ParseNetwork *network = self.game.network;
+        
+        NSLog(@"fetching network if needed");
+        [network fetchIfNeeded];
+        
+        NSNumber *leftNumber = [NSNumber numberWithInteger:self.leftSelection];
+        NSNumber *rightNumber = [NSNumber numberWithInteger:self.rightSelection];
+        
+        self.broadcast = [RA_ParseBroadcast object];
+        
+        NSMutableArray *visibilityArray = [NSMutableArray arrayWithArray:self.leftPlayer.networkMemberships];
+        NSMutableArray *rightVisibilityArray = [NSMutableArray arrayWithArray:self.rightPlayer.networkMemberships];
+        
+        [visibilityArray addObjectsFromArray:rightVisibilityArray];
+        
+        self.broadcast.leftUser = self.leftPlayer;
+        self.broadcast.rightUser = self.rightPlayer;
+        self.broadcast.leftUserDisplayName = self.leftPlayer.username;
+        self.broadcast.rightUserDisplayName = self.rightPlayer.username;
+        self.broadcast.leftUserScore = leftNumber;
+        self.broadcast.rightUserScore = rightNumber;
+        self.broadcast.visibility = rightVisibilityArray;
+        self.broadcast.type = @"score";
+        
+        
+        
+        // Grab the current scores for the players
+        
+        NSDictionary *currentPlayerScores = [self getPlayerScoresWith:network.objectId];
+        
+        // Now get the updated scores
+        
+        if (self.leftSelection > self.rightSelection) {
+            if ([self.game.network.type isEqualToString:@"Ladder"]) {
+                self.resultLeft = [NSNumber numberWithDouble:1.0];
+                self.resultRight = [NSNumber numberWithDouble:0.0];
+                [self performEloScoreUpdate:currentPlayerScores];
+            }
+            else{
+                self.resultLeft = [NSNumber numberWithBool:2.0];
+                self.resultRight = [NSNumber numberWithBool:0.0];
+                [self getScoreUpdateForLeague:currentPlayerScores];
+            }
+        }
+        else if (self.leftSelection < self.rightSelection){
+            if ([self.game.network.type isEqualToString:@"Ladder"]) {
+                self.resultLeft = [NSNumber numberWithDouble:0.0];
+                self.resultRight = [NSNumber numberWithDouble:1.0];
+                [self performEloScoreUpdate:currentPlayerScores];
+            }
+            else{
+                self.resultLeft = [NSNumber numberWithBool:0.0];
+                self.resultRight = [NSNumber numberWithBool:2.0];
+                [self getScoreUpdateForLeague:currentPlayerScores];
+            }
+        }
+        else{
+            if ([self.game.network.type isEqualToString:@"Ladder"]) {
+                self.resultLeft = [NSNumber numberWithDouble:0.5];
+                self.resultRight = [NSNumber numberWithDouble:0.5];
+                [self performEloScoreUpdate:currentPlayerScores];
+            }
+            else{
+                self.resultLeft = [NSNumber numberWithBool:1.0];
+                self.resultRight = [NSNumber numberWithBool:1.0];
+                [self getScoreUpdateForLeague:currentPlayerScores];
+            }
+        }
+        
+        [network.userIdsToScores setValue:[self.updatedScores objectForKey:self.leftPlayer.objectId] forKey:self.leftPlayer.objectId];
+        
+        [network.userIdsToScores setValue:[self.updatedScores objectForKey:self.rightPlayer.objectId] forKey:self.rightPlayer.objectId];
+        
+        [network saveInBackground];
+        [self.broadcast saveInBackground];
         [self.game saveInBackground];
-        // TO DO: How does this impact the scores?
+    
     }
     
     // Hide the keyboard
@@ -228,11 +314,9 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if ([self.game hasScore]) {
-        COMMON_LOG_WITH_COMMENT(@"return NO")
         return NO;
     }
     else {
-        COMMON_LOG_WITH_COMMENT(@"return YES")
         return YES;
     }
 }
@@ -259,6 +343,79 @@
     RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.rightPlayer
                                                                                     andContext:RA_UserProfileContextGameManager];
     [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+}
+
+
+
+#pragma mark - additional lines of Bruno code
+
+-(NSDictionary *)getPlayerScoresWith:(NSString *)networkId
+{
+    NSLog(@"into getPlayerScorewWith");
+    RA_ParseNetwork *network = [RA_ParseNetwork objectWithoutDataWithObjectId:networkId];
+    [network fetch];
+    NSNumber *leftPlayerUserScore = [network.userIdsToScores objectForKey:self.leftPlayer.objectId];
+    NSNumber *rightPlayerUserScore = [network.userIdsToScores objectForKey:self.rightPlayer.objectId];
+    
+    NSDictionary *playerScores = [NSDictionary dictionaryWithObjectsAndKeys:leftPlayerUserScore,self.leftPlayer.objectId,rightPlayerUserScore,self.rightPlayer.objectId, nil];
+    return playerScores;
+}
+
+
+-(void)performEloScoreUpdate:(NSDictionary *)currentPlayerScores
+
+{
+    NSLog(@"into Elo score update");
+    int kValue = 32; // Perhaps this should go into app constants - Max I'll let you sort this out
+    
+    double resultNumber = [self.resultLeft doubleValue];
+    double resultNumberRight = [self.resultRight doubleValue];
+    
+    
+    NSNumber *leftCurrentScore = [currentPlayerScores objectForKey:self.leftPlayer.objectId];
+    NSNumber *rightCurrentScore = [currentPlayerScores objectForKey:self.rightPlayer.objectId];
+    
+    // Turn the numbers into doubles for calculation
+    
+    double leftCScore = [leftCurrentScore doubleValue];
+    double rightCScore = [rightCurrentScore doubleValue];
+    
+    // Work out left player updated Elo score
+    
+    double expectedWinLeft = 1 / ( 1 + pow(10, ((rightCScore - leftCScore) / 400 )));
+    double newEloNumberLeft = leftCScore + (kValue * (resultNumber - expectedWinLeft));
+    self.leftNewElo = [NSNumber numberWithInt:newEloNumberLeft];
+    
+    // Work out right player updated Elo score
+    
+    double expectedWinRight = 1 / ( 1 + pow(10, ((leftCScore - rightCScore) / 400 )));
+    double newEloNumberRight = rightCScore + (kValue * (resultNumberRight - expectedWinRight));
+    self.rightNewElo = [NSNumber numberWithInt:newEloNumberRight];
+    
+    // Put the scores back in a dictionary
+    
+    self.updatedScores = [NSDictionary dictionaryWithObjectsAndKeys:self.leftNewElo,self.leftPlayer.objectId, self.rightNewElo,self.rightPlayer.objectId, nil];
+}
+
+-(void)getScoreUpdateForLeague:(NSDictionary *)currentPlayerScores
+{
+    double resultNumber = [self.resultLeft doubleValue];
+    double resultNumberRight = [self.resultRight doubleValue];
+    double pointForTurningUp = 1.0;
+    
+    NSNumber *leftCurrentScore = [currentPlayerScores objectForKey:self.leftPlayer.objectId];
+    NSNumber *rightCurrentScore = [currentPlayerScores objectForKey:self.rightPlayer.objectId];
+    
+    double leftCScore = [leftCurrentScore doubleValue];
+    double rightCScore = [rightCurrentScore doubleValue];
+    
+    double updatedLeftScore = leftCScore + resultNumber + self.leftSelection + pointForTurningUp;
+    double updatedRightScore = rightCScore + resultNumberRight + self.rightSelection + pointForTurningUp;
+    
+    NSNumber *updatedLScore = [NSNumber numberWithDouble:updatedLeftScore];
+    NSNumber *updatedRScore = [NSNumber numberWithDouble:updatedRightScore];
+    
+    self.updatedScores = [NSDictionary dictionaryWithObjectsAndKeys:updatedLScore,self.leftPlayer.objectId, updatedRScore, self.rightPlayer.objectId, nil];
 }
 
 

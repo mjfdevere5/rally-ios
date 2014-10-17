@@ -267,6 +267,81 @@
         }];
     }];
 }
+// TO DO
+//-(void)processConfirmation
+//{
+//    COMMON_LOG
+//    
+//    RA_GameViewConfirmNowCell *cell = [self.cells objectForKey:@"game_confirm_now_cell"];
+//    [cell.activityWheel startAnimating];
+//    cell.tapToConfirmLabel.text = @"Saving";
+//    
+//    //create broadcast
+//    RA_ParseGame *game = self.game;
+//    
+//    [game fetchIfNeeded];
+//    
+//    NSArray *array = [NSArray arrayWithObject:self.game.players];
+//    
+//    NSLog(@"count in the array %lu",(unsigned long)[array count]);
+//    
+//    NSLog(@"array description %@",[array[0]description]);
+//    
+//    
+//    RA_ParseBroadcast *broadcast = [RA_ParseBroadcast object];
+//    
+//    RA_ParseUser *left = self.game.players[0];
+//    
+//    RA_ParseUser *right = self.game.players[1];
+//    [left fetch];
+//    [right fetch];
+//    RA_ParseNetwork *network = self.game.network;
+//    [network fetch];
+//    
+//    NSLog(@"log of parse user %@",[left description]);
+//    NSLog(@"left user id %@",left.objectId);
+//    NSLog(@"right user id %@", right.objectId);
+//    
+//    
+//    broadcast.leftUser = left;
+//    broadcast.rightUser = right;
+//    
+//    NSMutableArray *visibility = [NSMutableArray arrayWithObject:left.networkMemberships];
+//    NSMutableArray *visibilityRight = [NSMutableArray arrayWithObject:right.networkMemberships];
+//    [visibility addObjectsFromArray:visibilityRight];
+//    
+//    broadcast.sportName = network.sport;
+//    broadcast.date = self.game.datetime;
+//    broadcast.type = @"game_confirmed";
+//    broadcast.visibility = visibility;
+//    
+//    NSLog(@"description of the broadcast %@",[broadcast description]);
+//    
+//    [self.game.playerStatuses setValue:RA_GAME_STATUS_CONFIRMED forKey:[RA_ParseUser currentUser].objectId];
+//    
+//    NSArray *toUpload = [NSArray arrayWithObjects:broadcast,self.game, nil];
+//    [PFObject saveAllInBackground:toUpload block:^(BOOL succeeded, NSError *error) {
+//        // Send push
+//        NSString *pushText = [NSString stringWithFormat:@"%@ CONFIRMED your game %@ at %@",
+//                              [RA_ParseUser currentUser].displayName,
+//                              [self.game.datetime getCommonSpeechWithOnDayLong:NO dateOrdinal:NO monthLong:NO],
+//                              [self.game.datetime getCommonSpeechClock]];
+//        PFPush *push = [self configurePushWithText:pushText];
+//        [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//            
+//            // Delete cell
+//            [self loadCellArray]; // This modifies the array that drives the tableview methods. Important to prevent a crash.
+//            COMMON_LOG_WITH_COMMENT([self.cellArray description])
+//            
+//            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            
+//            // Update all cells
+//            [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.4];
+//        }];
+//    }];
+//    
+//}
+
 
 
 

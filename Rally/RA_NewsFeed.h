@@ -15,5 +15,3 @@
 -(void)refreshTableWithHUD;
 
 @end
-
-

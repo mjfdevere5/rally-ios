@@ -109,10 +109,9 @@
          if (!error) {
              
              // Get and start saving the user to Parse (includes triggering the profile pic connection)
-             RA_ParseNetwork *allRallyUsersNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"E2wWMqQTtY"];
              RA_ParseNetwork *allRallySquashNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"Utu5aSM2ke"];
              RA_ParseNetwork *allRallyTennisNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"Y2IHHx2uu4"];
-             user.networkMemberships = [NSMutableArray arrayWithObjects:allRallyUsersNetwork,allRallySquashNetwork,allRallyTennisNetwork,nil];
+             user.networkMemberships = [NSMutableArray arrayWithObjects:allRallySquashNetwork,allRallyTennisNetwork,nil];
              
              user.madeShoutBefore = NO;
              user.madeLeagueRequestBefore = NO;
@@ -143,10 +142,9 @@
              
              // Ensure people have the "All Rally Users" network in their profiles TO DO
              if (!user.networkMemberships) {
-                 RA_ParseNetwork *allRallyUsersNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"E2wWMqQTtY"];
                  RA_ParseNetwork *allRallySquashNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"Utu5aSM2ke"];
                  RA_ParseNetwork *allRallyTennisNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"Y2IHHx2uu4"];
-                 user.networkMemberships = [NSMutableArray arrayWithObjects:allRallyUsersNetwork,allRallySquashNetwork,allRallyTennisNetwork,nil];
+                 user.networkMemberships = [NSMutableArray arrayWithObjects:allRallySquashNetwork,allRallyTennisNetwork,nil];
              }
              
              // Get the latest FB data and save to the user

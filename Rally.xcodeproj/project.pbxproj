@@ -44,7 +44,6 @@
 		502FEBE819BD11A500D4A2D9 /* ChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 502FEBE719BD11A500D4A2D9 /* ChatView.m */; };
 		502FEBED19BD11D100D4A2D9 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 502FEBEA19BD11D100D4A2D9 /* ProgressHUD.bundle */; };
 		502FEBEE19BD11D100D4A2D9 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 502FEBEC19BD11D100D4A2D9 /* ProgressHUD.m */; };
-		5030436819E86367009ED676 /* RA_GameViewPlayersHistoricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030436719E86367009ED676 /* RA_GameViewPlayersHistoricCell.m */; };
 		50330EE019B877ED00A03301 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 50330EDD19B877ED00A03301 /* UIImage+ProportionalFill.m */; };
 		50330EE119B877ED00A03301 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 50330EDF19B877ED00A03301 /* UIImage+Tint.m */; };
 		50330EE619B8D52F00A03301 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 50330EE519B8D52F00A03301 /* MBProgressHUD.m */; };
@@ -54,9 +53,6 @@
 		50330F0519BA32BF00A03301 /* NSAttributedString+CCLFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 50330F0419BA32BF00A03301 /* NSAttributedString+CCLFormat.m */; };
 		50330F0719BA6B7200A03301 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50330F0619BA6B7200A03301 /* FontAwesome.ttf */; };
 		5037C1EA19D9698000946329 /* RA_FeedCellShout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5037C1E719D9698000946329 /* RA_FeedCellShout.m */; };
-		5037C1EB19D9698000946329 /* RA_FeedCellRallyBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5037C1E919D9698000946329 /* RA_FeedCellRallyBroadcast.m */; };
-		5037C1EF19D9699B00946329 /* RA_NewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 5037C1EE19D9699B00946329 /* RA_NewsFeed.m */; };
-		5037C1F219D969A900946329 /* RA_ParseBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5037C1F119D969A900946329 /* RA_ParseBroadcast.m */; };
 		5039839219EBE665007ED8D2 /* RA_UserProfileChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5039839119EBE665007ED8D2 /* RA_UserProfileChatCell.xib */; };
 		5039839519EBE770007ED8D2 /* RA_UserProfileChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5039839419EBE770007ED8D2 /* RA_UserProfileChatCell.m */; };
 		5039839919EBE7B9007ED8D2 /* RA_UserProfileDynamicTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5039839819EBE7B9007ED8D2 /* RA_UserProfileDynamicTable.m */; };
@@ -160,6 +156,20 @@
 		507E12B719BF586500021E8D /* RA_ParseChatroom.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E12B619BF586500021E8D /* RA_ParseChatroom.m */; };
 		508AC42B19F179A2008F1D1C /* RA_NextGameAddBackupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC42A19F179A2008F1D1C /* RA_NextGameAddBackupCell.m */; };
 		508AC42E19F17B05008F1D1C /* RA_NextGameLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC42D19F17B05008F1D1C /* RA_NextGameLocationCell.m */; };
+		508AC43B19F18417008F1D1C /* RA_Networks.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC43019F18417008F1D1C /* RA_Networks.m */; };
+		508AC43C19F18417008F1D1C /* RA_NetworksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC43219F18417008F1D1C /* RA_NetworksCell.m */; };
+		508AC43D19F18417008F1D1C /* RA_CollCellDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC43419F18417008F1D1C /* RA_CollCellDetails.m */; };
+		508AC43E19F18417008F1D1C /* RA_LeagueTables.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC43619F18417008F1D1C /* RA_LeagueTables.m */; };
+		508AC43F19F18417008F1D1C /* RA_LeagueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC43819F18417008F1D1C /* RA_LeagueCell.m */; };
+		508AC44019F18417008F1D1C /* RA_LeagueCellHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC43A19F18417008F1D1C /* RA_LeagueCellHeader.m */; };
+		508AC44619F1843D008F1D1C /* RA_createNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC44319F1843D008F1D1C /* RA_createNetwork.m */; };
+		508AC44719F1843D008F1D1C /* RA_Rules.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC44519F1843D008F1D1C /* RA_Rules.m */; };
+		508AC45119F18560008F1D1C /* RA_NewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC44A19F18560008F1D1C /* RA_NewsFeed.m */; };
+		508AC45219F18560008F1D1C /* RA_ScoreUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC44C19F18560008F1D1C /* RA_ScoreUpdate.m */; };
+		508AC45319F18560008F1D1C /* RA_GameConfirmation.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC44E19F18560008F1D1C /* RA_GameConfirmation.m */; };
+		508AC45419F18560008F1D1C /* RA_FeedCellRallyBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC45019F18560008F1D1C /* RA_FeedCellRallyBroadcast.m */; };
+		508AC45819F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC45719F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m */; };
+		508AC45B19F18B02008F1D1C /* RA_ParseBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC45A19F18B02008F1D1C /* RA_ParseBroadcast.m */; };
 		508DDC2619AF5D2E00DA3CD1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508DDC2519AF5D2E00DA3CD1 /* Images.xcassets */; };
 		508FA67819E6DED000B61767 /* RA_MyGamesUpcomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508FA67719E6DED000B61767 /* RA_MyGamesUpcomingCell.m */; };
 		508FA67B19E6DEE200B61767 /* RA_MyGamesHistoricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508FA67A19E6DEE200B61767 /* RA_MyGamesHistoricCell.m */; };
@@ -243,8 +253,6 @@
 		502FEBEA19BD11D100D4A2D9 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		502FEBEB19BD11D100D4A2D9 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		502FEBEC19BD11D100D4A2D9 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
-		5030436619E86367009ED676 /* RA_GameViewPlayersHistoricCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameViewPlayersHistoricCell.h; sourceTree = "<group>"; };
-		5030436719E86367009ED676 /* RA_GameViewPlayersHistoricCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameViewPlayersHistoricCell.m; sourceTree = "<group>"; };
 		50330EDC19B877ED00A03301 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
 		50330EDD19B877ED00A03301 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		50330EDE19B877ED00A03301 /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
@@ -262,12 +270,6 @@
 		50330F0619BA6B7200A03301 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = Resources/FontAwesome.ttf; sourceTree = "<group>"; };
 		5037C1E619D9698000946329 /* RA_FeedCellShout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_FeedCellShout.h; sourceTree = "<group>"; };
 		5037C1E719D9698000946329 /* RA_FeedCellShout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_FeedCellShout.m; sourceTree = "<group>"; };
-		5037C1E819D9698000946329 /* RA_FeedCellRallyBroadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_FeedCellRallyBroadcast.h; sourceTree = "<group>"; };
-		5037C1E919D9698000946329 /* RA_FeedCellRallyBroadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_FeedCellRallyBroadcast.m; sourceTree = "<group>"; };
-		5037C1ED19D9699B00946329 /* RA_NewsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_NewsFeed.h; sourceTree = "<group>"; };
-		5037C1EE19D9699B00946329 /* RA_NewsFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_NewsFeed.m; sourceTree = "<group>"; };
-		5037C1F019D969A900946329 /* RA_ParseBroadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ParseBroadcast.h; sourceTree = "<group>"; };
-		5037C1F119D969A900946329 /* RA_ParseBroadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ParseBroadcast.m; sourceTree = "<group>"; };
 		5039839119EBE665007ED8D2 /* RA_UserProfileChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RA_UserProfileChatCell.xib; sourceTree = "<group>"; };
 		5039839319EBE770007ED8D2 /* RA_UserProfileChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_UserProfileChatCell.h; sourceTree = "<group>"; };
 		5039839419EBE770007ED8D2 /* RA_UserProfileChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_UserProfileChatCell.m; sourceTree = "<group>"; };
@@ -438,6 +440,34 @@
 		508AC42A19F179A2008F1D1C /* RA_NextGameAddBackupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_NextGameAddBackupCell.m; sourceTree = "<group>"; };
 		508AC42C19F17B05008F1D1C /* RA_NextGameLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_NextGameLocationCell.h; sourceTree = "<group>"; };
 		508AC42D19F17B05008F1D1C /* RA_NextGameLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_NextGameLocationCell.m; sourceTree = "<group>"; };
+		508AC42F19F18417008F1D1C /* RA_Networks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_Networks.h; sourceTree = "<group>"; };
+		508AC43019F18417008F1D1C /* RA_Networks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_Networks.m; sourceTree = "<group>"; };
+		508AC43119F18417008F1D1C /* RA_NetworksCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_NetworksCell.h; sourceTree = "<group>"; };
+		508AC43219F18417008F1D1C /* RA_NetworksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_NetworksCell.m; sourceTree = "<group>"; };
+		508AC43319F18417008F1D1C /* RA_CollCellDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_CollCellDetails.h; sourceTree = "<group>"; };
+		508AC43419F18417008F1D1C /* RA_CollCellDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_CollCellDetails.m; sourceTree = "<group>"; };
+		508AC43519F18417008F1D1C /* RA_LeagueTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_LeagueTables.h; sourceTree = "<group>"; };
+		508AC43619F18417008F1D1C /* RA_LeagueTables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_LeagueTables.m; sourceTree = "<group>"; };
+		508AC43719F18417008F1D1C /* RA_LeagueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_LeagueCell.h; sourceTree = "<group>"; };
+		508AC43819F18417008F1D1C /* RA_LeagueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_LeagueCell.m; sourceTree = "<group>"; };
+		508AC43919F18417008F1D1C /* RA_LeagueCellHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_LeagueCellHeader.h; sourceTree = "<group>"; };
+		508AC43A19F18417008F1D1C /* RA_LeagueCellHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_LeagueCellHeader.m; sourceTree = "<group>"; };
+		508AC44219F1843D008F1D1C /* RA_createNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_createNetwork.h; sourceTree = "<group>"; };
+		508AC44319F1843D008F1D1C /* RA_createNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_createNetwork.m; sourceTree = "<group>"; };
+		508AC44419F1843D008F1D1C /* RA_Rules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_Rules.h; sourceTree = "<group>"; };
+		508AC44519F1843D008F1D1C /* RA_Rules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_Rules.m; sourceTree = "<group>"; };
+		508AC44919F18560008F1D1C /* RA_NewsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_NewsFeed.h; sourceTree = "<group>"; };
+		508AC44A19F18560008F1D1C /* RA_NewsFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_NewsFeed.m; sourceTree = "<group>"; };
+		508AC44B19F18560008F1D1C /* RA_ScoreUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ScoreUpdate.h; sourceTree = "<group>"; };
+		508AC44C19F18560008F1D1C /* RA_ScoreUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ScoreUpdate.m; sourceTree = "<group>"; };
+		508AC44D19F18560008F1D1C /* RA_GameConfirmation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameConfirmation.h; sourceTree = "<group>"; };
+		508AC44E19F18560008F1D1C /* RA_GameConfirmation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameConfirmation.m; sourceTree = "<group>"; };
+		508AC44F19F18560008F1D1C /* RA_FeedCellRallyBroadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_FeedCellRallyBroadcast.h; sourceTree = "<group>"; };
+		508AC45019F18560008F1D1C /* RA_FeedCellRallyBroadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_FeedCellRallyBroadcast.m; sourceTree = "<group>"; };
+		508AC45619F18695008F1D1C /* RA_GameViewPlayersHistoricCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameViewPlayersHistoricCell.h; sourceTree = "<group>"; };
+		508AC45719F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameViewPlayersHistoricCell.m; sourceTree = "<group>"; };
+		508AC45919F18B02008F1D1C /* RA_ParseBroadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ParseBroadcast.h; sourceTree = "<group>"; };
+		508AC45A19F18B02008F1D1C /* RA_ParseBroadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ParseBroadcast.m; sourceTree = "<group>"; };
 		508DDC2519AF5D2E00DA3CD1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		508DDC2719AF627B00DA3CD1 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		508FA67619E6DED000B61767 /* RA_MyGamesUpcomingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RA_MyGamesUpcomingCell.h; path = CustomCells/RA_MyGamesUpcomingCell.h; sourceTree = "<group>"; };
@@ -565,6 +595,7 @@
 				508DDC2719AF627B00DA3CD1 /* AppConstants.h */,
 				50CEE83419E53FB0005C61E4 /* GlobalConstants.h */,
 				508DDC2519AF5D2E00DA3CD1 /* Images.xcassets */,
+				508AC44819F18444008F1D1C /* Add/join network */,
 				503983B819EC3AD1007ED8D2 /* Rally sport selector */,
 				5071C24819E30C8F006A208E /* Parse classes */,
 				5039839B19EBE8D0007ED8D2 /* Chat */,
@@ -572,9 +603,10 @@
 				5039839619EBE781007ED8D2 /* User Profile */,
 				5008550319AE40810071DDF4 /* Tabbar */,
 				50EF3ABF19F007930032510C /* Tabbar 0. Find game */,
+				508AC45519F18566008F1D1C /* Tabbar 1. News feed */,
 				50B9F79819D1E27200CA5F0E /* Tabbar 0. Next game */,
-				5037C1EC19D9698700946329 /* Tabbar 0. Newsfeed */,
 				50E8AFDB19D34D240050544E /* Tabbar 1. Recent chats */,
+				508AC44119F1841C008F1D1C /* Tabbar 2. Leaderboards */,
 				508FA67F19E6DF0000B61767 /* Tabbar 3. My Games Manager */,
 				5039839A19EBE890007ED8D2 /* Tabbar 4. Settings */,
 				50330EEA19B9046A00A03301 /* Helpful stuff */,
@@ -723,17 +755,6 @@
 				50330F0419BA32BF00A03301 /* NSAttributedString+CCLFormat.m */,
 			);
 			path = "NSAttributedString+CCLFormat";
-			sourceTree = "<group>";
-		};
-		5037C1EC19D9698700946329 /* Tabbar 0. Newsfeed */ = {
-			isa = PBXGroup;
-			children = (
-				5037C1ED19D9699B00946329 /* RA_NewsFeed.h */,
-				5037C1EE19D9699B00946329 /* RA_NewsFeed.m */,
-				5037C1E819D9698000946329 /* RA_FeedCellRallyBroadcast.h */,
-				5037C1E919D9698000946329 /* RA_FeedCellRallyBroadcast.m */,
-			);
-			name = "Tabbar 0. Newsfeed";
 			sourceTree = "<group>";
 		};
 		5039839619EBE781007ED8D2 /* User Profile */ = {
@@ -1037,8 +1058,8 @@
 				5071C24619E3092E006A208E /* RA_ParseUser.m */,
 				502DC87519DD808000B55545 /* RA_ParseNetwork.h */,
 				502DC87619DD808000B55545 /* RA_ParseNetwork.m */,
-				5037C1F019D969A900946329 /* RA_ParseBroadcast.h */,
-				5037C1F119D969A900946329 /* RA_ParseBroadcast.m */,
+				508AC45919F18B02008F1D1C /* RA_ParseBroadcast.h */,
+				508AC45A19F18B02008F1D1C /* RA_ParseBroadcast.m */,
 				5071C24B19E4411F006A208E /* RA_ParseGame.h */,
 				5071C24C19E4411F006A208E /* RA_ParseGame.m */,
 				503DE97319CDC38100077AE6 /* RA_ParseGamePreferences.h */,
@@ -1086,6 +1107,51 @@
 			name = FXBlurView;
 			sourceTree = "<group>";
 		};
+		508AC44119F1841C008F1D1C /* Tabbar 2. Leaderboards */ = {
+			isa = PBXGroup;
+			children = (
+				508AC42F19F18417008F1D1C /* RA_Networks.h */,
+				508AC43019F18417008F1D1C /* RA_Networks.m */,
+				508AC43119F18417008F1D1C /* RA_NetworksCell.h */,
+				508AC43219F18417008F1D1C /* RA_NetworksCell.m */,
+				508AC43319F18417008F1D1C /* RA_CollCellDetails.h */,
+				508AC43419F18417008F1D1C /* RA_CollCellDetails.m */,
+				508AC43519F18417008F1D1C /* RA_LeagueTables.h */,
+				508AC43619F18417008F1D1C /* RA_LeagueTables.m */,
+				508AC43719F18417008F1D1C /* RA_LeagueCell.h */,
+				508AC43819F18417008F1D1C /* RA_LeagueCell.m */,
+				508AC43919F18417008F1D1C /* RA_LeagueCellHeader.h */,
+				508AC43A19F18417008F1D1C /* RA_LeagueCellHeader.m */,
+			);
+			name = "Tabbar 2. Leaderboards";
+			sourceTree = "<group>";
+		};
+		508AC44819F18444008F1D1C /* Add/join network */ = {
+			isa = PBXGroup;
+			children = (
+				508AC44219F1843D008F1D1C /* RA_createNetwork.h */,
+				508AC44319F1843D008F1D1C /* RA_createNetwork.m */,
+				508AC44419F1843D008F1D1C /* RA_Rules.h */,
+				508AC44519F1843D008F1D1C /* RA_Rules.m */,
+			);
+			name = "Add/join network";
+			sourceTree = "<group>";
+		};
+		508AC45519F18566008F1D1C /* Tabbar 1. News feed */ = {
+			isa = PBXGroup;
+			children = (
+				508AC44919F18560008F1D1C /* RA_NewsFeed.h */,
+				508AC44A19F18560008F1D1C /* RA_NewsFeed.m */,
+				508AC44B19F18560008F1D1C /* RA_ScoreUpdate.h */,
+				508AC44C19F18560008F1D1C /* RA_ScoreUpdate.m */,
+				508AC44D19F18560008F1D1C /* RA_GameConfirmation.h */,
+				508AC44E19F18560008F1D1C /* RA_GameConfirmation.m */,
+				508AC44F19F18560008F1D1C /* RA_FeedCellRallyBroadcast.h */,
+				508AC45019F18560008F1D1C /* RA_FeedCellRallyBroadcast.m */,
+			);
+			name = "Tabbar 1. News feed";
+			sourceTree = "<group>";
+		};
 		508FA67F19E6DF0000B61767 /* Tabbar 3. My Games Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1109,8 +1175,8 @@
 				5018104119E8064900018390 /* RA_GameViewDateTimeCell.m */,
 				5018104319E8066900018390 /* RA_GameViewPlayersUpcomingCell.h */,
 				5018104419E8066900018390 /* RA_GameViewPlayersUpcomingCell.m */,
-				5030436619E86367009ED676 /* RA_GameViewPlayersHistoricCell.h */,
-				5030436719E86367009ED676 /* RA_GameViewPlayersHistoricCell.m */,
+				508AC45619F18695008F1D1C /* RA_GameViewPlayersHistoricCell.h */,
+				508AC45719F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m */,
 				5018104619E8069800018390 /* RA_GameViewFacilitiesCell.h */,
 				5018104719E8069800018390 /* RA_GameViewFacilitiesCell.m */,
 				503D577D19EB1E52001E7AE2 /* RA_GameViewCancelCell.h */,
@@ -1331,12 +1397,15 @@
 			files = (
 				50468F5719B7D8F1000883BF /* GKImagePicker.m in Sources */,
 				50330EE919B8FE6600A03301 /* UIImage+ProfilePicHandling.m in Sources */,
+				508AC45819F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m in Sources */,
 				5043E9AC19BD133D00A3E028 /* JSQMessagesTimestampFormatter.m in Sources */,
 				503983AA19EBEE48007ED8D2 /* RA_UserProfileProposeGameCell.m in Sources */,
 				50468F5619B7D8F1000883BF /* GKImageCropViewController.m in Sources */,
 				50330F0519BA32BF00A03301 /* NSAttributedString+CCLFormat.m in Sources */,
 				5043E9AB19BD133D00A3E028 /* JSQMessagesBubbleImageFactory.m in Sources */,
+				508AC45319F18560008F1D1C /* RA_GameConfirmation.m in Sources */,
 				5043E9BF19BD133D00A3E028 /* JSQMessagesTypingIndicatorFooterView.m in Sources */,
+				508AC43B19F18417008F1D1C /* RA_Networks.m in Sources */,
 				500854B319AE21FC0071DDF4 /* main.m in Sources */,
 				50330EE019B877ED00A03301 /* UIImage+ProportionalFill.m in Sources */,
 				5037C1EA19D9698000946329 /* RA_FeedCellShout.m in Sources */,
@@ -1345,14 +1414,13 @@
 				5043E9BD19BD133D00A3E028 /* JSQMessagesToolbarContentView.m in Sources */,
 				50EF3ABA19EFF4270032510C /* RA_FindGameHomeView.m in Sources */,
 				503983B719EC3ACC007ED8D2 /* RA_rallySportSelector.m in Sources */,
-				5037C1EF19D9699B00946329 /* RA_NewsFeed.m in Sources */,
 				508FA67819E6DED000B61767 /* RA_MyGamesUpcomingCell.m in Sources */,
 				5043E9B619BD133D00A3E028 /* JSQMessagesCollectionViewCellOutgoing.m in Sources */,
 				503983D319EC3C01007ED8D2 /* RA_ShoutMapView.m in Sources */,
 				5041C11F19F1201A0076845E /* RA_NextGameDateTimeCell.m in Sources */,
 				50EF3ACB19F07E840032510C /* RA_NextGameSimilarlyRankedCell.m in Sources */,
 				508AC42E19F17B05008F1D1C /* RA_NextGameLocationCell.m in Sources */,
-				5037C1EB19D9698000946329 /* RA_FeedCellRallyBroadcast.m in Sources */,
+				508AC43E19F18417008F1D1C /* RA_LeagueTables.m in Sources */,
 				50330EE119B877ED00A03301 /* UIImage+Tint.m in Sources */,
 				5018103C19E8061A00018390 /* RA_GameViewStatusCell.m in Sources */,
 				5018104819E8069800018390 /* RA_GameViewFacilitiesCell.m in Sources */,
@@ -1361,6 +1429,7 @@
 				501E2FC819B70DBA008927E8 /* UIImage+Resize.m in Sources */,
 				508FA67B19E6DEE200B61767 /* RA_MyGamesHistoricCell.m in Sources */,
 				5043E9B819BD133D00A3E028 /* JSQMessagesComposerTextView.m in Sources */,
+				508AC44619F1843D008F1D1C /* RA_createNetwork.m in Sources */,
 				503983A019EBE9D9007ED8D2 /* RA_UserProfileReportCell.m in Sources */,
 				5043E9A519BD133D00A3E028 /* UIImage+JSQMessages.m in Sources */,
 				50330F0119BA033A00A03301 /* NSString+FontAwesome.m in Sources */,
@@ -1374,8 +1443,10 @@
 				5018104219E8064900018390 /* RA_GameViewDateTimeCell.m in Sources */,
 				50412F9319B5FB65004119B9 /* RA_Login.m in Sources */,
 				50412F9619B6926D004119B9 /* RA_FacebookLoginComms.m in Sources */,
+				508AC45419F18560008F1D1C /* RA_FeedCellRallyBroadcast.m in Sources */,
 				507B094919EB3B6200B482B4 /* JPBFloatingTextViewController.m in Sources */,
 				50468F5819B7D8F1000883BF /* GKResizeableCropOverlayView.m in Sources */,
+				508AC45219F18560008F1D1C /* RA_ScoreUpdate.m in Sources */,
 				50468F2F19B792CE000883BF /* RA_TabBar.m in Sources */,
 				5043E9B419BD133D00A3E028 /* JSQMessagesCollectionViewCellIncoming.m in Sources */,
 				50468F5319B7D8F1000883BF /* GKCropBorderView.m in Sources */,
@@ -1389,6 +1460,7 @@
 				507E12B719BF586500021E8D /* RA_ParseChatroom.m in Sources */,
 				5043E9A219BD133D00A3E028 /* JSQSystemSoundPlayer+JSQMessages.m in Sources */,
 				508FA68219E70D5600B61767 /* DZNSegmentedControl.m in Sources */,
+				508AC44019F18417008F1D1C /* RA_LeagueCellHeader.m in Sources */,
 				50E8AFDE19D367F90050544E /* RA_ParseRecentChat.m in Sources */,
 				5043E9AD19BD133D00A3E028 /* JSQMessagesToolbarButtonFactory.m in Sources */,
 				503983CE19EC3C01007ED8D2 /* RA_GamePrefConfig.m in Sources */,
@@ -1407,14 +1479,15 @@
 				5014F6B219DC6A7B0042E14D /* Reachability.m in Sources */,
 				5043E9AE19BD133D00A3E028 /* JSQMessagesCollectionViewFlowLayout.m in Sources */,
 				50468F5419B7D8F1000883BF /* GKImageCropOverlayView.m in Sources */,
+				508AC44719F1843D008F1D1C /* RA_Rules.m in Sources */,
+				508AC43D19F18417008F1D1C /* RA_CollCellDetails.m in Sources */,
 				502FEBE819BD11A500D4A2D9 /* ChatView.m in Sources */,
 				503D577F19EB1E52001E7AE2 /* RA_GameViewCancelCell.m in Sources */,
-				5037C1F219D969A900946329 /* RA_ParseBroadcast.m in Sources */,
 				503D577C19EB0CCE001E7AE2 /* RA_GameViewBaseCell.m in Sources */,
 				503DE97519CDC38100077AE6 /* RA_ParseGamePreferences.m in Sources */,
 				502017D719C37DF300F37200 /* RA_Settings.m in Sources */,
 				504BFC4019B21C38001EA73D /* NSDate+Utilities.m in Sources */,
-				5030436819E86367009ED676 /* RA_GameViewPlayersHistoricCell.m in Sources */,
+				508AC43F19F18417008F1D1C /* RA_LeagueCell.m in Sources */,
 				50E8AFDA19D34D1A0050544E /* RA_RecentChats.m in Sources */,
 				50330EED19B9092100A03301 /* NSDate+CoolStrings.m in Sources */,
 				501E2FC919B70DBA008927E8 /* UIImage+RoundedCorner.m in Sources */,
@@ -1423,10 +1496,13 @@
 				507B094F19EB3DD100B482B4 /* FXBlurView.m in Sources */,
 				50E8AFE419D377250050544E /* RA_RecentChatCell.m in Sources */,
 				5039AD1319D566C100450556 /* NSString+StringsUtils.m in Sources */,
+				508AC43C19F18417008F1D1C /* RA_NetworksCell.m in Sources */,
+				508AC45B19F18B02008F1D1C /* RA_ParseBroadcast.m in Sources */,
 				5039839519EBE770007ED8D2 /* RA_UserProfileChatCell.m in Sources */,
 				5043E9BA19BD133D00A3E028 /* JSQMessagesLabel.m in Sources */,
 				5043E9AA19BD133D00A3E028 /* JSQMessagesAvatarFactory.m in Sources */,
 				5043E9A619BD133D00A3E028 /* UIView+JSQMessages.m in Sources */,
+				508AC45119F18560008F1D1C /* RA_NewsFeed.m in Sources */,
 				5043E9A319BD133D00A3E028 /* NSString+JSQMessages.m in Sources */,
 				5071C24719E3092E006A208E /* RA_ParseUser.m in Sources */,
 				501E2FC719B70DBA008927E8 /* UIImage+Alpha.m in Sources */,

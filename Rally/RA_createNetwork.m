@@ -1,0 +1,566 @@
+//
+//  RA_createNetwork.m
+//  Rally
+//
+//  Created by Alex Brunicki on 10/10/2014.
+//  Copyright (c) 2014 Rally. All rights reserved.
+//
+
+#import "RA_createNetwork.h"
+#import "RA_ParseUser.h"
+#import "RA_ParseNetwork.h"
+#import "GKImagePicker.h"
+#import "UIImage+ProfilePicHandling.h"
+#import "UIImage+Resize.h"
+#import "AppConstants.h"
+
+@interface RA_createNetwork () <GKImagePickerDelegate, UIImagePickerControllerDelegate,
+UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
+
+
+// BOOL values for username and passwords
+@property BOOL correctName;
+@property BOOL correctPass;
+@property BOOL correctPassTwo;
+
+// Strings for the sport type and game type
+@property (nonatomic) NSString *chosenSport;
+@property (nonatomic) NSString *leagueType;
+@property (nonatomic) NSNumber *durationLength;
+
+
+// Array for text values for duration of league
+@property (nonatomic) NSArray *duration;
+
+// Images that should get added to the parse network
+@property (nonatomic) UIImage *largeLeaguePic;
+@property (nonatomic) UIImage *mediumLeaguePic;
+
+// Created some new images for our stock photos
+@property (nonatomic) UIImage *largeStockSquash;
+@property (nonatomic) UIImage *mediumStockSquash;
+@property (nonatomic) UIImage *largeStockTennis;
+@property (nonatomic) UIImage *mediumStockTennis;
+
+// Integer values for our load up screens
+@property (nonatomic) NSInteger *loadUpValue;
+
+// Game type blurbs
+@property (nonatomic) NSString* ladderBlurb;
+@property (nonatomic) NSString* leagueBlurb;
+
+@property (nonatomic, strong) GKImagePicker *imagePicker;
+
+@end
+
+@implementation RA_createNetwork
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+   // Adjust the colours of the cells and labels
+    self.tableView.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
+    self.view.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
+    self.sportSelector.tintColor = [UIColor whiteColor];
+    self.gameTypeSelector.tintColor = [UIColor whiteColor];
+    self.lenthPicker.textColor = [UIColor whiteColor];
+    
+    // Create duration array
+    self.duration= @[@"No limit", @"1 week", @"2 weeks", @"3 weeks", @"4 weeks", @"5 weeks", @"6 weeks", @"7 weeks", @"8 weeks", @"9 weeks", @"10 weeks", @"11 weeks", @"12 weeks"];
+    
+    
+    // Prepare our stock images
+    UIImage *squash = [UIImage imageNamed:@"squash_league_v04"];
+    UIImage *tennis = [UIImage imageNamed:@"tennis_league_v04"];
+    
+   self.mediumStockSquash = [squash resizedImage:PF_USER_PIC_TEST_SIZE interpolationQuality:kCGInterpolationDefault];
+   // self.mediumStockSquash = [self.largeStockSquash getImageResizedAndCropped:PF_USER_PIC_MEDIUM_SIZE];
+    self.mediumStockTennis = [tennis resizedImage:PF_USER_PIC_TEST_SIZE interpolationQuality:kCGInterpolationDefault];
+    //self.mediumStockTennis = [self.largeStockTennis getImageResizedAndCropped:PF_USER_PIC_MEDIUM_SIZE];
+    
+    // Create the blurb that explains how the different formats will be run
+    // Could be in app constants but prefer to change it in here for now
+    self.ladderBlurb = @"The competition will be run according to ladder rules. Click on the question mark for more info";
+    self.leagueBlurb = @"The competition will be run according to league rules. Click on the question mark for more info";
+    
+    [self resetToDefault];
+    
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+
+    return 7;
+}
+
+
+- (void)tableView: (UITableView*)tableView willDisplayCell: (UITableViewCell*)cell forRowAtIndexPath: (NSIndexPath*)indexPath
+{
+    cell.backgroundColor = UIColorFromRGB(FORMS_LIGHT_RED);
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    // Text Color
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setTextColor:[UIColor whiteColor]];
+    [header.textLabel setFont:[UIFont boldSystemFontOfSize:18]];
+}
+
+
+-(void) resetToDefault
+{
+    // Must be a better way to do this
+    
+    
+    // Always clear the username and password fields
+    self.userName.text = @"";
+    self.passwordField.text = @"";
+    self.passwordFieldTwo.text = @"";
+    
+    // Ensure sport selector and game selectors are at position 0
+    [self.sportSelector setSelectedSegmentIndex:0];
+    self.chosenSport = [self.sportSelector titleForSegmentAtIndex:0];
+    [self.gameTypeSelector setSelectedSegmentIndex:0];
+    self.gameTypeBlurb.text = self.ladderBlurb;
+    self.leagueType = [self.gameTypeSelector titleForSegmentAtIndex:0];
+    
+    // Reset password and username checks to No
+    self.correctName = NO;
+    self.correctPass = NO;
+    self.correctPassTwo = NO;
+    
+    // Correct the duration setter
+    //[self.lengthSlide setValue:0];
+    self.lenthPicker.text = self.duration[0];
+    
+    // Set default images to send parse
+    self.mediumLeaguePic = self.mediumStockSquash;
+    
+    self.leagueImage.image = self.mediumStockSquash;
+
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    // Username
+    
+    if(textField.tag == 1) {
+        self.passwordField.text = @"";
+        self.passwordFieldTwo.text = @"";
+        self.userNameCorrect.image = nil;
+        self.passwordCorrect.image = nil;
+        self.passwordCorrectTwo.image = nil;
+    }
+    
+    // Password
+    else if(textField.tag == 2){
+        self.passwordFieldTwo.text = @"";
+        self.passwordCorrect.image = nil;
+        self.passwordCorrectTwo.image = nil;
+        
+    }
+    
+    // Password confirm
+    else {
+        
+    }
+    
+}
+
+
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    // Username
+    
+    if(textField.tag == 1) {
+        
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
+        HUD.delegate = self;
+        [HUD showWhileExecuting:@selector(checkUsername:) onTarget:self withObject:self.userName.text animated:YES];
+
+        
+    }
+    
+    // Password
+    else if(textField.tag == 2){
+        if ([self.passwordField.text length] < 6 || ![self isValidPassword:self.passwordField.text]) {
+
+            self.passwordCorrect.image = [UIImage imageNamed:@"gray_cross_64x64"];
+            self.passwordField.text = @"";
+            self.correctPass = NO;
+            [self showIncorrectPasswordAlert];
+            
+        }
+        else{
+            self.passwordCorrect.image = [UIImage imageNamed:@"green_check_64x64"];
+            self.correctPass = YES;
+        }
+        
+    }
+    
+    // Password confirm
+    else {
+        if ([self.passwordField.text isEqualToString:self.passwordFieldTwo.text]) {
+            self.passwordCorrectTwo.image = [UIImage imageNamed:@"green_check_64x64"];
+            self.correctPassTwo = YES;
+        }
+        else{
+            self.passwordCorrectTwo.image = [UIImage imageNamed:@"gray_cross_64x64"];
+            self.passwordFieldTwo.text = @"";
+            self.correctPassTwo = NO;
+            [self showNonMatchingPasswordAlert];
+        }
+    }
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO;
+}
+
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"league_photo"]) {
+        NSLog(@"league photo tapped");
+        
+        self.imagePicker = [[GKImagePicker alloc] init];
+        
+        self.imagePicker.cropSize = CGSizeMake(PF_USER_PIC_TEST_WIDTH, PF_USER_PIC_TEST_HEIGHT);
+        self.imagePicker.delegate = self;
+        [self presentViewController:self.imagePicker.imagePickerController animated:YES completion:nil];
+    }
+
+}
+
+
+- (void)imagePicker:(GKImagePicker *)imagePicker pickedImage:(UIImage *)image
+{
+
+    
+    //  Display the selected thumbnail image
+    self.leagueImage.image = image;
+    
+    UIImage *picMedium = [image resizedImage:PF_USER_PIC_TEST_SIZE interpolationQuality:kCGInterpolationDefault];
+    
+  
+    //UIImage *picMedium = [picLarge getImageResizedAndCropped:PF_USER_PIC_MEDIUM_SIZE];
+    self.leagueImage.image = picMedium;
+    
+    //self.largeLeaguePic = picLarge;
+    self.mediumLeaguePic = picMedium;
+    
+    // Hide image picker
+    [self hideImagePicker];
+    
+}
+
+- (void)hideImagePicker
+{
+    
+    [self.imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+
+
+- (IBAction)sportSwitch:(id)sender
+{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+    
+    if (selectedSegment == 0) {
+        self.leagueImage.image = [UIImage imageNamed:@"squash_league_v04"];
+        self.largeLeaguePic = self.largeStockSquash;
+        self.mediumLeaguePic = self.mediumStockSquash;
+        
+    }
+    else{
+        self.leagueImage.image = [UIImage imageNamed:@"tennis_league_v04"];
+        self.largeLeaguePic = self.largeStockTennis;
+        self.mediumLeaguePic = self.mediumStockTennis;
+
+        
+    }
+    self.chosenSport = [segmentedControl titleForSegmentAtIndex:segmentedControl.selectedSegmentIndex];
+}
+
+- (IBAction)leagueTypeSwitch:(id)sender
+{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+    
+    if (selectedSegment == 0) {
+        self.gameTypeBlurb.text = self.ladderBlurb;
+    }
+    else{
+        self.gameTypeBlurb.text = self.leagueBlurb;
+        
+    }
+    self.leagueType = [segmentedControl titleForSegmentAtIndex:segmentedControl.selectedSegmentIndex];
+}
+
+
+-(IBAction)lengthChanged:(id)sender
+{
+
+// Get skill
+NSNumber *length = [self getLengthFromSlider:sender];
+
+// Convert skill to cool string for outlet
+NSString *lengthString = [self getLengthStringFrom:length];
+
+// Send to outlet
+self.lenthPicker.text = lengthString;
+}
+
+
+
+-(NSNumber *)getLengthFromSlider:(UISlider *)slider
+{
+    NSNumber *length = [NSNumber numberWithFloat:slider.value];
+    return length;
+}
+
+-(NSString *)getLengthStringFrom: (NSNumber *)length
+{
+    float tempFloat = [length floatValue]*([self.duration count]-1) + 0.99;
+    // tempFloat ranges from min=0.99 to max=4.95 if count=5
+    
+    int skillIndex = (int) tempFloat;
+    NSString *lengthString = self.duration[skillIndex];
+    
+    return lengthString;
+}
+
+
+-(void)checkUsername: (NSString *)username
+{
+    PFQuery *query = [RA_ParseNetwork query];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    [query whereKey:@"name" equalTo:username];
+    NSArray *usernameList = [query findObjects];
+    if ([usernameList count] > 0) {
+    [self performSelectorOnMainThread:@selector(showIncorrectUsername) withObject:nil waitUntilDone:NO];
+    }
+    else{
+    [self performSelectorOnMainThread:@selector(showCorrectUsername) withObject:nil waitUntilDone:NO];
+    }
+    
+}
+
+-(void)showCorrectUsername
+{
+    self.userNameCorrect.image = [UIImage imageNamed:@"green_check_64x64"];
+    self.correctName = YES;
+}
+
+-(void)showIncorrectUsername
+{
+    self.userNameCorrect.image = [UIImage imageNamed:@"gray_cross_64x64"];
+    [self showIncorrectUsernameAlert];
+    self.correctName = NO;
+}
+
+
+- (BOOL)isValidPassword:(NSString *)string
+{
+    return [string rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound &&
+    [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]].location != NSNotFound &&
+    [string rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound;
+}
+
+
+
+- (IBAction)createNetworkPushed:(id)sender
+{
+    if (self.correctName && self.correctPass && self.correctPassTwo) {
+        RA_ParseNetwork *newLadder = [RA_ParseNetwork object];
+        
+        // Add the usernames and passwords
+        newLadder.name = self.userName.text;
+        newLadder.accessCode = self.passwordField.text;
+        
+        // Add the sport and league types
+        newLadder.sport = self.chosenSport;
+        newLadder.type = self.leagueType;
+        
+        // Add the photos
+        NSLog(@"%@",[self.largeLeaguePic description]);
+        NSLog(@"%@",[self.mediumLeaguePic description]);
+        //newLadder.leaguePicLarge = [PFFile fileWithData:UIImageJPEGRepresentation(self.largeLeaguePic, 0.9f)];
+        newLadder.leaguePicMedium = [PFFile fileWithData:UIImageJPEGRepresentation(self.mediumLeaguePic, 0.9f)];
+        
+    
+        // Get the league duration
+        NSLog(@"picker for length slide %f",[self.lengthSlide value]);
+        NSNumber *NSDuration = [NSNumber numberWithFloat:[self.lengthSlide value]];
+        newLadder.duration = NSDuration;
+        
+        // Get the administrator who created the network
+        newLadder.administrator = [RA_ParseUser currentUser];
+        newLadder.adminDisplayName = newLadder.administrator.displayName;
+        
+        // Upload the ladder to his user account
+        RA_ParseUser *cUser = [RA_ParseUser currentUser];
+        [cUser.networkMemberships addObject:newLadder];
+        
+        //Add Bruno new code
+        if ([newLadder.type isEqualToString:@"Ladder"]) {
+            newLadder.userIdsToScores = [NSMutableDictionary dictionary];
+            NSNumber *initialScore = [NSNumber numberWithFloat:1200.0];
+            [newLadder.userIdsToScores setObject:initialScore forKey:cUser.objectId];
+        }
+        else{
+            newLadder.userIdsToScores = [NSMutableDictionary dictionary];
+            NSNumber *initialScore = [NSNumber numberWithFloat:0.0];
+            [newLadder.userIdsToScores setObject:initialScore forKey:cUser.objectId];
+        }
+        
+        // Create an array to save the objects at once
+        NSArray *objectsToSave = [NSArray arrayWithObjects:newLadder,cUser, nil];
+
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:HUD];
+        HUD.delegate = self;
+        [HUD show:YES];
+        
+        [PFObject saveAllInBackground:objectsToSave block:^(BOOL succeeded, NSError *error) {
+//        [newLadder saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            // Hide HUD whatever the outcome
+            [HUD hide:YES];
+            
+            if (succeeded) { [self networkUploadedSuccessfully]; }
+            else { [self networkFailedToUploadWithError:error]; }
+            
+        }];
+        
+    }
+    else{
+        [self showMissingNetworkCredentials];
+    }
+}
+
+-(void)networkUploadedSuccessfully
+{
+    // Throw a 'success' alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!"
+                                                    message:[NSString stringWithFormat:@"Your network has been created successfully."]
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles: nil];
+    [alert show];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+
+-(void)networkFailedToUploadWithError:(NSError *)error
+{
+    NSLog(@"%@ on thread %@", NSStringFromSelector(_cmd), [NSThread currentThread]);
+    NSLog(@"ERROR uploading shout in background: %@", [error localizedDescription]);
+    
+    // Throw a 'uh oh' alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh!"
+                                                    message:[NSString stringWithFormat:@"Seems like something went wrong with the connection - your preferences were not sent to the Rally team."]
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Try again", nil];
+    [alert show];
+}
+
+-(void) showMissingNetworkCredentials
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network not created - form is missing some key elements"
+                                                    message:nil
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    
+    if (self.correctName) {
+        self.userNameCorrect.image = [UIImage imageNamed:@"green_check_64x64"];
+    }
+    else{
+        self.userNameCorrect.image = [UIImage imageNamed:@"gray_cross_64x64"];
+    }
+    
+    if (self.correctPass) {
+        self.passwordCorrect.image = [UIImage imageNamed:@"green_check_64x64"];
+    }
+    else{
+        self.passwordCorrect.image = [UIImage imageNamed:@"gray_cross_64x64"];
+    }
+    
+    if (self.correctPassTwo) {
+        self.passwordCorrectTwo.image = [UIImage imageNamed:@"green_check_64x64"];
+    }
+    else{
+        self.passwordCorrectTwo.image = [UIImage imageNamed:@"gray_cross_64x64"];
+    }
+
+}
+
+
+
+-(void)showIncorrectUsernameAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry, that League Name already exists. Please try another one."
+                                                  message:nil
+                                                 delegate:nil
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil];
+    [alert show];
+
+}
+
+
+-(void)showIncorrectPasswordAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Your password needs to be more than 5 characters in length and contain at least one capital letter and one number."
+                                                    message:nil
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+
+}
+
+
+-(void)showNonMatchingPasswordAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Your passwords don't match!"
+                                                    message:nil
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+
+}
+
+-(IBAction)cancelPushed:(id)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+
+
+@end

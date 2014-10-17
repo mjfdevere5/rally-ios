@@ -21,9 +21,36 @@
 +(NSString *)parseClassName;
 
 // General
-@property (strong, nonatomic) NSString *type; // @"rally_team", @"scores"
+@property (strong, nonatomic) NSString *type; // @"rally_team", @"shout"
 @property (strong, nonatomic) RA_ParseUser *user;
 @property (strong, nonatomic) NSString *userDisplayName;
 @property (strong, nonatomic) NSString *freeText;
+
+// Shout details (all of this is redundant)
+@property (strong, nonatomic) NSString *sportName;
+@property (strong, nonatomic) RA_ParseNetwork *network;
+@property (strong, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSNumber *time;
+@property (strong, nonatomic) NSString *timeDesc;
+@property (strong, nonatomic) NSNumber *skill;
+@property (strong, nonatomic) NSString *skillDesc;
+@property (strong, nonatomic) PFGeoPoint *location;
+@property (strong, nonatomic) NSString *locationDesc;
+@property (strong, nonatomic) NSArray *visibility;
+@property (strong, nonatomic) NSString *networkName;
+
+// Add for the newsfeed
+@property (strong, nonatomic) RA_ParseUser *leftUser;
+@property (strong, nonatomic) RA_ParseUser *rightUser;
+@property (strong, nonatomic) NSString *leftUserDisplayName;
+@property (strong, nonatomic) NSString *rightUserDisplayName;
+@property (strong, nonatomic) NSNumber *leftUserScore;
+@property (strong, nonatomic) NSNumber *rightUserScore;
+
+
+
+// Game preferences
+@property (strong, nonatomic) RA_ParseGamePreferences *gamePrefObject;
+
 
 @end

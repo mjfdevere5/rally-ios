@@ -16,6 +16,8 @@
 #import "RA_ParseBroadcast.h"
 #import "RA_ParseUser.h"
 #import "RA_UserProfileDynamicTable.h"
+#import "RA_ScoreUpdate.h"
+#import "RA_GameConfirmation.h"
 
 
 @interface RA_NewsFeed ()
@@ -107,7 +109,7 @@
 // ******************** load the table ********************
 
 
--(void)createTable;
+-(void) createTable;
 {
     COMMON_LOG
     
@@ -169,7 +171,6 @@
     [query setLimit:50];
     
     // Interested in shouts only for future dates
-    [query whereKey:@"date" greaterThanOrEqualTo:[[NSDate date] dateAtStartOfDay]];
     
     // Only what's been made visible to me
     [query whereKey:@"visibility" containedIn:[RA_ParseUser currentUser].networkMemberships];
@@ -179,6 +180,7 @@
     [query orderByDescending:@"createdAt"];
     
     // Bring back the user as well;
+    [query includeKey:@"network"];
     [query includeKey:@"user"];
     [query includeKey:@"gamePrefObject"]; // Ensures we have this info ready to go when the user clicks on a cell
     
@@ -304,12 +306,31 @@
     
     RA_ParseBroadcast *broadcast = [self getFeedFromIndexPath:indexPath];
     
+    // Case: score update
+    
+    if([broadcast.type isEqualToString:@"score"]) {
+        RA_ScoreUpdate *cell = [tableView dequeueReusableCellWithIdentifier:@"score_update" forIndexPath:indexPath];
+        cell.broadcast = broadcast;
+        
+        [cell configureCellWithBroadcast];
+        cell.viewControllerDelegate = self;
+        return cell;
+    }
+    
     // Case: rally_team
-    if ([broadcast.type isEqualToString:@"rally_team"]) {
+    else if ([broadcast.type isEqualToString:@"rally_team"]) {
         RA_FeedCellRallyBroadcast *cell = [tableView dequeueReusableCellWithIdentifier:@"news_feed_rally_broadcast" forIndexPath:indexPath];
         cell.broadcast = broadcast;
         [cell configureCellWithBroadcast];
         return cell;
+    }
+    else if ([broadcast.type isEqualToString:@"game_confirmed"]) {
+        
+        RA_FeedCellRallyBroadcast *cell = [tableView dequeueReusableCellWithIdentifier:@"match_confirmed" forIndexPath:indexPath];
+        cell.broadcast = broadcast;
+        [cell configureCellWithBroadcast];
+        return cell;
+        
     }
     
     // Catch-all: ERROR
@@ -320,23 +341,6 @@
         return cell;
     }
 }
-
-
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    COMMON_LOG
-    
-    // Get the user
-    RA_ParseBroadcast *broadcast = [self getFeedFromIndexPath:self.tableView.indexPathForSelectedRow];
-    RA_ParseUser *user = broadcast.user;
-    
-    // Segue to user profile
-    RA_UserProfileDynamicTable *userView = [[RA_UserProfileDynamicTable alloc] initWithUser:user andContext:RA_UserProfileContextShoutOut];
-    [self.navigationController pushViewController:userView animated:YES];
-}
-
-
 
 // TO DO: FIX THIS
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -366,7 +370,6 @@
         return 44.0;
     }
 }
-
 
 
 - (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width
