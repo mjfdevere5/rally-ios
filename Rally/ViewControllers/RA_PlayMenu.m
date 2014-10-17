@@ -264,7 +264,7 @@
     
     else if ([details.action isEqualToString:@"League"] || [details.action isEqualToString:@"Ladder"]) {
         
-        [RA_GamePrefConfig gamePrefConfig].network = details.network; // TO DO FIX THIS
+//        [RA_GamePrefConfig gamePrefConfig]. = details.network; // TO DO FIX THIS
         
         [self performSegueWithIdentifier:@"goto_leaderboard" sender:self];
     }

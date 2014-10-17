@@ -46,21 +46,28 @@
 
 
 
--(NSInteger)getRankForPlayer:(RA_ParseUser *)player andNetwork:(NSString *)network
+-(NSInteger)getRankForPlayer:(RA_ParseUser *)player
 {
-    PFQuery *query = [RA_ParseNetwork query];
-    [query whereKey:@"name" equalTo:network];
-    [query selectKeys:@[@"userIdsToScores"]];
+    if (self.userIdsToScores == nil) {
+        COMMON_LOG_WITH_COMMENT(@"ERROR")
+        return 0;
+    }
     
-    NSDictionary *scoreDictionary = [query findObjects][0];
-    
-    NSArray *scoreIds = [scoreDictionary keysSortedByValueUsingComparator:
-                           ^NSComparisonResult(id obj1, id obj2) {
-                               return [obj2 compare:obj1];
-                           }];
-    NSMutableArray *orderedIds = [NSMutableArray arrayWithArray:scoreIds];
-    NSInteger rank = [orderedIds indexOfObject:player.objectId];
-    return rank;
+    else{
+        NSArray *orderedIds = [self.userIdsToScores keysSortedByValueUsingComparator:
+                               ^NSComparisonResult(NSNumber *obj1, NSNumber *obj2) {
+                                   return [obj2 compare:obj1];
+                               }];
+        
+        NSInteger rank;
+        if ([orderedIds containsObject:player.objectId]) {
+            rank = [orderedIds indexOfObject:player.objectId] + 1;
+        }
+        else {
+            rank = 0; // Unranked
+        }
+        return rank;
+    }
 }
 
 

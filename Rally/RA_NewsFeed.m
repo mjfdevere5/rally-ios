@@ -107,7 +107,7 @@
 // ******************** load the table ********************
 
 
--(void) createTable;
+-(void)createTable;
 {
     COMMON_LOG
     
@@ -304,16 +304,8 @@
     
     RA_ParseBroadcast *broadcast = [self getFeedFromIndexPath:indexPath];
     
-    // Case: shout
-    if([broadcast.type isEqualToString:@"shout"]) {
-        RA_FeedCellShout *cell = [tableView dequeueReusableCellWithIdentifier:@"news_feed_shout" forIndexPath:indexPath];
-        cell.broadcast = broadcast;
-        [cell configureCellWithBroadcast];
-        return cell;
-    }
-    
     // Case: rally_team
-    else if ([broadcast.type isEqualToString:@"rally_team"]) {
+    if ([broadcast.type isEqualToString:@"rally_team"]) {
         RA_FeedCellRallyBroadcast *cell = [tableView dequeueReusableCellWithIdentifier:@"news_feed_rally_broadcast" forIndexPath:indexPath];
         cell.broadcast = broadcast;
         [cell configureCellWithBroadcast];

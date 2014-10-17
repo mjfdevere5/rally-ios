@@ -40,6 +40,10 @@
 @property (strong, nonatomic) PFRelation *games;
 
 
+// Methods
+-(NSArray *)getNetworksInCommonWithMe;
+-(NSArray *)getNetworksInCommonWithMeForSport:(NSString *)sport;
+
 
 @end
 

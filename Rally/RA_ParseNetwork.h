@@ -25,7 +25,7 @@
 @property (strong, nonatomic) NSNumber *duration;
 
 +(instancetype)rallyUsersNetwork;
--(NSInteger)getRankForPlayer:(RA_ParseUser *)player andNetwork: (NSString *)network;
+-(NSInteger)getRankForPlayer:(RA_ParseUser *)player;
 
 @end
 

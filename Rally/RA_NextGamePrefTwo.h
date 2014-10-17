@@ -17,4 +17,7 @@
 -(IBAction)setPrefButtonPushed:(UIButton *)button;
 @property (weak, nonatomic) IBOutlet UILabel *separatorLine;
 
+-(void)turnOffPrefThree;
+-(void)turnOnPrefTwo;
+
 @end

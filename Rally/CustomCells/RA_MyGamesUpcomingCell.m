@@ -25,7 +25,7 @@
     self.dateLabel.text = dateTimeString;
     
     // Network label
-    self.networkLabel.text = self.game.network.name;
+//    self.networkLabel.text = self.game.network.name; // TO DO
     
     // Warning stuff
     if (![self.game actionRequiredByMe]) {
@@ -34,14 +34,14 @@
     }
     
     // Sport icon
-    if ([self.game.network.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
+    if ([self.game.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
         self.sportIcon.image = [UIImage imageNamed:@"squash_ball"];
     }
-    else if ([self.game.network.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
+    else if ([self.game.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
         self.sportIcon.image = [UIImage imageNamed:@"tennis_ball"];
     }
     else {
-        NSString *comment = [NSString stringWithFormat:@"ERROR: Unexpected game.network.sport: '%@'", self.game.network.sport];
+        NSString *comment = [NSString stringWithFormat:@"ERROR: Unexpected game.sport: '%@'", self.game.sport];
         COMMON_LOG_WITH_COMMENT(comment)
     }
     

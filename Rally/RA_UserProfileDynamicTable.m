@@ -108,9 +108,8 @@
                            @"userprofile_report_cell"];
     }
     else if (self.context == RA_UserProfileContextShoutOut) {
-        self.numberOfPreferences = [self.gamePref getNumberOfPreferences];
         NSMutableArray *cellArrayMut = [NSMutableArray array];
-        for (int i = 1 ; i <= self.numberOfPreferences ; i++) {
+        for (int i = 1 ; i <= [self.gamePref.dateTimePreferences count] ; i++) {
             [cellArrayMut addObject:@"userprofile_acceptgame_cell"];
         }
         [cellArrayMut addObjectsFromArray:@[@"userprofile_chat_cell",
@@ -292,35 +291,35 @@
     }
     
     // Propose game TO DO (currently just uploads a placeholder game)
-    else if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"userprofile_proposegame_cell"]) {
-        COMMON_LOG_WITH_COMMENT([tableView cellForRowAtIndexPath:indexPath].reuseIdentifier)
-        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view]; // Not sure if alloc init works, because the tutorials say to use 'object'
-        [self.navigationController.view addSubview:HUD];
-        HUD.delegate = self;
-        [HUD showAnimated:YES whileExecutingBlock:^{
-            // Create the game
-            RA_ParseGame *game = [[RA_ParseGame alloc] initAsProposalFromMeToOpponent:self.user andNetwork:[RA_ParseNetwork rallyUsersNetwork] andDatetime:[[NSDate date] dateByAddingDays:2]];
-            [game save];
-            
-            // Send push
-            [game.network fetchIfNeeded]; // Fetch the rallyUsersNetwork
-            NSString *pushText = [NSString stringWithFormat:@"%@ is suggesting %@ %@",
-                                  [RA_ParseUser currentUser].displayName,
-                                  game.network.sport,
-                                  [game.datetime getCommonSpeechWithOnDayLong:NO dateOrdinal:NO monthLong:NO]];
-            PFPush *push = [self configurePushWithText:pushText];
-            [push sendPushInBackground];
-            
-        } completionBlock:^{
-            // Show congrats
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats, that works"
-                                                            message:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }];
-    }
+//    else if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"userprofile_proposegame_cell"]) {
+//        COMMON_LOG_WITH_COMMENT([tableView cellForRowAtIndexPath:indexPath].reuseIdentifier)
+//        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view]; // Not sure if alloc init works, because the tutorials say to use 'object'
+//        [self.navigationController.view addSubview:HUD];
+//        HUD.delegate = self;
+//        [HUD showAnimated:YES whileExecutingBlock:^{
+//            // Create the game
+//            RA_ParseGame *game = [[RA_ParseGame alloc] initAsProposalFromMeToOpponent:self.user andNetwork:[RA_ParseNetwork rallyUsersNetwork] andDatetime:[[NSDate date] dateByAddingDays:2]];
+//            [game save];
+//            
+//            // Send push
+//            [game.network fetchIfNeeded]; // Fetch the rallyUsersNetwork
+//            NSString *pushText = [NSString stringWithFormat:@"%@ is suggesting %@ %@",
+//                                  [RA_ParseUser currentUser].displayName,
+//                                  game.network.sport,
+//                                  [game.datetime getCommonSpeechWithOnDayLong:NO dateOrdinal:NO monthLong:NO]];
+//            PFPush *push = [self configurePushWithText:pushText];
+//            [push sendPushInBackground];
+//            
+//        } completionBlock:^{
+//            // Show congrats
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats, that works"
+//                                                            message:nil
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//            [alert show];
+//        }];
+//    }
     
     // Accept game
     else if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"userprofile_acceptgame_cell"]) {
@@ -332,14 +331,14 @@
         [cell.activityWheel startAnimating];
         
         // Now we want to do all of the following: 0. Ask for a proper time, 1. Delete the gamePref object. 2. If that is successful (i.e. we got there first) then create a game object 3. Delete the news feed item
-        NSDate *theDateTime = [NSDate date]; // TO DO properly
+        NSDate *selectedDate = self.gamePref.dateTimePreferences[indexPath.row];
         [self.gamePref deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 COMMON_LOG_WITH_COMMENT(@"Delete successful")
                 
                 RA_ParseGame *newGame = [[RA_ParseGame alloc] initAsAcceptanceFromMeToOpponent:self.user
-                                                                                    andNetwork:self.gamePref.network
-                                                                                   andDatetime:theDateTime];
+                                                                                      andSport:self.gamePref.sport
+                                                                                   andDatetime:selectedDate];
                 
                 [newGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
@@ -353,8 +352,7 @@
                         // Send push in background
                         NSString *pushText = [NSString stringWithFormat:@"%@ has CONFIRMED your %@ game %@ at %@",
                                               [RA_ParseUser currentUser].displayName,
-//                                              newGame.network.sport,
-                                              @"hello",
+                                              newGame.sport,
                                               [[newGame.datetime getCommonSpeechWithOnDayLong:NO dateOrdinal:NO monthLong:NO] lowercaseString],
                                               [newGame.datetime getCommonSpeechClock]];
                         

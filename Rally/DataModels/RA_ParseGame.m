@@ -26,8 +26,8 @@
 
 
 @dynamic players;
-@dynamic network;
 @dynamic datetime;
+@dynamic sport;
 @dynamic playerStatuses;
 @dynamic reasonForCancellation;
 @dynamic playersWantFacilitiesBooked;
@@ -41,14 +41,14 @@
 
 
 
--(instancetype)initAsAcceptanceFromMeToOpponent:(RA_ParseUser *)myOpponent andNetwork:(RA_ParseNetwork *)theNetwork andDatetime:(NSDate *)theDatetime
+-(instancetype)initAsAcceptanceFromMeToOpponent:(RA_ParseUser *)myOpponent andSport:(NSString *)theSport andDatetime:(NSDate *)theDatetime
 {
     self = [super init];
     if (self) {
         // Passed vars
         self.players = @[[RA_ParseUser currentUser], myOpponent];
-        self.network = theNetwork;
         self.datetime = theDatetime;
+        self.sport = theSport;
         
         // Initialise the mutable arrays etc.
         self.playerStatuses = [NSMutableDictionary dictionary];
@@ -65,14 +65,14 @@
 
 
 
--(instancetype)initAsProposalFromMeToOpponent:(RA_ParseUser *)myOpponent andNetwork:(RA_ParseNetwork *)theNetwork andDatetime:(NSDate *)theDatetime
+-(instancetype)initAsProposalFromMeToOpponent:(RA_ParseUser *)myOpponent andSport:(NSString *)theSport andDatetime:(NSDate *)theDatetime
 {
     self = [super init];
     if (self) {
         // Passed vars
         self.players = @[[RA_ParseUser currentUser], myOpponent];
-        self.network = theNetwork;
         self.datetime = theDatetime;
+        self.sport = theSport;
         
         // Initialise the mutable arrays etc.
         self.playerStatuses = [NSMutableDictionary dictionary];

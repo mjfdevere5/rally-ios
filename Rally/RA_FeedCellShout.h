@@ -11,16 +11,20 @@
 
 @interface RA_FeedCellShout : UITableViewCell
 
-@property (strong, nonatomic) RA_ParseBroadcast *broadcast;
-@property (weak, nonatomic) IBOutlet UILabel *shout;
-@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (strong, nonatomic) RA_ParseGamePreferences *gamePref;
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeStamp;
-@property (weak, nonatomic) IBOutlet UIImageView *sportIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnail;
-@property (weak, nonatomic) IBOutlet UILabel *networkName;
-@property (weak, nonatomic) IBOutlet UILabel *currentRank;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *thumbnailActivityWheel;
+@property (weak, nonatomic) IBOutlet UILabel *lookingToPlayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *preferenceBulletsLabel;
+@property (weak, nonatomic) IBOutlet UIView *dividerLineView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *networksActivityWheel;
+@property (weak, nonatomic) IBOutlet UILabel *networksInCommonLabel;
+@property (weak, nonatomic) IBOutlet UILabel *networkBulletsLabel;
 
-
--(void)configureCellWithBroadcast;
+-(void)configureCell;
+-(void)configureCellForHeightPurposesOnly;
 
 @end

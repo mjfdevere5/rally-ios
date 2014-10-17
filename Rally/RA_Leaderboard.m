@@ -46,7 +46,7 @@
     [super viewDidLoad];
     
     // Navbar
-    self.navigationItem.title = [RA_GamePrefConfig gamePrefConfig].network.name;
+//    self.navigationItem.title = [RA_GamePrefConfig gamePrefConfig].network.name; // TO DO
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     
@@ -120,11 +120,11 @@
     // Get all users in this network
     PFQuery *query = [RA_ParseUser query];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
-    [query whereKey:@"networkMemberships" equalTo:[RA_GamePrefConfig gamePrefConfig].network];
+//    [query whereKey:@"networkMemberships" equalTo:[RA_GamePrefConfig gamePrefConfig].networks]; // TO DO
     NSArray *networkMembers = [query findObjects];
     
     // Get user scores from the network scores dictionary
-    self.scoresToIds = [RA_GamePrefConfig gamePrefConfig].network.userIdsToScores;
+//    self.scoresToIds = [RA_GamePrefConfig gamePrefConfig].network.userIdsToScores; // TO DO
     NSArray *orderedIds = [self.scoresToIds keysSortedByValueUsingComparator:
                            ^NSComparisonResult(id obj1, id obj2) {
                                return [obj2 compare:obj1];

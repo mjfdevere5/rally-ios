@@ -112,9 +112,9 @@
         
         // 'Preferences 1, 2, 3'
         [cellArrayMut addObject:@"game_preference_cell_1"];
-        if ([self.gamePref hasSecondPref]) {
+        if ([self.gamePref.dateTimePreferences count] > 1) {
             [cellArrayMut addObject:@"game_preference_cell_2"];
-            if ([self.gamePref hasThirdPref]) {
+            if ([self.gamePref.dateTimePreferences count] > 2) {
                 [cellArrayMut addObject:@"game_preference_cell_3"];
             }
         }

@@ -53,7 +53,7 @@
         NSLog(@"Log for rally sport");
         for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
             if ([network.objectId isEqualToString:@"Utu5aSM2ke"]) {
-                [RA_GamePrefConfig gamePrefConfig].network = network;
+//                [RA_GamePrefConfig gamePrefConfig].network = network;
                 
             }
         }
@@ -61,7 +61,7 @@
     else{
         for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
             if ([network.objectId isEqualToString:@"Y2IHHx2uu4"]) {
-                [RA_GamePrefConfig gamePrefConfig].network = network;
+//                [RA_GamePrefConfig gamePrefConfig].network = network;
             }
         }
 

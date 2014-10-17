@@ -10,107 +10,140 @@
 #import "NSDate+CoolStrings.h"
 #import "UIImage+ProfilePicHandling.h"
 #import "RA_ParseNetwork.h"
+#import "NSDate+CoolStrings.h"
 
+@interface RA_FeedCellShout()
+@property (strong, nonatomic) NSString *sportName;
+@end
 
 @implementation RA_FeedCellShout
 
 
--(void)awakeFromNib
+#pragma mark - load up and configure
+// ******************** load up and configure ********************
+
+-(void)configureCell
+{ COMMON_LOG
+    [self configureCellPartOne];
+    [self configureCellPartTwo];
+}
+
+-(void)configureCellForHeightPurposesOnly
+{ COMMON_LOG
+    [self configureCellPartOne];
+}
+
+-(void)configureCellPartOne
 {
-    // Cell background
+    // Cell background // TO DO, load dynamically (if still live vs. if already matched)
     UIImage *backgroundImage = [UIImage imageNamed:@"newsfeed_cell_v03"];
     UIImageView *cellBackgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
     cellBackgroundView.image = backgroundImage;
     self.backgroundView = cellBackgroundView;
-}
-
-
-
--(void)configureCellWithBroadcast
-{
+    
+    // Name
+    self.nameLabel.text = self.gamePref.user.displayName;
+    
     // Timestamp
-    RA_ParseUser *cUser = [RA_ParseUser currentUser];
-    [cUser fetchIfNeeded];
-    
-    RA_ParseNetwork *network = self.broadcast.network;
-    
-    NSDate *createdAt = self.broadcast.createdAt;
+    NSDate *createdAt = self.gamePref.createdAt;
     NSString *timeStamp = [createdAt getTimeStampNewsFeed];
     self.timeStamp.text = timeStamp;
     
-    // Name
-    NSLog(@"The first name");
-    self.name.text = self.broadcast.userDisplayName;
+    // Looking to play label
+    UIFont *stdFont = [UIFont systemFontOfSize:17.0];
+    NSDictionary *stdAttributes = [NSDictionary dictionaryWithObject:stdFont forKey:NSFontAttributeName];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:17.0];
+    NSDictionary *boldAttributes = [NSDictionary dictionaryWithObject:boldFont forKey:NSFontAttributeName];
+    NSMutableAttributedString *lookingToPlayText = [[NSMutableAttributedString alloc] initWithString:@"Looking to play "
+                                                                                          attributes:stdAttributes];
+    NSAttributedString *sport = [[NSAttributedString alloc]initWithString:self.gamePref.sport
+                                                               attributes:boldAttributes];
+    [lookingToPlayText appendAttributedString:sport];
+    self.lookingToPlayLabel.attributedText = lookingToPlayText;
     
-    // Add network name
-    self.networkName.text = self.broadcast.networkName;
-    
-    // Add rank
-    
-    if ([self.broadcast.user isEqual:cUser]) {
-        NSInteger rank = [network getRankForPlayer:cUser andNetwork:self.broadcast.networkName];
-        self.currentRank.text = [NSString stringWithFormat:@"Your network rank: %li",(long)rank];
-    }
-    else{
-        NSInteger yourRank = [network getRankForPlayer:cUser andNetwork:self.broadcast.networkName];
-        NSInteger opponentRank = [network getRankForPlayer:self.broadcast.user andNetwork:self.broadcast.networkName];
-        self.currentRank.text = [NSString stringWithFormat:@"Your rank: %li vs their rank: %li",(long)yourRank, (long)opponentRank];
-    }
-    
-    
-    // Sports icon
-    if ([self.broadcast.sportName isEqualToString:@"Squash"]) {
-        self.sportIcon.image = [UIImage imageNamed:@"squash_ball"];
-    }
-    else if ([self.broadcast.sportName isEqualToString:@"Tennis"]) {
-        self.sportIcon.image = [UIImage imageNamed: @"tennis_ball"];
-    }
-    
-    // Shout text
-    [self configureShoutText];
-    
-    // Thumbnail
-    PFFile *file = self.broadcast.user.profilePicMedium;
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (error) {
-            NSLog(@"[%@, %@] ERROR: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription]);
+    // Preference bullets
+    NSMutableString *preferenceBullets = [NSMutableString stringWithFormat:@"- %@ at %@",
+                                          [self.gamePref.dateTimePreferences[0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                          [self.gamePref.dateTimePreferences[0] getCommonSpeechClock]];
+    if ([self.gamePref.dateTimePreferences count] > 1) {
+        NSString *preferenceTwo = [NSString stringWithFormat:@"\n- %@ at %@",
+                                   [self.gamePref.dateTimePreferences[1] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                   [self.gamePref.dateTimePreferences[1] getCommonSpeechClock]];
+        [preferenceBullets appendString:preferenceTwo];
+        if ([self.gamePref.dateTimePreferences count] > 2) {
+            NSString *preferenceThree = [NSString stringWithFormat:@"\n- %@ at %@",
+                                         [self.gamePref.dateTimePreferences[2] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                         [self.gamePref.dateTimePreferences[2] getCommonSpeechClock]];
+            [preferenceBullets appendString:preferenceThree];
         }
-        else {
-            UIImage *thumbnailRaw = [UIImage imageWithData:data];
-            UIImage *thumbnailRoundedCorners = [thumbnailRaw getImageWithRoundedCorners:5];
-            self.thumbnail.image = thumbnailRoundedCorners;
+    }
+    self.preferenceBulletsLabel.text = preferenceBullets;
+    [self.preferenceBulletsLabel sizeToFit]; // Is this correct?
+    
+    // Network in common
+    self.networksInCommonLabel.text = [NSString stringWithFormat:@"%@ networks in common:",
+                                       [self.gamePref.sport capitalizedString]];
+    
+    // Network bullets (WITHOUT RANKINGS, TEMPORARY)
+    NSArray *networksInCommon = [self.gamePref.user getNetworksInCommonWithMeForSport:self.gamePref.sport];
+    if ([networksInCommon count] == 0) {
+        COMMON_LOG_WITH_COMMENT(@"ERROR: No networks in common?")
+    }
+    NSMutableString *networkBullets = [NSMutableString string];
+    for (int i=0 ; i<[networksInCommon count] ; i++) {
+        if (i > 0) {
+            [networkBullets appendString:@"\n"];
         }
-    }];
+        RA_ParseNetwork *network = networksInCommon[i];
+        NSString *bullet = [NSString stringWithFormat:@"- %@ (getting rank...)", network.name];
+        [networkBullets appendString:bullet];
+    }
+    self.networkBulletsLabel.text = networkBullets;
 }
 
-
-
--(void)configureShoutText
+-(void)configureCellPartTwo
 {
-    // Attributed text
-    UIFont *gameFont = [UIFont fontWithName:@"Helvetica" size:15];
-    UIFont *introFont = [UIFont fontWithName:@"Helvetica" size:15];
-    UIColor *gameColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-    UIColor *introColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    // Network bullets (WITH RANKINGS, ASYNC), since we may not have all networks yet
+    NSArray *networksInCommon = [self.gamePref.user getNetworksInCommonWithMeForSport:self.gamePref.sport];
+    [self.networksActivityWheel startAnimating];
+    [PFObject fetchAllIfNeededInBackground:networksInCommon block:^(NSArray *objects, NSError *error) {
+        NSMutableString *networkBulletsWithRanks = [NSMutableString string];
+        for (int i=0 ; i<[networksInCommon count] ; i++) {
+            if (i > 0) {
+                [networkBulletsWithRanks appendString:@"\n"];
+            }
+            RA_ParseNetwork *network = networksInCommon[i];
+            NSInteger rank = [network getRankForPlayer:self.gamePref.user];
+            if (rank == 0) {
+                NSString *bullet = [NSString stringWithFormat:@"- %@ (%@)", network.name, @"not yet ranked"];
+                [networkBulletsWithRanks appendString:bullet];
+            }
+            else {
+                NSString *bullet = [NSString stringWithFormat:@"- %@ (%lu)", network.name, (unsigned long)rank];
+                [networkBulletsWithRanks appendString:bullet];
+            }
+        }
+        [self.networksActivityWheel stopAnimating];
+        self.networkBulletsLabel.text = networkBulletsWithRanks;
+    }];
     
-    
-    NSString *location = [NSString stringWithFormat:@" near %@?",self.broadcast.locationDesc];
-    NSAttributedString *attIntro = [[NSAttributedString alloc]initWithString:location
-                                                                  attributes:@{NSFontAttributeName: introFont,
-                                                                               NSForegroundColorAttributeName: introColor}];
-    
-    // Then append the dynamic bit
-    // Get the time and sport
-    NSString *timeSport = [NSString stringWithFormat:@"%@ %@ in the %@", self.broadcast.sportName,
-                           [self.broadcast.date getDatePrettyStringFeed],self.broadcast.timeDesc];
-    NSAttributedString *timeSportIntro = [[NSAttributedString alloc]initWithString:timeSport
-                                                                        attributes:@{NSFontAttributeName: gameFont,
-                                                                                     NSForegroundColorAttributeName: gameColor}];
-    
-    // Now append and display
-    NSMutableAttributedString *shoutString = [[NSMutableAttributedString alloc]initWithAttributedString:timeSportIntro];
-    [shoutString appendAttributedString:attIntro];
-    self.shout.attributedText = shoutString;
+    // Load thumbnail
+    PFFile *picFile = self.gamePref.user.profilePicSmall;
+    if (![picFile isDataAvailable]) {
+        [self.thumbnailActivityWheel startAnimating];
+    }
+    [picFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (error) {
+            COMMON_LOG_WITH_COMMENT([error localizedDescription])
+        }
+        else {
+            UIImage *pic = [UIImage imageWithData:data];
+            UIImage *rightSizedPic = [pic getImageResizedAndCropped:self.thumbnail.frame.size];
+            UIImage *rightSizedPicWithRoundedCorners = [rightSizedPic getImageWithRoundedCorners:3];
+            [self.thumbnailActivityWheel stopAnimating];
+            self.thumbnail.image = rightSizedPicWithRoundedCorners;
+        }
+    }];
 }
 
 

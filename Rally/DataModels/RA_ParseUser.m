@@ -8,6 +8,7 @@
 
 #import "RA_ParseUser.h"
 #import <Parse/PFObject+Subclass.h>
+#import "RA_ParseNetwork.h"
 
 
 @implementation RA_ParseUser
@@ -44,8 +45,31 @@
 @dynamic games;
 
 
+// Methods
+-(NSArray *)getNetworksInCommonWithMe // Must have fetched both users
+{
+    NSMutableArray *networksInCommonMut = [NSMutableArray array];
+    for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
+        if ([self.networkMemberships containsObject:network.objectId]) {
+            [networksInCommonMut addObject:network];
+        }
+    }
+    NSArray *networksInCommon = [NSArray arrayWithArray:networksInCommonMut];
+    return networksInCommon;
+}
 
-
+-(NSArray *)getNetworksInCommonWithMeForSport:(NSString *)sport // Must have fetched both users and their networks
+{
+    NSMutableArray *networksInCommonMut = [NSMutableArray array];
+    for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
+        if ([self.networkMemberships containsObject:network.objectId] &&
+            [network.sport isEqualToString:sport]) {
+            [networksInCommonMut addObject:network];
+        }
+    }
+    NSArray *networksInCommon = [NSArray arrayWithArray:networksInCommonMut];
+    return networksInCommon;
+}
 
 @end
 

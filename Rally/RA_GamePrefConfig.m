@@ -45,13 +45,21 @@
 
 
 
-#pragma mark - default values
-// ******************** default values ********************
+#pragma mark - view 1
+// ******************** view 1 ********************
 
-
-// resetToDefaults is called whenever the LadderForm loads up (viewDidLoad)
 -(void)resetToDefaults
 {
+    // Hardcoded by self
+    self.possibleDates = [self getPossibleDates];
+    self.possibleTimes = [self getPossibleTimes];
+    
+    // Selected by the user, game setup view
+    self.sport = nil;
+    self.networks = [NSMutableArray array];
+    self.simRanked = nil;
+    
+    
     self.possibleDates = [self getPossibleDates];
     self.possibleTimes = @[@0, @1, @2]; // corresponds to Morning, Afternoon, Evening
     
@@ -70,16 +78,10 @@
                             self.secondPreference, @"second",
                             self.thirdPreference, @"third", nil];
     
-   
+    // Location stuff
     self.ladderLocation = nil;
     self.ladderLocationPlacemark = nil;
-    
-    
-    self.bookingHelpWanted = NO; // make sure switch defaults to 'off'
-    self.additionalInfo = ADDITIONAL_INFO_DEFAULT;
 }
-
-
 
 -(NSArray *)getPossibleDates
 {
@@ -102,22 +104,15 @@
     return (NSArray *)possibleDatesMut;
 }
 
-
-
-#pragma mark - prep to upload config
-// ******************** prep to upload config ********************
-
-
--(BOOL)validDatesAndTimes
+-(NSArray *)getPossibleTimes
 {
-    return !([self.firstPreference bothActiveAndEqual:self.secondPreference] ||
-             [self.firstPreference bothActiveAndEqual:self.thirdPreference] ||
-             [self.secondPreference bothActiveAndEqual:self.thirdPreference]);
+    // TO DO
 }
 
--(BOOL)validLocation
+-(BOOL)containsNetwork:(RA_ParseNetwork *)network
 {
-    if (self.ladderLocation) {
+    NSArray *networkIds = [self.networks valueForKeyPath:@"objectId"];
+    if ([networkIds containsObject:network.objectId]) {
         return YES;
     }
     else {
@@ -125,73 +120,19 @@
     }
 }
 
-
--(RA_ParseGamePreferences *)createParseGamePreferencesObject
+-(void)removeNetwork:(RA_ParseNetwork *)network
 {
-    COMMON_LOG
-    
-    RA_ParseGamePreferences *config = [RA_ParseGamePreferences object];
-    
-    config.network = self.network;
-    
-    config.dayFirstPref = self.firstPreference.date;
-    config.timeFirstPref = self.firstPreference.time;
-    
-    config.hasSecondPref = self.secondPreference.isEnabled;
-    config.daySecondPref = self.secondPreference.date;
-    config.timeSecondPref = self.secondPreference.time;
-    
-    config.hasThirdPref = self.thirdPreference.isEnabled;
-    config.dayThirdPref = self.thirdPreference.date;
-    config.timeThirdPref = self.thirdPreference.time;
-    
-    config.playWho = self.playWho;
-    
-    config.location = [PFGeoPoint geoPointWithLocation:self.ladderLocation];
-    config.locationDesc = self.ladderLocationString;
-    config.bookingHelpWanted = self.bookingHelpWanted;
-    config.additionalInfo = self.additionalInfo;
-    
-    config.user = [RA_ParseUser currentUser];
-    
-    return config;
+    for (RA_ParseNetwork *containedNetwork in self.networks) {
+        if ([containedNetwork.objectId isEqualToString:network.objectId]) {
+            [self.networks removeObject:containedNetwork];
+            break;
+        }
+    }
 }
 
 
-
--(RA_ParseBroadcast *)createParseBroadcastObjectWithPref:(RA_ParseGamePreferences *)pref
-{
-    COMMON_LOG
-    
-    RA_ParseBroadcast *broadcast = [RA_ParseBroadcast object];
-    
-    // Broadcast general
-    broadcast.type = RA_BROADCAST_TYPE_SHOUT;
-    broadcast.user = [RA_ParseUser currentUser];
-    broadcast.userDisplayName = [RA_ParseUser currentUser].displayName;
-    broadcast.freeText = nil;
-    
-    // Shout details
-    broadcast.sportName = self.network.sport;
-    broadcast.network = self.network;
-    broadcast.date = self.firstPreference.date;
-    broadcast.time = self.firstPreference.time;
-    broadcast.timeDesc = [self.firstPreference getTimeString];
-    broadcast.skill = nil;
-    broadcast.skillDesc = nil;
-    broadcast.location = [PFGeoPoint geoPointWithLocation:self.ladderLocation];;
-    broadcast.locationDesc = self.ladderLocationString;
-    broadcast.visibility = @[self.network];
-    
-    
-    // Game pref
-    broadcast.gamePrefObject = pref;
-    broadcast.networkName = self.network.name;
-    
-    return broadcast;
-}
-
-
+#pragma mark - view 2
+// ******************** view 2 ********************
 
 -(void)updateLadderLocationPlacemark
 {
@@ -214,6 +155,49 @@
      }];
 }
 
+-(BOOL)validDatesAndTimes
+{
+    return !([self.firstPreference bothActiveAndEqual:self.secondPreference] ||
+             [self.firstPreference bothActiveAndEqual:self.thirdPreference] ||
+             [self.secondPreference bothActiveAndEqual:self.thirdPreference]);
+}
+
+-(BOOL)validLocation
+{
+    if (self.ladderLocation) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+-(RA_ParseGamePreferences *)createParseGamePreferencesObject
+{
+    COMMON_LOG
+    
+    RA_ParseGamePreferences *config = [RA_ParseGamePreferences object];
+    
+//    config.network = self.network; // TO DO
+    
+    NSMutableArray *dateTimePreferencesMut = [NSMutableArray arrayWithObject:self.firstPreference.date];
+    if (self.secondPreference.isEnabled) {
+        [dateTimePreferencesMut addObject:self.secondPreference.date];
+        if (self.thirdPreference.isEnabled) {
+            [dateTimePreferencesMut addObject:self.thirdPreference.date];
+        }
+    }
+    config.dateTimePreferences = [NSArray arrayWithArray:dateTimePreferencesMut];
+    
+    config.playWho = self.simRanked;
+    
+    config.location = [PFGeoPoint geoPointWithLocation:self.ladderLocation];
+    config.locationDesc = self.ladderLocationString;
+    
+    config.user = [RA_ParseUser currentUser];
+    
+    return config;
+}
 
 
 

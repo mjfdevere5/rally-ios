@@ -7,30 +7,30 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RA_ParseNetwork.h"
 #import "RA_ParseGamePreferences.h"
-#import "RA_ParseBroadcast.h"
 #import "RA_DateAndTimePreference.h"
 #import <CoreLocation/CoreLocation.h>
 
 
 @interface RA_GamePrefConfig : NSObject
 
-// Single shared instance
+// Singleton instance
 +(instancetype) gamePrefConfig;
 
-@property (strong, nonatomic) RA_ParseNetwork *network;
+// Hardcoded by self
 @property (strong, nonatomic) NSArray *possibleDates;
 @property (strong, nonatomic) NSArray *possibleTimes;
+
+// Selected by the user, game setup view
+@property (strong, nonatomic) NSString *sport;
+@property (strong, nonatomic) NSMutableArray *networks; // of RA_ParseNetwork objects
+@property (strong, nonatomic) NSString *simRanked;
+
+// Selected by the user, game logistics view
 @property (strong, nonatomic) RA_DateAndTimePreference *firstPreference;
 @property (strong, nonatomic) RA_DateAndTimePreference *secondPreference;
 @property (strong, nonatomic) RA_DateAndTimePreference *thirdPreference;
 @property (strong, nonatomic) NSDictionary *preferencesDict;
-@property (nonatomic) BOOL bookingHelpWanted;
-@property (strong, nonatomic) NSString *additionalInfo;
-
-// who to play information
-@property (strong, nonatomic) NSString *playWho;
 
 // Passed in from RA_ShoutMapView and RA_LocationSingleton
 @property (strong, nonatomic) CLLocation *ladderLocation;
@@ -38,22 +38,15 @@
 @property (strong, nonatomic) NSString *ladderLocationString;
 @property BOOL ladderLocationManuallySelected;
 
-
-// Called by RA_LadderForm -viewDidLoad
+// View 1
 -(void)resetToDefaults;
+-(BOOL)containsNetwork:(RA_ParseNetwork *)network;
+-(void)removeNetwork:(RA_ParseNetwork *)network;
 
-// Creates the Parse object in preparation for upload
--(RA_ParseGamePreferences *)createParseGamePreferencesObject;
--(RA_ParseBroadcast *)createParseBroadcastObjectWithPref:(RA_ParseGamePreferences *)pref;
-
-// Valid dates/times?
--(BOOL)validDatesAndTimes;
-
-// Valid location entry
-
--(BOOL)validLocation;
-
-//
+// View 2
 -(void)updateLadderLocationPlacemark;
+-(BOOL)validDatesAndTimes;
+-(BOOL)validLocation;
+-(RA_ParseGamePreferences *)createParseGamePreferencesObject;
 
 @end

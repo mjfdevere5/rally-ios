@@ -47,7 +47,7 @@
     // Navbar
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
-    self.navigationItem.title = @"Your next game";
+    self.navigationItem.title = @"Logistics";
     
     // Form formatting
     self.tableView.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
@@ -78,6 +78,19 @@
 
 -(IBAction)setPrefButtonPushed:(UIButton *)button
 {
+    NSLog(@"%@ on thread %@", NSStringFromSelector(_cmd), [NSThread currentThread]);
+    
+//    // Check valid before continuing
+//    if (![[RA_GamePrefConfig gamePrefConfig] validDatesAndTimes]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something looks odd"
+//                                                        message:@"Two of your preferences are the same!"
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//        return;
+//    }
+    
     if (![[RA_GamePrefConfig gamePrefConfig] validLocation]) {
         NSLog(@"[%@, %@] not enough params", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hey!"
@@ -93,7 +106,6 @@
     
     // Prepare the ladder config
     self.ladderPref = [[RA_GamePrefConfig gamePrefConfig] createParseGamePreferencesObject];
-    self.broadcast = [[RA_GamePrefConfig gamePrefConfig] createParseBroadcastObjectWithPref:self.ladderPref];
     
     // Prepare the progress HUD
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
@@ -217,25 +229,26 @@
 
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch (indexPath.section) {
-        case 0:
-            return 71;
-        case 1:
-            // Booking help
-            return [self getBookingHelpCellHeightForIndexPath:indexPath];
-            break;
-        case 2:
-            // Additional info
-            return [self getAdditionalInfoCellHeightForIndexPath:indexPath];
-            break;
-        default:
-            NSLog(@"ERROR in %@, %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            return 44.0;
-            break;
-    }
-}
+// TO DO
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    switch (indexPath.section) {
+//        case 0:
+//            return 71;
+//        case 1:
+//            // Booking help
+//            return [self getBookingHelpCellHeightForIndexPath:indexPath];
+//            break;
+//        case 2:
+//            // Additional info
+//            return [self getAdditionalInfoCellHeightForIndexPath:indexPath];
+//            break;
+//        default:
+//            NSLog(@"ERROR in %@, %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+//            return 44.0;
+//            break;
+//    }
+//}
 
 
 
@@ -268,123 +281,45 @@
         
         return cell;
     }
+    
+//    if ([reuseIdentifier isEqualToString:@"when_preference"]) {
+//        
+//        // Set whether cell is first, second or third preference
+//        NSArray *preferenceStrings = @[@"first", @"second", @"third"];
+//        cell.preferenceKey = preferenceStrings[indexPath.row];
+//        NSArray *preferenceOutput = @[@"First", @"Second", @"Third"];
+//        cell.prefLabel.text = preferenceOutput[indexPath.row];
+//        
+//        // First pref cell is configured a bit differently
+//        if ([cell.preferenceKey isEqualToString:@"first"]) {
+//            cell.preferenceSwitch.enabled = NO;
+//            cell.preferenceSwitch.hidden = YES;
+//        }
+//    }
 }
 
 
+#pragma mark - special inter-cell behaviour
+// ******************** special inter-cell behaviour ********************
 
-#pragma mark - cell height
-// ******************** cell height ********************
 
-
--(CGFloat) getAdditionalInfoCellHeightForIndexPath:(NSIndexPath *)indexPath
+-(void)turnOnPrefTwo
 {
-    NSLog(@"%@ on thread %@", NSStringFromSelector(_cmd), [NSThread currentThread]);
-    
-    if (!self.hasAddInfoCell) {
-        return 44.0;
-    }
-    
-    UITextView *textView = [UITextView new];
-    textView.text = [RA_GamePrefConfig gamePrefConfig].additionalInfo;
-    
-    CGFloat textViewWidth = 220.0;
-    NSLog(@"self.aboutMeTextView.frame.size.width: %f", textViewWidth);
-    NSLog(@"self.aboutMeTextView.frame.size.height: %f", textView.frame.size.height);
-    
-    CGSize textViewSize = [textView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
-    NSLog(@"textViewSize: width %f, height: %f", textViewSize.width, textViewSize.height);
-    // Note, I don't think sizeThatFits guarantees the width we pass in, so in theory the returned height could jump around, but it seems to work fine...
-    
-    // Other vertical spaces. These should agree with the constraints specified in the storyboard
-    CGFloat topMargin = 4.0;
-    CGFloat bottomMargin = 4.0;
-    CGFloat totalHeight = (textViewSize.height
-                           + topMargin
-                           + bottomMargin);
-    return totalHeight;
+    [RA_GamePrefConfig gamePrefConfig].secondPreference.isEnabled = YES;
+    RA_NextGamePrefCell *cell = (RA_NextGamePrefCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [cell updateCell];
 }
 
 
 
--(CGFloat)getBookingHelpCellHeightForIndexPath:(NSIndexPath *)indexPath
+
+-(void)turnOffPrefThree
 {
-    NSLog(@"%@ on thread %@", NSStringFromSelector(_cmd), [NSThread currentThread]);
-    
-    UITextView *textView = [UITextView new];
-    BOOL bookingHelpWanted = [RA_GamePrefConfig gamePrefConfig].bookingHelpWanted;
-    if (bookingHelpWanted) { textView.text = BOOKING_HELP_ON_SPIEL; }
-    else { textView.text = BOOKING_HELP_OFF_SPIEL; }
-    
-    CGFloat textViewWidth = 220.0;
-    
-    CGSize textViewSize = [textView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
-    
-    CGFloat topMargin = 10.0;
-    CGFloat stepperHeight = 31.0;
-    CGFloat middleMargin = 8.0;
-    CGFloat bottomMargin = 14.0;
-    CGFloat totalSize = (topMargin +
-                         stepperHeight +
-                         middleMargin +
-                         textViewSize.height +
-                         bottomMargin);
-    return totalSize;
+    [RA_GamePrefConfig gamePrefConfig].thirdPreference.isEnabled = NO;
+    RA_NextGamePrefCell *cell = (RA_NextGamePrefCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    [cell updateCell];
 }
 
-
-
-#pragma mark - text view delegate methods
-// ******************** text view delegate methods ********************
-
-
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if ([textView.text isEqualToString:@"Tap to provide additional info"]) {
-        textView.text = @"";
-        [textView setFont:[UIFont systemFontOfSize:14.0]];
-        textView.textColor = [UIColor whiteColor];
-    }
-    [textView becomeFirstResponder];
-}
-
-
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    if ([textView.text isEqualToString:@""]) {
-        [textView setFont:[UIFont italicSystemFontOfSize:14.0]];
-        textView.textColor = [UIColor whiteColor];
-        textView.text = @"Tap to provide additional info";
-    }
-    
-    [textView resignFirstResponder];
-}
-
-
-
-- (void)textViewDidChange:(UITextView *)textView
-{
-    NSLog(@"%@ on thread %@", NSStringFromSelector(_cmd), [NSThread currentThread]);
-    
-    self.hasAddInfoCell = YES;
-    
-    [RA_GamePrefConfig gamePrefConfig].additionalInfo = textView.text;
-    
-    [self.tableView beginUpdates]; // This will cause an animated update of
-    [self.tableView endUpdates];   // the height of your UITableViewCell
-}
-
-
-
-// This dismisses the keyboard when user taps 'Done'
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"]) {
-        [textView resignFirstResponder];
-        return NO;
-    }
-    return YES;
-}
 
 
 -(void)viewDidDisappear:(BOOL)animated

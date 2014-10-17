@@ -24,8 +24,8 @@
 
 // General
 @property (strong, nonatomic) NSArray *players; // contains RA_ParseUser objects
-@property (strong, nonatomic) RA_ParseNetwork *network;
 @property (strong, nonatomic) NSDate *datetime;
+@property (strong, nonatomic) NSString *sport;
 
 // Status
 @property (strong, nonatomic) NSMutableDictionary *playerStatuses; // userIDs to NSStrings, as defined above
@@ -45,8 +45,8 @@
 
 
 // Methods
--(instancetype)initAsAcceptanceFromMeToOpponent:(RA_ParseUser *)myOpponent andNetwork:(RA_ParseNetwork *)theNetwork andDatetime:(NSDate *)theDatetime;
--(instancetype)initAsProposalFromMeToOpponent:(RA_ParseUser *)myOpponent andNetwork:(RA_ParseNetwork *)theNetwork andDatetime:(NSDate *)theDatetime;
+-(instancetype)initAsAcceptanceFromMeToOpponent:(RA_ParseUser *)myOpponent andSport:(NSString *)theSport andDatetime:(NSDate *)theDatetime;
+-(instancetype)initAsProposalFromMeToOpponent:(RA_ParseUser *)myOpponent andSport:(NSString *)theSport andDatetime:(NSDate *)theDatetime;
 
 -(RA_ParseUser *)getOpponentToPlayer:(RA_ParseUser *)player;
 -(RA_ParseUser *)opponent;

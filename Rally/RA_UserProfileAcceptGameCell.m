@@ -21,10 +21,10 @@
     self.textLabel.textColor = [UIColor whiteColor];
     
     // Set the image (say, to a squash ball)
-    if ([self.gamePref.sportName isEqualToString:RA_SPORT_NAME_SQUASH]) {
+    if ([self.gamePref.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
         self.leftImage.image = [UIImage imageNamed:@"squash_ball"];
     }
-    else if ([self.gamePref.sportName isEqualToString:RA_SPORT_NAME_TENNIS]) {
+    else if ([self.gamePref.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
         self.leftImage.image = [UIImage imageNamed:@"tennis_ball"];
     }
     else {
@@ -35,22 +35,22 @@
     if (self.indexPath.row == 0) {
         COMMON_LOG_WITH_COMMENT(@"First preference")
         NSString *whenString = [NSString stringWithFormat:@"%@, %@",
-                                [self.gamePref.dayFirstPref getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
-                                [self.gamePref.timeFirstPrefString lowercaseString]];
+                                [self.gamePref.dateTimePreferences[0] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
+                                [self.gamePref.dateTimePreferences[0] getCommonSpeechClock]];
         self.textLabel.text = [NSString stringWithFormat:@"Accept game: %@", whenString];
     }
     else if (self.indexPath.row == 1) {
         COMMON_LOG_WITH_COMMENT(@"Second preference")
         NSString *whenString = [NSString stringWithFormat:@"%@, %@",
-                                [self.gamePref.daySecondPref getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
-                                [self.gamePref.timeSecondPrefString lowercaseString]];
+                                [self.gamePref.dateTimePreferences[1] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
+                                [self.gamePref.dateTimePreferences[1] getCommonSpeechClock]];
         self.textLabel.text = [NSString stringWithFormat:@"Accept game: %@", whenString];
     }
     else if (self.indexPath.row == 2) {
         COMMON_LOG_WITH_COMMENT(@"First preference")
         NSString *whenString = [NSString stringWithFormat:@"%@, %@",
-                                [self.gamePref.dayThirdPref getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
-                                [self.gamePref.timeThirdPrefString lowercaseString]];
+                                [self.gamePref.dateTimePreferences[2] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
+                                [self.gamePref.dateTimePreferences[2] getCommonSpeechClock]];
         self.textLabel.text = [NSString stringWithFormat:@"Accept game: %@", whenString];
     }
 }

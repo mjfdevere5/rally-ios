@@ -40,13 +40,13 @@
     [self.reportScoreLabel removeFromSuperview];
     
     // Network label
-    self.networkLabel.text = self.game.network.name;
+//    self.networkLabel.text = self.game.network.name; // TO DO
     
     // Sport icon
-    if ([self.game.network.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
+    if ([self.game.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
         self.sportIcon.image = [UIImage imageNamed:@"squash_ball"];
     }
-    else if ([self.game.network.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
+    else if ([self.game.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
         self.sportIcon.image = [UIImage imageNamed:@"tennis_ball"];
     }
     else {
