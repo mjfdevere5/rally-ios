@@ -15,7 +15,8 @@
 typedef NS_ENUM(NSInteger, RA_UserProfileContext) {
     RA_UserProfileContextGameManager,
     RA_UserProfileContextShoutOut,
-    RA_UserProfileContextLeaderboard
+    RA_UserProfileContextLeaderboard,
+    RA_UserProfileContextNewsFeed
     // Add others here, separated by a comma
 };
 

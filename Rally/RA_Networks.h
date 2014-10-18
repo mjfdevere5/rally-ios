@@ -11,6 +11,6 @@
 
 @interface RA_Networks : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, MBProgressHUDDelegate>
 
-- (IBAction)refresh:(UIBarButtonItem *)sender;
+- (IBAction)tappedRefreshBarButton:(UIBarButtonItem *)sender;
 
 @end

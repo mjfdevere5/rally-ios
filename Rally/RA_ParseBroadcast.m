@@ -22,30 +22,12 @@
 // General
 @dynamic type;
 @dynamic user;
-@dynamic userDisplayName;
+@dynamic visibility;
 @dynamic freeText;
 
-// Shout details
-@dynamic sportName;
-@dynamic network;
-@dynamic date;
-@dynamic time;
-@dynamic timeDesc;
-@dynamic skill;
-@dynamic skillDesc;
-@dynamic location;
-@dynamic locationDesc;
-@dynamic visibility;
-@dynamic networkName;
-
-// Game pref
-@dynamic gamePrefObject;
-
 // added by bruno
-@dynamic leftUser;
-@dynamic rightUser;
-@dynamic leftUserDisplayName;
-@dynamic rightUserDisplayName;
+@dynamic userOne;
+@dynamic userTwo;
 @dynamic leftUserScore;
 @dynamic rightUserScore;
 

@@ -11,7 +11,7 @@
 #import "NSDate+Utilities.h"
 #import "NSDate+CoolStrings.h"
 #import "RA_ParseBroadcast.h"
-#import "RA_FeedCellRallyBroadcast.h"
+#import "RA_NewsFeedRallyBroadcastCell.h"
 #import "RA_FeedCellShout.h"
 #import "RA_ParseNetwork.h"
 #import "RA_NextGamePrefOne.h"

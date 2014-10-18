@@ -11,7 +11,7 @@
 
 @interface RA_NewsFeed : UITableViewController <MBProgressHUDDelegate>
 
--(IBAction)refresh:(UIBarButtonItem *)sender;
+-(IBAction)tappedRefreshBarButton:(UIBarButtonItem *)sender;
 -(void)refreshTableWithHUD;
 
 @end

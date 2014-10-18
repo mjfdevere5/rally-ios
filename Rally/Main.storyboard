@@ -2119,7 +2119,7 @@
                     <navigationItem key="navigationItem" title="My Networks" id="16q-Ce-VII">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="JyL-hl-4rl">
                             <connections>
-                                <action selector="refresh:" destination="00X-GO-er7" id="hVZ-qr-qmj"/>
+                                <action selector="tappedRefreshBarButton:" destination="00X-GO-er7" id="aOa-5g-ijp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2651,7 +2651,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="news_feed_rally_broadcast" rowHeight="80" id="Jo0-7Q-g3k" customClass="RA_FeedCellRallyBroadcast">
+                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="news_feed_rally_broadcast" rowHeight="80" id="Jo0-7Q-g3k" customClass="RA_NewsFeedRallyBroadcastCell">
                                 <rect key="frame" x="0.0" y="339" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jo0-7Q-g3k" id="cct-JT-iJO">
@@ -2712,7 +2712,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                                 <fragment content="time stamp">
                                                     <attributes>
                                                         <color key="NSColor" red="0.66290656887755106" green="0.66290656887755106" blue="0.66290656887755106" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="10" name="GillSans"/>
+                                                        <font key="NSFont" size="14" name="GillSans"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                     </attributes>
                                                 </fragment>
@@ -2743,7 +2743,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     <outlet property="timeStamp" destination="uft-0l-h4m" id="lpV-ie-8nV"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="score_update" rowHeight="151" id="K0b-xT-CS6" customClass="RA_ScoreUpdate">
+                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="score_update" rowHeight="151" id="K0b-xT-CS6" customClass="RA_NewsFeedScoreUpdateCell">
                                 <rect key="frame" x="0.0" y="259" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K0b-xT-CS6" id="8Er-PP-KAG">
@@ -2767,7 +2767,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                                 <fragment content="time stamp">
                                                     <attributes>
                                                         <color key="NSColor" red="0.66290656887755106" green="0.66290656887755106" blue="0.66290656887755106" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="12" name="GillSans"/>
+                                                        <font key="NSFont" size="14" name="GillSans"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                     </attributes>
                                                 </fragment>
@@ -2887,7 +2887,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="leftActivity" destination="Jdy-Qr-Y3A" id="MG7-MX-GNv"/>
-                                    <outlet property="leftPlayerImage" destination="2Jc-oT-Pkp" id="e9X-ib-OtR"/>
+                                    <outlet property="leftPlayerImage" destination="2Jc-oT-Pkp" id="XHS-Mj-dWM"/>
                                     <outlet property="leftPlayerName" destination="qyK-9W-k4b" id="ufY-o6-7Gw"/>
                                     <outlet property="leftPlayerScore" destination="NHk-TE-ytz" id="oO0-El-i4t"/>
                                     <outlet property="rightActivity" destination="pYu-yh-Qzh" id="vU1-VZ-0Cx"/>
@@ -2897,7 +2897,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     <outlet property="timeStamp" destination="AlV-s5-G7y" id="70R-JM-RDk"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="match_confirmed" rowHeight="228" id="MIL-Ve-i9k" customClass="RA_GameConfirmation">
+                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="match_confirmed" rowHeight="228" id="MIL-Ve-i9k" customClass="RA_NewsFeedGameConfirmationCell">
                                 <rect key="frame" x="0.0" y="259" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MIL-Ve-i9k" id="RgE-aq-kXH">
@@ -2920,7 +2920,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                                 <fragment content="time stamp">
                                                     <attributes>
                                                         <color key="NSColor" red="0.66290656887755106" green="0.66290656887755106" blue="0.66290656887755106" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="12" name="GillSans"/>
+                                                        <font key="NSFont" size="14" name="GillSans"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                     </attributes>
                                                 </fragment>
@@ -3069,7 +3069,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                         <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="96F-3g-auS">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="refresh:" destination="IRL-37-Kzc" id="VHi-By-Eun"/>
+                                <action selector="tappedRefreshBarButton:" destination="IRL-37-Kzc" id="Klf-MP-gAc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

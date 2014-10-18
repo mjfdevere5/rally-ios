@@ -9,13 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "RA_ParseBroadcast.h"
 #import "RA_NewsFeed.h"
+#import "RA_NewsFeedBaseCell.h"
 
+@interface RA_NewsFeedGameConfirmationCell : RA_NewsFeedBaseCell
 
-
-@interface RA_GameConfirmation : UITableViewCell
-
-@property (strong, nonatomic) RA_NewsFeed *viewControllerDelegate;
-@property (strong, nonatomic) RA_ParseBroadcast *broadcast;
+// Storyboard stuff
 @property (weak, nonatomic) IBOutlet PFImageView *leftConfirmed;
 @property (weak, nonatomic) IBOutlet PFImageView *rightConfirmed;
 @property (weak, nonatomic) IBOutlet UILabel *leftNameConfirmed;
@@ -25,7 +23,5 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *rightActivity;
 @property (weak, nonatomic) IBOutlet UILabel *extraInfo;
 @property (weak, nonatomic) IBOutlet UILabel *sport;
-
--(void)configureCellWithBroadcast;
 
 @end

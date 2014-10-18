@@ -107,6 +107,11 @@
                            @"userprofile_proposegame_cell",
                            @"userprofile_report_cell"];
     }
+    else if (self.context == RA_UserProfileContextNewsFeed) {
+        self.cellArray = @[@"userprofile_chat_cell",
+                           @"userprofile_proposegame_cell",
+                           @"userprofile_report_cell"];
+    }
     else if (self.context == RA_UserProfileContextShoutOut) {
         NSMutableArray *cellArrayMut = [NSMutableArray array];
         for (int i = 1 ; i <= [self.gamePref.dateTimePreferences count] ; i++) {

@@ -23,7 +23,6 @@
 @property (nonatomic) NSInteger rightSelection;
 
 // New properties from Bruno
-
 @property (nonatomic) NSNumber *rightNewElo;
 @property (nonatomic) NSNumber *leftNewElo;
 @property (nonatomic) NSNumber *resultLeft;
@@ -34,24 +33,20 @@
 
 @end
 
+
 @implementation RA_GameViewPlayersHistoricCell
 
 
 #pragma mark - load up and configure
 // ******************** load up and configure ********************
 
-
 -(void)viewDidLoad
-{
-    COMMON_LOG
+{ COMMON_LOG
     // Doesn't seem to run?
 }
 
-
 -(void)configureCell
-{
-    COMMON_LOG
-    
+{ COMMON_LOG
     // Configure the score picker stuff
     [self configureScorePicker];
     
@@ -98,12 +93,8 @@
     [self.rightPic addGestureRecognizer:rightPicTap];
 }
 
-
-
 -(void)configureScorePicker
-{
-    COMMON_LOG
-    
+{ COMMON_LOG
     // Assign a picker view to the textfield's input view
     UIPickerView *doublePicker = [[UIPickerView alloc] init];
     doublePicker.delegate = self;
@@ -124,12 +115,8 @@
     self.scoreField.inputAccessoryView = myToolbar;
 }
 
-
-
 -(void)assignPlayers
-{
-    COMMON_LOG
-    
+{ COMMON_LOG
     // See if current user is a member
     // Using if([cUser.networkMemberships containsObject:network]) does not work, so we have to use the objectId
     NSArray *playerIds = [self.game.players valueForKeyPath:@"objectId"];
@@ -143,10 +130,8 @@
     }
 }
 
-
-
 -(void)configureScores
-{
+{ COMMON_LOG
     NSString *output = nil;
     
     if ([self.game hasScore]) {
@@ -161,39 +146,23 @@
 }
 
 
-
 #pragma mark - picker view and text field
 // ******************** picker view and text field ********************
 
-
-// TO DO possibly: scroll the tableview when the inputview appears
-
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    COMMON_LOG
-    
     return 2;
 }
 
-
-
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    COMMON_LOG
-    
     return [self.scoreArray count];
 }
 
-
-
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    COMMON_LOG
-    
     return [self.scoreArray[row] stringValue];
 }
-
-
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
@@ -204,14 +173,13 @@
                             [self.scoreArray[self.rightSelection] stringValue]];
 }
 
-
-
 -(void)inputAccessoryViewDone
 {
-    // Update scores for the game and save
+    // Update scores in the game object
     if (self.leftSelection || self.rightSelection) {
-        [self.game.scores setValue:self.scoreArray[self.leftSelection] forKey:self.leftPlayer.objectId];
-        [self.game.scores setValue:self.scoreArray[self.rightSelection] forKey:self.rightPlayer.objectId];
+        self.game.scores = [NSDictionary dictionaryWithObjectsAndKeys:
+                            self.scoreArray[self.leftSelection],self.leftPlayer.objectId,
+                            self.scoreArray[self.rightSelection],self.rightPlayer.objectId, nil];
         
         // Bruno add code
         
@@ -230,17 +198,15 @@
         
         [visibilityArray addObjectsFromArray:rightVisibilityArray];
         
-        self.broadcast.leftUser = self.leftPlayer;
-        self.broadcast.rightUser = self.rightPlayer;
+        self.broadcast.userOne = self.leftPlayer;
+        self.broadcast.userTwo = self.rightPlayer;
         self.broadcast.leftUserDisplayName = self.leftPlayer.username;
         self.broadcast.rightUserDisplayName = self.rightPlayer.username;
         self.broadcast.leftUserScore = leftNumber;
         self.broadcast.rightUserScore = rightNumber;
         self.broadcast.visibility = rightVisibilityArray;
         self.broadcast.type = @"score";
-        
-        
-        
+
         // Grab the current scores for the players
         
         NSDictionary *currentPlayerScores = [self getPlayerScoresWith:network.objectId];
@@ -298,8 +264,6 @@
     [self.scoreField resignFirstResponder];
 }
 
-
-
 -(void)inputAccessoryViewCancel
 {
     // Configure outlet
@@ -308,8 +272,6 @@
     // Hide the keyboard
     [self.scoreField resignFirstResponder];
 }
-
-
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
@@ -322,32 +284,24 @@
 }
 
 
-
 #pragma mark - segue
 // ******************** segue ********************
 
-
 -(void)segueToLeftPlayer:(id)sender
-{
-    COMMON_LOG
-    
+{ COMMON_LOG
     RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.leftPlayer
                                                                                     andContext:RA_UserProfileContextGameManager];
     [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
 }
 
 -(void)segueToRightPlayer:(id)sender
-{
-    COMMON_LOG
-    
+{ COMMON_LOG
     RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.rightPlayer
                                                                                     andContext:RA_UserProfileContextGameManager];
     [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
 }
 
 
-
-#pragma mark - additional lines of Bruno code
 
 -(NSDictionary *)getPlayerScoresWith:(NSString *)networkId
 {
@@ -363,7 +317,6 @@
 
 
 -(void)performEloScoreUpdate:(NSDictionary *)currentPlayerScores
-
 {
     NSLog(@"into Elo score update");
     int kValue = 32; // Perhaps this should go into app constants - Max I'll let you sort this out

@@ -38,7 +38,7 @@
 @property (strong, nonatomic) RA_ParseFacilities *facilities;
 
 // Post-game
-@property (strong, nonatomic) NSMutableDictionary *scores; // userIDs to NSNumbers
+@property (strong, nonatomic) NSDictionary *scores; // userIDs to NSNumbers
 @property (nonatomic) BOOL resultConfirmedByBothPlayers;
 @property (strong, nonatomic) NSMutableDictionary *postMortemQuotes; // userIDs to NSStrings
 @property (strong, nonatomic) PFFile *photo;

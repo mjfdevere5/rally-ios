@@ -44,7 +44,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-- (IBAction)refresh:(UIBarButtonItem *)sender
+- (IBAction)tappedRefreshBarButton:(UIBarButtonItem *)sender
 {
     COMMON_LOG
     

@@ -53,7 +53,6 @@
         // Initialise the mutable arrays etc.
         self.playerStatuses = [NSMutableDictionary dictionary];
         self.reasonForCancellation = [NSMutableDictionary dictionary];
-        self.scores = [NSMutableDictionary dictionary];
         self.postMortemQuotes = [NSMutableDictionary dictionary];
         
         // Other

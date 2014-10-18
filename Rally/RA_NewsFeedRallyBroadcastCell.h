@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "RA_ParseBroadcast.h"
+#import "RA_NewsFeedBaseCell.h"
 
-@interface RA_FeedCellRallyBroadcast : UITableViewCell
+@interface RA_NewsFeedRallyBroadcastCell : RA_NewsFeedBaseCell
 
-@property (strong, nonatomic) RA_ParseBroadcast *broadcast;
+// Storyboard stuff
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UITextView *freeText;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnail;
 @property (weak, nonatomic) IBOutlet UILabel *timeStamp;
 
--(void)configureCellWithBroadcast;
-
 @end
+
+

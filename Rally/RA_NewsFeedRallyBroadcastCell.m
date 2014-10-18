@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Rally. All rights reserved.
 //
 
-#import "RA_FeedCellRallyBroadcast.h"
+#import "RA_NewsFeedRallyBroadcastCell.h"
 #import "NSDate+CoolStrings.h"
 
-@implementation RA_FeedCellRallyBroadcast
+@implementation RA_NewsFeedRallyBroadcastCell
 
 
 -(void)awakeFromNib
@@ -21,9 +21,7 @@
     self.backgroundView = cellBackgroundView;
 }
 
-
-
--(void)configureCellWithBroadcast
+-(void)configureCell
 {
     // Timestamp
     NSDate *createdAt = self.broadcast.createdAt;
@@ -31,16 +29,13 @@
     self.timeStamp.text = timeStamp;
     
     // Name
-    self.name.text = self.broadcast.userDisplayName;
+    self.name.text = self.broadcast.userOne.displayName;
     
     // Free text attributes
     [self.freeText setScrollEnabled:YES];
     self.freeText.text = self.broadcast.freeText;
     [self.freeText sizeToFit];
     [self.freeText setScrollEnabled:NO];
-    
-    // Thumbnail
-//    self.thumbnail.layer.cornerRadius = 5; // We have set this in Main.storyboard
 }
 
 
