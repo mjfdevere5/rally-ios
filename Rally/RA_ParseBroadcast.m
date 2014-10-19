@@ -19,17 +19,12 @@
 }
 
 
-// General
 @dynamic type;
-@dynamic user;
-@dynamic visibility;
 @dynamic freeText;
-
-// added by bruno
 @dynamic userOne;
 @dynamic userTwo;
-@dynamic leftUserScore;
-@dynamic rightUserScore;
+@dynamic visibility;
+@dynamic game;
 
 
 @end

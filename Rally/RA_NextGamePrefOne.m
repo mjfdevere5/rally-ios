@@ -47,34 +47,30 @@
     // Set the loadedSport
     self.loadedSport = [RA_GamePrefConfig gamePrefConfig].sport; // Note, sets to nil initially
     
-    // Set the cellArray
-    [self refreshMyNetworksAndCellArray]; // Note, searches for networks with sport nil initially (loads nothing)
-    
-    // Reload the table
-    [self.tableView reloadData];
+    // Show a HUD and load the table up
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        [self prepareTableRows]; // Note, searches for networks with sport nil initially (loads nothing)
+    } completionBlock:^{
+        [self.tableView reloadData];
+    }];
 }
 
--(void)refreshMyNetworksAndCellArray
+-(void)prepareTableRows // (BACKGROUND ONLY)
 { COMMON_LOG
     // First make sure we have the network objects to hand
+    [[RA_ParseUser currentUser] fetch];
+    [PFObject fetchAllIfNeeded:[RA_ParseUser currentUser].networkMemberships];
+    // Use NSPredicate to filter the array
+    NSMutableArray *filteredArray = [NSMutableArray array];
     for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
-        if (![network isDataAvailable]) {
-            MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-            [self.navigationController.view addSubview:HUD];
-            HUD.delegate = self;
-            [HUD showAnimated:YES whileExecutingBlock:^{
-                [PFObject fetchAllIfNeeded:[RA_ParseUser currentUser].networkMemberships];
-            } completionBlock:^{
-                COMMON_LOG_WITH_COMMENT(@"LOG 0: Finished fetching all the networks")
-            }];
-            break;
+        if ([network.sport isEqualToString:self.loadedSport]) {
+            [filteredArray addObject:network];
         }
     }
-    COMMON_LOG_WITH_COMMENT(@"LOG 1: Should not see this before LOG 0")
-    
-    // Use NSPredicate to filter the array
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.name == %@", self.loadedSport]; // TO DO
-    self.myNetworks  = [[RA_ParseUser currentUser].networkMemberships filteredArrayUsingPredicate:predicate];
+    self.myNetworks  = [NSArray arrayWithArray:filteredArray];
     
     // Now build self.cellArray as an array of arrays (sections and rows)
     NSMutableArray *networkSectionMut = [NSMutableArray array];
@@ -84,6 +80,7 @@
     [networkSectionMut addObject:@"nextgame_similarlyranked_cell"];
     NSArray *networkSection = [NSArray arrayWithArray:networkSectionMut];
     self.cellArray = @[@[@"nextgame_picksport_cell"], networkSection];
+    COMMON_LOG_WITH_COMMENT([self.cellArray description])
 }
 
 
@@ -93,6 +90,7 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.cellArray count]; // Should be 2
+    NSLog(@"%lu", (unsigned long) [self.cellArray count]);
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -139,10 +137,12 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{ COMMON_LOG
+{ COMMON_LOG_WITH_COMMENT([indexPath description])
     // Dequeue
     NSString *reuseIdentifier = self.cellArray[indexPath.section][indexPath.row];
+    COMMON_LOG_WITH_COMMENT(@"Test: 0")
     RA_NextGameBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    COMMON_LOG_WITH_COMMENT(@"Test: 1")
     
     // Special case: network cells handled in here
     if ([cell isKindOfClass:[RA_NextGameNetworkCheckmarkCell class]]) {
@@ -150,10 +150,14 @@
         RA_NextGameNetworkCheckmarkCell *castCell = (RA_NextGameNetworkCheckmarkCell *)cell;
         castCell.network = network;
     }
+    COMMON_LOG_WITH_COMMENT(@"Test: 2")
     
     // Configuration
     cell.viewControllerDelegate = self;
+    COMMON_LOG_WITH_COMMENT(@"Test: 3")
+    
     [cell configureCell];
+    COMMON_LOG_WITH_COMMENT(@"Test: 4")
     
     // Return
     return cell;
@@ -189,29 +193,39 @@
         // Update sport
         self.loadedSport = [RA_GamePrefConfig gamePrefConfig].sport;
         
-        // Delete then reinsert rows, noting how many rows each time
+        // Take a note of how many rows to delete
         NSInteger rowsToDelete = [self.myNetworks count];
-        [self refreshMyNetworksAndCellArray];
-        NSInteger rowsToInsert = [self.myNetworks count];
         
-        // Update networks selected
-        [RA_GamePrefConfig gamePrefConfig].networks = [self.myNetworks copy];
-        
-        // Prepare for animation
-        NSMutableArray *indexPathsToDelete = [NSMutableArray array];
-        for (int row=0 ; row < rowsToDelete ; row++) {
-            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:row inSection:1]];
-        }
-        NSMutableArray *indexPathsToInsert = [NSMutableArray array];
-        for (int row=0 ; row < rowsToInsert ; row++) {
-            [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:row inSection:1]];
-        }
-        
-        // Animation
-        [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
+        // Show a HUD
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
+        HUD.delegate = self;
+        [HUD showAnimated:YES whileExecutingBlock:^{
+            // Recalculate which rows we need
+            [self prepareTableRows];
+        } completionBlock:^{
+            // Take a note of how many rows to insert
+            NSInteger rowsToInsert = [self.myNetworks count];
+            
+            // Update networks selected
+            [RA_GamePrefConfig gamePrefConfig].networks = [NSMutableArray arrayWithArray:self.myNetworks];
+            
+            // Prepare for animation
+            NSMutableArray *indexPathsToDelete = [NSMutableArray array];
+            for (int row=0 ; row < rowsToDelete ; row++) {
+                [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:row inSection:1]];
+            }
+            NSMutableArray *indexPathsToInsert = [NSMutableArray array];
+            for (int row=0 ; row < rowsToInsert ; row++) {
+                [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:row inSection:1]];
+            }
+            
+            // Animation
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView endUpdates];
+        }];
     }
 }
 

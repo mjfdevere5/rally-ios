@@ -52,7 +52,7 @@
     // Selected by the user, game setup view
     self.sport = nil;
     self.networks = [NSMutableArray array];
-    self.simRanked = nil;
+    self.simRanked = RA_SIMRANKED_EVERYONE;
     
     // Selected by the user, game logistics view
     self.firstPreference = [[RA_TimeAndDatePreference alloc] initWithDay:[NSDate date]
@@ -119,7 +119,8 @@
 
 -(BOOL)validDatesAndTimes
 {
-    return !([self.firstPreference bothActiveAndEqual:self.backupPreference]);
+    return !([self.firstPreference bothActiveAndEqual:self.backupPreference] &&
+             self.hasBackupPreference);
 }
 
 -(BOOL)validLocation

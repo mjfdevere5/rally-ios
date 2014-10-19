@@ -11,6 +11,8 @@
 #import "UIImage+ProfilePicHandling.h"
 #import "RA_ParseNetwork.h"
 #import "NSDate+CoolStrings.h"
+#import "RA_TimeAndDatePreference.h"
+#import "NSIndexPath+Utilities.h"
 
 @interface RA_FeedCellShout()
 @property (strong, nonatomic) NSString *sportName;
@@ -62,72 +64,37 @@
     self.lookingToPlayLabel.attributedText = lookingToPlayText;
     
     // Preference bullets
-    NSMutableString *preferenceBullets = [NSMutableString stringWithFormat:@"- %@ at %@",
-                                          [self.gamePref.dateTimePreferences[0][0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
-                                          [self.gamePref.dateTimePreferences[0][1] getCommonSpeechClock]]; // TO DO
+    RA_TimeAndDatePreference *prefOne = [[RA_TimeAndDatePreference alloc] initWithDatabaseArray:self.gamePref.dateTimePreferences[0]];
+    NSMutableString *preferenceBullets = [NSMutableString stringWithFormat:@"- %@ in the %@",
+                                          [[prefOne getDay] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                          [[prefOne timeStringCapitalized] lowercaseString]];
     if ([self.gamePref.dateTimePreferences count] > 1) {
-        NSString *preferenceTwo = [NSString stringWithFormat:@"\n- %@ at %@",
-                                   [self.gamePref.dateTimePreferences[1][0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
-                                   [self.gamePref.dateTimePreferences[1][1] getCommonSpeechClock]];
+        RA_TimeAndDatePreference *prefTwo = [[RA_TimeAndDatePreference alloc] initWithDatabaseArray:self.gamePref.dateTimePreferences[1]];
+        NSString *preferenceTwo = [NSString stringWithFormat:@"\n- %@ in the %@",
+                                   [[prefTwo getDay] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                   [[prefTwo timeStringCapitalized] lowercaseString]];
         [preferenceBullets appendString:preferenceTwo];
         if ([self.gamePref.dateTimePreferences count] > 2) {
-            NSString *preferenceThree = [NSString stringWithFormat:@"\n- %@ at %@",
-                                         [self.gamePref.dateTimePreferences[2][0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
-                                         [self.gamePref.dateTimePreferences[2][1] getCommonSpeechClock]];
+            RA_TimeAndDatePreference *prefThree = [[RA_TimeAndDatePreference alloc] initWithDatabaseArray:self.gamePref.dateTimePreferences[2]];
+            NSString *preferenceThree = [NSString stringWithFormat:@"\n- %@ in the %@",
+                                       [[prefThree getDay] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES],
+                                       [[prefThree timeStringCapitalized] lowercaseString]];
             [preferenceBullets appendString:preferenceThree];
         }
     }
     self.preferenceBulletsLabel.text = preferenceBullets;
     [self.preferenceBulletsLabel sizeToFit]; // TO DO: is this correct?
+    [self layoutIfNeeded];
     
-    // Network in common
-    self.networksInCommonLabel.text = [NSString stringWithFormat:@"%@ networks in common:",
-                                       [self.gamePref.sport capitalizedString]];
-    
-    // Network bullets (WITHOUT RANKINGS, TEMPORARY)
-    NSArray *networksInCommon = [self.gamePref.user getNetworksInCommonWithMeForSport:self.gamePref.sport];
-    if ([networksInCommon count] == 0) {
-        COMMON_LOG_WITH_COMMENT(@"ERROR: No networks in common?")
-    }
-    NSMutableString *networkBullets = [NSMutableString string];
-    for (int i=0 ; i<[networksInCommon count] ; i++) {
-        if (i > 0) {
-            [networkBullets appendString:@"\n"];
-        }
-        RA_ParseNetwork *network = networksInCommon[i];
-        NSString *bullet = [NSString stringWithFormat:@"- %@ (getting rank...)", network.name];
-        [networkBullets appendString:bullet];
-    }
-    self.networkBulletsLabel.text = networkBullets;
+    // Network in common (TEMPORARY)
+    self.networksInCommonLabel.text = [NSString stringWithFormat:@"Finding networks in common..."];
+    [self.networksActivityWheel startAnimating];
+    self.networkBulletsLabel.text = nil;
     [self.networkBulletsLabel sizeToFit]; // TO DO: is this correct?
 }
 
 -(void)configureCellPartTwo
 {
-    // Network bullets (WITH RANKINGS, ASYNC), since we may not have all networks yet
-    NSArray *networksInCommon = [self.gamePref.user getNetworksInCommonWithMeForSport:self.gamePref.sport];
-    [self.networksActivityWheel startAnimating];
-    [PFObject fetchAllIfNeededInBackground:networksInCommon block:^(NSArray *objects, NSError *error) {
-        NSMutableString *networkBulletsWithRanks = [NSMutableString string];
-        for (int i=0 ; i<[networksInCommon count] ; i++) {
-            if (i > 0) {
-                [networkBulletsWithRanks appendString:@"\n"];
-            }
-            RA_ParseNetwork *network = networksInCommon[i];
-            NSInteger rank = [network getRankForPlayer:self.gamePref.user];
-            if (rank == 0) {
-                NSString *bullet = [NSString stringWithFormat:@"- %@ (%@)", network.name, @"not yet ranked"];
-                [networkBulletsWithRanks appendString:bullet];
-            }
-            else {
-                NSString *bullet = [NSString stringWithFormat:@"- %@ (%lu)", network.name, (unsigned long)rank];
-                [networkBulletsWithRanks appendString:bullet];
-            }
-        }
-        [self.networksActivityWheel stopAnimating];
-        self.networkBulletsLabel.text = networkBulletsWithRanks;
-    }];
-    
     // Load thumbnail
     PFFile *picFile = self.gamePref.user.profilePicSmall;
     if (![picFile isDataAvailable]) {
@@ -145,8 +112,58 @@
             self.thumbnail.image = rightSizedPicWithRoundedCorners;
         }
     }];
+    
+    // Network bullets (WITH RANKINGS, ASYNC), since we may not have all networks yet
+    [self performSelectorInBackground:@selector(findAndPrintNetworksInCommon) withObject:nil];
 }
 
+-(void)findAndPrintNetworksInCommon // (BACKGROUND ONLY)
+{
+    // Create the text for the outlets
+    NSArray *networksInCommon = [self.gamePref.user getNetworksInCommonWithMeForSport:self.gamePref.sport]; // Takes a while, so we are in background
+    COMMON_LOG_WITH_COMMENT([networksInCommon description])
+    NSMutableString *networkBulletsWithRanks = [NSMutableString string];
+    for (int i=0 ; i<[networksInCommon count] ; i++) {
+        if (i > 0) {
+            [networkBulletsWithRanks appendString:@"\n"];
+        }
+        RA_ParseNetwork *network = networksInCommon[i];
+        NSInteger rank = [network getRankForPlayer:self.gamePref.user];
+        if (rank == 0) {
+            NSString *bullet = [NSString stringWithFormat:@"- %@ (%@)", network.name, @"not yet ranked"];
+            [networkBulletsWithRanks appendString:bullet];
+        }
+        else {
+            NSString *bullet = [NSString stringWithFormat:@"- %@ (#%lu)", network.name, (unsigned long)rank];
+            [networkBulletsWithRanks appendString:bullet];
+        }
+    }
+    
+    // Update outlets
+    [self.networksActivityWheel stopAnimating];
+    self.networksInCommonLabel.text = [NSString stringWithFormat:@"%@ networks in common:", [self.gamePref.sport capitalizedString]];
+    self.networkBulletsLabel.text = networkBulletsWithRanks;
+    COMMON_LOG_WITH_COMMENT(networkBulletsWithRanks)
+    
+    // Resize the cell
+    [self performSelectorOnMainThread:@selector(resizeInTableView) withObject:nil waitUntilDone:NO];
+}
+
+-(void)resizeInTableView // (BACK ON MAIN THREAD)
+{
+    [self.networkBulletsLabel sizeToFit]; // TO DO: is this correct?
+    [self layoutIfNeeded];
+    CGSize size = [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [self.myViewController.heights setObject:[NSNumber numberWithFloat:size.height] forKey:[self.indexPath indexPathKey]];
+    
+    NSString *previousSize = [NSString stringWithFormat:@"Previous size: %f", self.frame.size.height];
+    COMMON_LOG_WITH_COMMENT(previousSize)
+    NSString *newSize = [NSString stringWithFormat:@"New size: %f", size.height];
+    COMMON_LOG_WITH_COMMENT(newSize)
+    
+    [self.myViewController.tableView beginUpdates];
+    [self.myViewController.tableView endUpdates];
+}
 
 
 @end

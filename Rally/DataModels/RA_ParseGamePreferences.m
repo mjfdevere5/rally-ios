@@ -15,7 +15,7 @@
 
 +(NSString *)parseClassName
 {
-    return @"LadderGamePreferences";
+    return @"GamePreferences";
 }
 
 + (void)load {

@@ -42,9 +42,39 @@
     return [RA_ParseNetwork objectWithoutDataWithObjectId:@"E2wWMqQTtY"];
 }
 
-// TO DO, add others
++(instancetype)allRallySquashNetwork
+{
+    return [RA_ParseNetwork objectWithoutDataWithObjectId:@"Utu5aSM2ke"];
+}
 
++(instancetype)allRallyTennisNetwork
+{
+    return [RA_ParseNetwork objectWithoutDataWithObjectId:@"Y2IHHx2uu4"];
+}
 
++(instancetype)networkWithName:(NSString *)theName andSport:(NSString *)theSport andType:(NSString *)theType andAccessCode:(NSString *)theAccessCode andAdmin:(RA_ParseUser *)theAdmin andDuration:(NSNumber *)theDuration
+{
+    // Initialize
+    RA_ParseNetwork *network = [[self class] object];
+    
+    // Add params
+    network.name = theName;
+    network.sport = theSport;
+    network.type = theType;
+    network.accessCode = theAccessCode;
+    network.administrator = theAdmin;
+    network.duration = theDuration;
+    
+    // Inferred
+    network.adminDisplayName = theAdmin.displayName;
+    
+    // Other initializations
+    network.userIdsToScores = [NSMutableDictionary dictionary];
+    network.userIdsToLastWeekScores = [NSMutableDictionary dictionary];
+    
+    // Return
+    return network;
+}
 
 -(NSInteger)getRankForPlayer:(RA_ParseUser *)player
 {
@@ -52,8 +82,7 @@
         COMMON_LOG_WITH_COMMENT(@"ERROR")
         return 0;
     }
-    
-    else{
+    else {
         NSArray *orderedIds = [self.userIdsToScores keysSortedByValueUsingComparator:
                                ^NSComparisonResult(NSNumber *obj1, NSNumber *obj2) {
                                    return [obj2 compare:obj1];

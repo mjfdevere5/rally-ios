@@ -9,6 +9,7 @@
 #import "RA_ParseUser.h"
 #import <Parse/PFObject+Subclass.h>
 #import "RA_ParseNetwork.h"
+#import "PFObject+Utilities.h"
 
 
 @implementation RA_ParseUser
@@ -58,11 +59,12 @@
     return networksInCommon;
 }
 
--(NSArray *)getNetworksInCommonWithMeForSport:(NSString *)sport // Must have fetched both users and their networks
+-(NSArray *)getNetworksInCommonWithMeForSport:(NSString *)sport // (BACKGROUND ONLY)
 {
     NSMutableArray *networksInCommonMut = [NSMutableArray array];
     for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
-        if ([self.networkMemberships containsObject:network.objectId] &&
+        [network fetchIfNeeded]; // This is why we are in background
+        if ([network containedInArray:self.networkMemberships] &&
             [network.sport isEqualToString:sport]) {
             [networksInCommonMut addObject:network];
         }
@@ -70,6 +72,7 @@
     NSArray *networksInCommon = [NSArray arrayWithArray:networksInCommonMut];
     return networksInCommon;
 }
+
 
 @end
 

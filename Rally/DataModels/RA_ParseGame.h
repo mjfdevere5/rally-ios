@@ -50,6 +50,7 @@
 
 -(RA_ParseUser *)getOpponentToPlayer:(RA_ParseUser *)player;
 -(RA_ParseUser *)opponent;
+-(NSArray *)getNetworksInCommonForPlayers; // (BACKGROUND ONLY)
 
 -(BOOL)playerHasConfirmed:(RA_ParseUser *)player;
 -(BOOL)playerHasProposed:(RA_ParseUser *)player;

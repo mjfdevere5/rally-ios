@@ -13,7 +13,7 @@
 
 
 -(void)configureCell
-{
+{ COMMON_LOG
     // Formatting
     // TO DO
     

@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, RA_SportPickerControlIndex) {
 // ******************** configure ********************
 
 -(void)configureCell
-{
+{ COMMON_LOG
     // Formatting
     // TO DO
     

@@ -15,7 +15,7 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
 
 
 -(void)configureCell
-{
+{ COMMON_LOG
     // Formatting
     // TO DO
     

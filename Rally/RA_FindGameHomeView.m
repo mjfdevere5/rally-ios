@@ -12,6 +12,9 @@
 #import "RA_FeedCellShout.h"
 #import "RA_NextGamePrefOne.h"
 #import "RA_UserProfileDynamicTable.h"
+#import "RA_TimeAndDatePreference.h"
+#import "NSDate+Utilities.h"
+#import "NSIndexPath+Utilities.h"
 
 
 
@@ -35,19 +38,6 @@
 
 @implementation RA_FindGameHomeView
 
-
-#pragma mark - getter setter
-// ******************** getter setter ********************
-
--(RA_FeedCellShout *)prototypeCell
-{
-    if (!self.prototypeCell) {
-        self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"shout_broadcast_cell"];
-    }
-    return self.prototypeCell;
-}
-
-
 #pragma mark - load up and refresh
 // ******************** load up and refresh ********************
 
@@ -64,6 +54,12 @@
     // Setting some styles for the table
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = UIColorFromRGB(GENERIC_BACKGROUND_COLOUR);
+    
+    // Cell height dictionary
+    self.heights = [NSMutableDictionary dictionary];
+    
+    // Prepare a prototypeCell
+    self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"shout_broadcast_cell"];
     
     // Configure refresher control thing
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -114,7 +110,9 @@
     }
     
     // Run the query to get the news feed items, takes a while
-    self.arrayOfBroadcastsBackground = [self getShoutsFromParse];
+    NSArray *queryResults = [self getShoutsFromParse];
+    
+    self.arrayOfBroadcastsBackground = [self pruneResults:queryResults];
     
     // Now move onto the main thread
     [self performSelectorOnMainThread:@selector(reloadTableViewWithBroadcasts) withObject:nil waitUntilDone:YES];
@@ -130,11 +128,8 @@
     query.cachePolicy = kPFCachePolicyNetworkOnly;
     [query setLimit:50];
 
-    // Interested in shouts only for some future time
-    [query whereKey:@"date" greaterThanOrEqualTo:[NSDate date]];
-
     // Only what's been made visible to me
-    [query whereKey:@"visibility" containedIn:[RA_ParseUser currentUser].networkMemberships];
+    [query whereKey:@"networks" containedIn:[RA_ParseUser currentUser].networkMemberships];
     // The above seems unusual ("array contained in array") but actually returns all results where any item in PF_SHOUT_VISIBILITY is contained in the user's networks. See https://www.parse.com/questions/query-where-relation-contains-any-object-from-array
 
     // Order by created descending
@@ -153,6 +148,52 @@
     
     // Return
     return results;
+}
+
+-(NSArray *)pruneResults:(NSArray *)results
+{ COMMON_LOG
+    NSMutableArray *prunedResultsMut = [NSMutableArray array];
+    for (RA_ParseGamePreferences *gamePref in results) {
+        // See if first pref is still in date
+        BOOL firstPrefIsInDate = NO;
+        RA_TimeAndDatePreference *timeAndDatePrefFirst;
+        timeAndDatePrefFirst = [[RA_TimeAndDatePreference alloc] initWithDatabaseArray:gamePref.dateTimePreferences[0]];
+        firstPrefIsInDate = ([[timeAndDatePrefFirst getDay] isEqualToDateIgnoringTime:[NSDate date]] ||
+                             [[timeAndDatePrefFirst getDay] isLaterThanDate:[NSDate date]]);
+        
+        // See if second pref is still in date
+        BOOL secondPrefIsInDate = NO;
+        RA_TimeAndDatePreference *timeAndDatePrefSecond;
+        if ([gamePref.dateTimePreferences count] >1) {
+            timeAndDatePrefSecond = [[RA_TimeAndDatePreference alloc] initWithDatabaseArray:gamePref.dateTimePreferences[1]];
+            secondPrefIsInDate = ([[timeAndDatePrefSecond getDay] isEqualToDateIgnoringTime:[NSDate date]] ||
+                                  [[timeAndDatePrefSecond getDay] isLaterThanDate:[NSDate date]]);
+        }
+        
+        // Overwrite the gamePref with which ones are in date
+        if (firstPrefIsInDate) {
+            if (secondPrefIsInDate) {
+                gamePref.dateTimePreferences = @[[timeAndDatePrefFirst databaseArray], [timeAndDatePrefSecond databaseArray]];
+                [prunedResultsMut addObject:gamePref];
+            }
+            else {
+                gamePref.dateTimePreferences = @[[timeAndDatePrefFirst databaseArray]];
+                [prunedResultsMut addObject:gamePref];
+            }
+        }
+        else {
+            if (secondPrefIsInDate) {
+                gamePref.dateTimePreferences = @[[timeAndDatePrefSecond databaseArray]];
+                [prunedResultsMut addObject:gamePref];
+            }
+            else {
+                // Do nothing, and this result therefore is not shown to the user
+            }
+        }
+    }
+    NSString *comment = [NSString stringWithFormat:@"%lu results to show to user", (unsigned long) [prunedResultsMut count]];
+    COMMON_LOG_WITH_COMMENT(comment)
+    return [NSArray arrayWithArray:prunedResultsMut];
 }
 
 -(void)reloadTableViewWithBroadcasts // Back on the main thread now
@@ -191,14 +232,20 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{ COMMON_LOG
     // Configure
-    RA_ParseGamePreferences *gamePref = self.arrayOfBroadcastsMain[indexPath.row];
-    self.prototypeCell.gamePref = gamePref;
-    [self.prototypeCell configureCellForHeightPurposesOnly];
-    [self.prototypeCell layoutIfNeeded];
-    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height + 1;
+    NSNumber *height = [self.heights objectForKey:[indexPath indexPathKey]];
+    if (height) {
+        return [height floatValue];
+    }
+    else {
+        RA_ParseGamePreferences *gamePref = self.arrayOfBroadcastsMain[indexPath.row];
+        self.prototypeCell.gamePref = gamePref;
+        [self.prototypeCell configureCellForHeightPurposesOnly];
+        [self.prototypeCell layoutIfNeeded];
+        CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -209,6 +256,8 @@
     // Configure
     RA_ParseGamePreferences *gamePref = self.arrayOfBroadcastsMain[indexPath.row];
     cell.gamePref = gamePref;
+    cell.myViewController = self;
+    cell.indexPath = indexPath;
     [cell configureCell];
     
     // Return

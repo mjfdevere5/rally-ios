@@ -37,10 +37,9 @@
         self.timeAndDate = [RA_GamePrefConfig gamePrefConfig].backupPreference;
     }
     
-    // Generates labels
-    self.dayLabel.text = [[self.timeAndDate day] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO];
+    self.dayLabel.text = [[(RA_TimeAndDatePreference *)self.timeAndDate getDay] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO];
     [self.dayLabel sizeToFit]; // TO DO: is this correct?
-    self.timeLabel.text = [self.timeAndDate timeStringCapitalized];
+    self.timeLabel.text = [(RA_TimeAndDatePreference *)self.timeAndDate timeStringCapitalized];
     [self.timeLabel sizeToFit]; // TO DO: is this correct?
     
     // Set buttons active/inactive
@@ -59,7 +58,7 @@
 
 - (IBAction)tappedEarlierDay:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate day];
+    NSDate *dateBeforeTap = [self.timeAndDate getDay];
     NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
     RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:[dateBeforeTap dateBySubtractingDays:1]
                                                                     andTimeInteger:[timeBeforeTap integerValue]];
@@ -75,7 +74,7 @@
 
 - (IBAction)tappedLaterDay:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate day];
+    NSDate *dateBeforeTap = [self.timeAndDate getDay];
     NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
     RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:[dateBeforeTap dateByAddingDays:1]
                                                                     andTimeInteger:[timeBeforeTap integerValue]];
@@ -91,7 +90,7 @@
 
 - (IBAction)tappedEarlierTime:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate day];
+    NSDate *dateBeforeTap = [self.timeAndDate getDay];
     NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
     RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:dateBeforeTap
                                                                     andTimeInteger:([timeBeforeTap integerValue] - 1)];
@@ -107,7 +106,7 @@
 
 - (IBAction)tappedLaterTime:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate day];
+    NSDate *dateBeforeTap = [self.timeAndDate getDay];
     NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
     RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:dateBeforeTap
                                                                     andTimeInteger:([timeBeforeTap integerValue] + 1)];

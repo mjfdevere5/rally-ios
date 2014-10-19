@@ -146,6 +146,8 @@
 		5049007519F152CC003006F9 /* RA_TimeAndDatePreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 5049007419F152CC003006F9 /* RA_TimeAndDatePreference.m */; };
 		504BFC4019B21C38001EA73D /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 504BFC3F19B21C38001EA73D /* NSDate+Utilities.m */; };
 		5052AFB419EECA7C0074B076 /* RA_GameStatusVerticalTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052AFB319EECA7C0074B076 /* RA_GameStatusVerticalTextView.m */; };
+		50538E6419F46B6E00C5AEE5 /* NSIndexPath+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50538E6319F46B6E00C5AEE5 /* NSIndexPath+Utilities.m */; };
+		50538E6719F477CD00C5AEE5 /* PFObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50538E6619F477CD00C5AEE5 /* PFObject+Utilities.m */; };
 		506C2DEE19E7516B00910B21 /* RA_GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506C2DED19E7516B00910B21 /* RA_GameView.m */; };
 		5071C24719E3092E006A208E /* RA_ParseUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5071C24619E3092E006A208E /* RA_ParseUser.m */; };
 		5071C24D19E4411F006A208E /* RA_ParseGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5071C24C19E4411F006A208E /* RA_ParseGame.m */; };
@@ -421,6 +423,10 @@
 		504BFC3F19B21C38001EA73D /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Utilities.m"; path = "NSDate+Utilities/NSDate+Utilities.m"; sourceTree = "<group>"; };
 		5052AFB219EECA7C0074B076 /* RA_GameStatusVerticalTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameStatusVerticalTextView.h; sourceTree = "<group>"; };
 		5052AFB319EECA7C0074B076 /* RA_GameStatusVerticalTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameStatusVerticalTextView.m; sourceTree = "<group>"; };
+		50538E6219F46B6E00C5AEE5 /* NSIndexPath+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+Utilities.h"; sourceTree = "<group>"; };
+		50538E6319F46B6E00C5AEE5 /* NSIndexPath+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+Utilities.m"; sourceTree = "<group>"; };
+		50538E6519F477CD00C5AEE5 /* PFObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+Utilities.h"; sourceTree = "<group>"; };
+		50538E6619F477CD00C5AEE5 /* PFObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Utilities.m"; sourceTree = "<group>"; };
 		506C2DEC19E7516B00910B21 /* RA_GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameView.h; sourceTree = "<group>"; };
 		506C2DED19E7516B00910B21 /* RA_GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameView.m; sourceTree = "<group>"; };
 		5071C24519E3092D006A208E /* RA_ParseUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RA_ParseUser.h; path = DataModels/RA_ParseUser.h; sourceTree = "<group>"; };
@@ -598,7 +604,6 @@
 				508DDC2719AF627B00DA3CD1 /* AppConstants.h */,
 				50CEE83419E53FB0005C61E4 /* GlobalConstants.h */,
 				508DDC2519AF5D2E00DA3CD1 /* Images.xcassets */,
-				508AC44819F18444008F1D1C /* Add/join network */,
 				503983B819EC3AD1007ED8D2 /* Rally sport selector */,
 				5071C24819E30C8F006A208E /* Parse classes */,
 				5039839B19EBE8D0007ED8D2 /* Chat */,
@@ -608,10 +613,10 @@
 				50EF3ABF19F007930032510C /* Tabbar 0. Find game */,
 				50B9F79819D1E27200CA5F0E /* Tabbar 0. Next game */,
 				508AC45519F18566008F1D1C /* Tabbar 1. News feed */,
-				508AC44119F1841C008F1D1C /* Tabbar 2. Leaderboards */,
-				508FA67F19E6DF0000B61767 /* Tabbar 3. My Games Manager */,
-				50E8AFDB19D34D240050544E /* Tabbar 3. Recent chats */,
-				5039839A19EBE890007ED8D2 /* Tabbar 4. Settings */,
+				508AC44119F1841C008F1D1C /* Tabbar 2. Networks */,
+				508AC44819F18444008F1D1C /* Tabbar 2. Add/join network */,
+				508FA67F19E6DF0000B61767 /* Tabbar 3. Games Manager */,
+				5039839A19EBE890007ED8D2 /* Tabbar 4. More */,
 				50330EEA19B9046A00A03301 /* Helpful stuff */,
 				504BFC3B19B2116D001EA73D /* OpenSourceLibraries */,
 				500854AD19AE21FC0071DDF4 /* Supporting Files */,
@@ -729,6 +734,10 @@
 				50330EE819B8FE6600A03301 /* UIImage+ProfilePicHandling.m */,
 				5039AD1119D566C100450556 /* NSString+StringsUtils.h */,
 				5039AD1219D566C100450556 /* NSString+StringsUtils.m */,
+				50538E6219F46B6E00C5AEE5 /* NSIndexPath+Utilities.h */,
+				50538E6319F46B6E00C5AEE5 /* NSIndexPath+Utilities.m */,
+				50538E6519F477CD00C5AEE5 /* PFObject+Utilities.h */,
+				50538E6619F477CD00C5AEE5 /* PFObject+Utilities.m */,
 			);
 			name = "Helpful stuff";
 			sourceTree = "<group>";
@@ -783,13 +792,17 @@
 			name = "User Profile";
 			sourceTree = "<group>";
 		};
-		5039839A19EBE890007ED8D2 /* Tabbar 4. Settings */ = {
+		5039839A19EBE890007ED8D2 /* Tabbar 4. More */ = {
 			isa = PBXGroup;
 			children = (
 				502017D519C37DF300F37200 /* RA_Settings.h */,
 				502017D619C37DF300F37200 /* RA_Settings.m */,
+				50E8AFD819D34D1A0050544E /* RA_RecentChats.h */,
+				50E8AFD919D34D1A0050544E /* RA_RecentChats.m */,
+				50E8AFE219D377250050544E /* RA_RecentChatCell.h */,
+				50E8AFE319D377250050544E /* RA_RecentChatCell.m */,
 			);
-			name = "Tabbar 4. Settings";
+			name = "Tabbar 4. More";
 			sourceTree = "<group>";
 		};
 		5039839B19EBE8D0007ED8D2 /* Chat */ = {
@@ -1110,7 +1123,7 @@
 			name = FXBlurView;
 			sourceTree = "<group>";
 		};
-		508AC44119F1841C008F1D1C /* Tabbar 2. Leaderboards */ = {
+		508AC44119F1841C008F1D1C /* Tabbar 2. Networks */ = {
 			isa = PBXGroup;
 			children = (
 				508AC42F19F18417008F1D1C /* RA_Networks.h */,
@@ -1126,10 +1139,10 @@
 				508AC43919F18417008F1D1C /* RA_LeagueCellHeader.h */,
 				508AC43A19F18417008F1D1C /* RA_LeagueCellHeader.m */,
 			);
-			name = "Tabbar 2. Leaderboards";
+			name = "Tabbar 2. Networks";
 			sourceTree = "<group>";
 		};
-		508AC44819F18444008F1D1C /* Add/join network */ = {
+		508AC44819F18444008F1D1C /* Tabbar 2. Add/join network */ = {
 			isa = PBXGroup;
 			children = (
 				508AC44219F1843D008F1D1C /* RA_createNetwork.h */,
@@ -1137,7 +1150,7 @@
 				508AC44419F1843D008F1D1C /* RA_Rules.h */,
 				508AC44519F1843D008F1D1C /* RA_Rules.m */,
 			);
-			name = "Add/join network";
+			name = "Tabbar 2. Add/join network";
 			sourceTree = "<group>";
 		};
 		508AC45519F18566008F1D1C /* Tabbar 1. News feed */ = {
@@ -1157,7 +1170,7 @@
 			name = "Tabbar 1. News feed";
 			sourceTree = "<group>";
 		};
-		508FA67F19E6DF0000B61767 /* Tabbar 3. My Games Manager */ = {
+		508FA67F19E6DF0000B61767 /* Tabbar 3. Games Manager */ = {
 			isa = PBXGroup;
 			children = (
 				508FA67C19E6DEF500B61767 /* RA_MyGames.h */,
@@ -1187,7 +1200,7 @@
 				503D577D19EB1E52001E7AE2 /* RA_GameViewCancelCell.h */,
 				503D577E19EB1E52001E7AE2 /* RA_GameViewCancelCell.m */,
 			);
-			name = "Tabbar 3. My Games Manager";
+			name = "Tabbar 3. Games Manager";
 			sourceTree = "<group>";
 		};
 		508FA68319E70D5C00B61767 /* DZNSegmentedControl */ = {
@@ -1230,17 +1243,6 @@
 				503983CD19EC3C01007ED8D2 /* RA_LocationSingleton.m */,
 			);
 			name = "Tabbar 0. Next game";
-			sourceTree = "<group>";
-		};
-		50E8AFDB19D34D240050544E /* Tabbar 3. Recent chats */ = {
-			isa = PBXGroup;
-			children = (
-				50E8AFD819D34D1A0050544E /* RA_RecentChats.h */,
-				50E8AFD919D34D1A0050544E /* RA_RecentChats.m */,
-				50E8AFE219D377250050544E /* RA_RecentChatCell.h */,
-				50E8AFE319D377250050544E /* RA_RecentChatCell.m */,
-			);
-			name = "Tabbar 3. Recent chats";
 			sourceTree = "<group>";
 		};
 		50EF3ABF19F007930032510C /* Tabbar 0. Find game */ = {
@@ -1428,6 +1430,7 @@
 				508AC42E19F17B05008F1D1C /* RA_NextGameLocationCell.m in Sources */,
 				508AC43E19F18417008F1D1C /* RA_LeagueTables.m in Sources */,
 				50330EE119B877ED00A03301 /* UIImage+Tint.m in Sources */,
+				50538E6719F477CD00C5AEE5 /* PFObject+Utilities.m in Sources */,
 				5018103C19E8061A00018390 /* RA_GameViewStatusCell.m in Sources */,
 				5018104819E8069800018390 /* RA_GameViewFacilitiesCell.m in Sources */,
 				5071C24D19E4411F006A208E /* RA_ParseGame.m in Sources */,
@@ -1485,6 +1488,7 @@
 				5014F6B219DC6A7B0042E14D /* Reachability.m in Sources */,
 				5043E9AE19BD133D00A3E028 /* JSQMessagesCollectionViewFlowLayout.m in Sources */,
 				50468F5419B7D8F1000883BF /* GKImageCropOverlayView.m in Sources */,
+				50538E6419F46B6E00C5AEE5 /* NSIndexPath+Utilities.m in Sources */,
 				508AC44719F1843D008F1D1C /* RA_Rules.m in Sources */,
 				508AC43D19F18417008F1D1C /* RA_CollCellDetails.m in Sources */,
 				502FEBE819BD11A500D4A2D9 /* ChatView.m in Sources */,

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RA_FindGameHomeView.h"
 #import "RA_ParseBroadcast.h"
 
 @interface RA_FeedCellShout : UITableViewCell
 
 @property (strong, nonatomic) RA_ParseGamePreferences *gamePref;
+@property (strong, nonatomic) RA_FindGameHomeView *myViewController;
+@property (strong, nonatomic) NSIndexPath *indexPath;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeStamp;

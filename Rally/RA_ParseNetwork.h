@@ -25,6 +25,9 @@
 @property (strong, nonatomic) NSNumber *duration;
 
 +(instancetype)rallyUsersNetwork;
++(instancetype)allRallySquashNetwork;
++(instancetype)allRallyTennisNetwork;
++(instancetype)networkWithName:(NSString *)theName andSport:(NSString *)theSport andType:(NSString *)theType andAccessCode:(NSString *)theAccessCode andAdmin:(RA_ParseUser *)theAdmin andDuration:(NSNumber *)theDuration;
 -(NSInteger)getRankForPlayer:(RA_ParseUser *)player;
 
 @end

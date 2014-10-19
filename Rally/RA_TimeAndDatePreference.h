@@ -29,11 +29,14 @@ typedef NS_ENUM(NSInteger, RA_GamePrefPossibleTimes) {
 
 
 // These are arrays with two values: 0. an NSDate, 1. an NSNumber value
-@interface RA_TimeAndDatePreference : NSArray
+@interface RA_TimeAndDatePreference : NSObject
+
+@property (strong, nonatomic) NSArray *valuesArray;
 
 // General
 -(instancetype)initWithDay:(NSDate *)date andTimeInteger:(RA_GamePrefPossibleTimes)timeInteger;
--(NSDate *)day;
+-(instancetype)initWithDatabaseArray:(NSArray *)array;
+-(NSDate *)getDay;
 -(NSNumber *)timeNumber;
 
 // Cell

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vJL-FD-7ya">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -53,13 +54,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="snJ-GC-ZdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2224" y="1484"/>
+            <point key="canvasLocation" x="-2108" y="878"/>
         </scene>
-        <!--Settings-->
+        <!--More-->
         <scene sceneID="GoE-9T-ZaK">
             <objects>
-                <navigationController definesPresentationContext="YES" id="Ave-LD-jZo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="icon_settings" id="nR8-Yt-XbU"/>
+                <navigationController storyboardIdentifier="settings" definesPresentationContext="YES" id="Ave-LD-jZo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="More" image="icon_settings" id="nR8-Yt-XbU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NSx-hF-3lf">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -69,9 +70,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZtD-kq-q3n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2467" y="310"/>
+            <point key="canvasLocation" x="-827" y="1386"/>
         </scene>
-        <!--Settings-->
+        <!--More-->
         <scene sceneID="6Ta-eZ-nOa">
             <objects>
                 <tableViewController id="iM0-Ng-g24" customClass="RA_Settings" sceneMemberID="viewController">
@@ -80,6 +81,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
+                            <tableViewSection headerTitle="Recent chats" id="MWi-ye-9Qo">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="yLx-OS-OGa" style="IBUITableViewCellStyleDefault" id="Qrg-HQ-EBO">
+                                        <rect key="frame" x="0.0" y="496" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qrg-HQ-EBO" id="McT-QO-5t5">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Recent chats" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yLx-OS-OGa">
+                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Tgq-rH-pKS" kind="push" id="jpB-dq-dbF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="My Profile" id="OHW-u2-4Mv">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="user_name" id="zqu-0h-Djy">
@@ -131,7 +156,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profile_pic" rowHeight="90" id="NHx-Ms-tNw">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profile_pic" rowHeight="105" id="NHx-Ms-tNw">
                                         <rect key="frame" x="0.0" y="163" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NHx-Ms-tNw" id="ONA-mw-ss5">
@@ -139,20 +164,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DUG-rl-WJ4" customClass="PFImageView">
-                                                    <rect key="frame" x="15" y="5" width="100" height="80"/>
+                                                    <rect key="frame" x="15" y="12" width="100" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="8Ck-IC-5D3"/>
                                                         <constraint firstAttribute="width" constant="100" id="95g-p9-2qi"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to select photo from your local albums" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="175" translatesAutoresizingMaskIntoConstraints="NO" id="TvS-aF-A61">
-                                                    <rect key="frame" x="130" y="30" width="175" height="29"/>
+                                                    <rect key="frame" x="130" y="38" width="175" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uNm-BA-eHP">
-                                                    <rect key="frame" x="47" y="26" width="37" height="37"/>
+                                                    <rect key="frame" x="47" y="33" width="37" height="37"/>
                                                     <color key="color" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </activityIndicatorView>
                                             </subviews>
@@ -186,23 +211,23 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Support" id="MWi-ye-9Qo">
+                            <tableViewSection headerTitle="Support" id="lMq-3q-6f3">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="email_us" textLabel="0gA-CM-190" detailTextLabel="AIi-Ri-bpf" style="IBUITableViewCellStyleSubtitle" id="67g-tP-lEM">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="email_us" textLabel="d19-I3-P0M" detailTextLabel="Gof-jj-IWx" style="IBUITableViewCellStyleSubtitle" id="Yww-fD-LwQ">
                                         <rect key="frame" x="0.0" y="408" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="67g-tP-lEM" id="o2Y-LN-dJA">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yww-fD-LwQ" id="zfV-FI-b59">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Email us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0gA-CM-190">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Email us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d19-I3-P0M">
                                                     <rect key="frame" x="15" y="3" width="69" height="22"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Opens in Mail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AIi-Ri-bpf">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Opens in Mail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gof-jj-IWx">
                                                     <rect key="frame" x="15" y="25" width="77" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -212,21 +237,21 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="privacy_policy" textLabel="OdL-1P-AAt" detailTextLabel="oWv-NI-wKo" style="IBUITableViewCellStyleSubtitle" id="QOK-ME-tzP">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="privacy_policy" textLabel="vem-yV-puV" detailTextLabel="2uJ-EY-2lF" style="IBUITableViewCellStyleSubtitle" id="YSw-rI-WJT">
                                         <rect key="frame" x="0.0" y="452" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QOK-ME-tzP" id="Qv7-ya-HCO">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YSw-rI-WJT" id="uEV-2O-XPk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Privacy policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OdL-1P-AAt">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Privacy policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vem-yV-puV">
                                                     <rect key="frame" x="15" y="3" width="112" height="22"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Opens in Safari" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oWv-NI-wKo">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Opens in Safari" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2uJ-EY-2lF">
                                                     <rect key="frame" x="15" y="25" width="86" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -236,14 +261,14 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="yLx-OS-OGa" style="IBUITableViewCellStyleDefault" id="Qrg-HQ-EBO">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="vts-fj-hwq" style="IBUITableViewCellStyleDefault" id="bM6-TB-4aK">
                                         <rect key="frame" x="0.0" y="496" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qrg-HQ-EBO" id="McT-QO-5t5">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bM6-TB-4aK" id="EUp-et-Oj9">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Version number outlet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yLx-OS-OGa">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Version number outlet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vts-fj-hwq">
                                                     <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -261,17 +286,17 @@
                             <outlet property="delegate" destination="iM0-Ng-g24" id="jaF-om-KlO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="Gqb-sS-9bR"/>
+                    <navigationItem key="navigationItem" title="More" id="Gqb-sS-9bR"/>
                     <connections>
                         <outlet property="activityWheel" destination="uNm-BA-eHP" id="sNy-7I-imO"/>
                         <outlet property="profileImage" destination="DUG-rl-WJ4" id="lyg-eh-9CI"/>
                         <outlet property="username" destination="qg2-NK-FdO" id="VpX-cN-kiM"/>
-                        <outlet property="versionOutlet" destination="yLx-OS-OGa" id="Z5o-T2-0Sw"/>
+                        <outlet property="versionOutlet" destination="vts-fj-hwq" id="ogG-y1-egJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QVt-H5-idi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2009" y="310"/>
+            <point key="canvasLocation" x="-361" y="1386"/>
         </scene>
         <!--My Games-->
         <scene sceneID="EOL-6P-UUj">
@@ -501,7 +526,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="b2G-7L-SDm">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="ZSb-Cb-kSs">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="ZSb-Cb-kSs">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="refresh:" destination="A8q-56-3Cz" id="IcX-cc-DQz"/>
@@ -515,7 +540,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hFl-s0-t5s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-361" y="-962"/>
+            <point key="canvasLocation" x="-361" y="656"/>
         </scene>
         <!--Game Manager-->
         <scene sceneID="eaQ-qo-tji">
@@ -965,13 +990,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZT-y9-eXZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136" y="-960"/>
+            <point key="canvasLocation" x="110" y="656"/>
         </scene>
-        <!--My games-->
+        <!--Game Manager-->
         <scene sceneID="K5Z-lP-Pod">
             <objects>
                 <navigationController id="OtO-ga-bbm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My games" image="icon_calendar" id="QbJ-1B-m2q"/>
+                    <tabBarItem key="tabBarItem" title="Game Manager" image="icon_calendar" id="QbJ-1B-m2q"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UVy-F5-tZG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -982,9 +1007,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M2B-RT-sNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-827" y="-960"/>
+            <point key="canvasLocation" x="-827" y="656"/>
         </scene>
-        <!--Messages-->
+        <!--Recent chats-->
         <scene sceneID="ocR-g5-nRh">
             <objects>
                 <tableViewController id="Tgq-rH-pKS" customClass="RA_RecentChats" sceneMemberID="viewController">
@@ -1064,8 +1089,8 @@
                             <outlet property="delegate" destination="Tgq-rH-pKS" id="QBi-qR-8Xa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Messages" id="smv-UK-7Ja">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="QHF-eU-cA7">
+                    <navigationItem key="navigationItem" title="Recent chats" id="smv-UK-7Ja">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="QHF-eU-cA7">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="refresh:" destination="Tgq-rH-pKS" id="XyS-DZ-ObP"/>
@@ -1075,29 +1100,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NgO-gg-nfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-361" y="1212"/>
+            <point key="canvasLocation" x="110" y="1386"/>
         </scene>
-        <!--Messages-->
-        <scene sceneID="tSK-7n-BdG">
-            <objects>
-                <navigationController definesPresentationContext="YES" id="OIe-H0-eRL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" image="icon_messages" id="VEb-MK-fkT"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hp0-zz-9bX">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Tgq-rH-pKS" kind="relationship" relationship="rootViewController" id="crJ-oE-2wZ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sKK-H7-G1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-827" y="1212"/>
-        </scene>
-        <!--NEW GAME-->
+        <!--Next Game-->
         <scene sceneID="Rcr-vg-wKK">
             <objects>
                 <navigationController id="kiW-cr-iC8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="NEW GAME" image="icon_play" id="CcG-Am-jYb"/>
+                    <tabBarItem key="tabBarItem" title="Next Game" image="icon_play" id="CcG-Am-jYb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uqV-JM-54y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1108,7 +1117,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A4S-aJ-GwT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-827" y="2057"/>
+            <point key="canvasLocation" x="-827" y="-1655"/>
         </scene>
         <!--Find Game Home View-->
         <scene sceneID="u7l-0t-aHA">
@@ -1128,11 +1137,16 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="ae8-jZ-b7Q"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="CREATE FRESH GAME">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Create new game">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="g8l-dI-xBG" kind="push" id="mnf-rP-Bh1"/>
                                 </connections>
@@ -1283,7 +1297,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XbN-kv-bth">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="v89-71-yFe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="v89-71-yFe">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="tappedRefreshBarButton:" destination="LL8-ru-up0" id="ECP-BK-vla"/>
@@ -1298,7 +1312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZnD-yP-Fqn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-361" y="2039"/>
+            <point key="canvasLocation" x="-361" y="-1655"/>
         </scene>
         <!--Tab Bar-->
         <scene sceneID="1Dp-TM-bvf">
@@ -1312,15 +1326,15 @@
                     </tabBar>
                     <connections>
                         <segue destination="kiW-cr-iC8" kind="relationship" relationship="viewControllers" id="oWi-5J-O84"/>
-                        <segue destination="OIe-H0-eRL" kind="relationship" relationship="viewControllers" id="OkQ-cC-gof"/>
-                        <segue destination="OtO-ga-bbm" kind="relationship" relationship="viewControllers" id="qwo-Yh-jLk"/>
-                        <segue destination="BcX-z7-fmD" kind="relationship" relationship="viewControllers" id="YH7-iT-oXp"/>
                         <segue destination="3pY-AD-4Hm" kind="relationship" relationship="viewControllers" id="bSK-Be-tSr"/>
+                        <segue destination="BcX-z7-fmD" kind="relationship" relationship="viewControllers" id="YH7-iT-oXp"/>
+                        <segue destination="OtO-ga-bbm" kind="relationship" relationship="viewControllers" id="qwo-Yh-jLk"/>
+                        <segue destination="Ave-LD-jZo" kind="relationship" relationship="viewControllers" id="QAK-PX-3xL"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BV9-9e-vkd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1743" y="1484"/>
+            <point key="canvasLocation" x="-1645" y="878"/>
         </scene>
         <!--Next Game Pref One-->
         <scene sceneID="vke-a8-ccT">
@@ -1338,7 +1352,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="466"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nextgame_picksport_cell" rowHeight="56" id="s8q-Yx-qek" customClass="RA_NextGameSportPickerCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="nextgame_picksport_cell" rowHeight="56" id="s8q-Yx-qek" customClass="RA_NextGameSportPickerCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s8q-Yx-qek" id="uzi-IK-PmF">
@@ -1366,7 +1380,7 @@
                                             <outlet property="sportPickerControl" destination="QEb-ch-0AI" id="zNm-qo-rnq"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="nextgame_network_cell" textLabel="jeR-Ye-Ten" style="IBUITableViewCellStyleDefault" id="XwS-Yn-jsh" customClass="RA_NextGameNetworkCheckmarkCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="nextgame_network_cell" textLabel="jeR-Ye-Ten" style="IBUITableViewCellStyleDefault" id="XwS-Yn-jsh" customClass="RA_NextGameNetworkCheckmarkCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XwS-Yn-jsh" id="hRz-CG-wzw">
@@ -1399,7 +1413,6 @@
                                                     </segments>
                                                     <connections>
                                                         <action selector="userPickedSimilarlyRankedPreference:" destination="UCI-8O-3mm" eventType="valueChanged" id="1NS-Ab-RXT"/>
-                                                        <action selector="whoToPlay:" destination="UCI-8O-3mm" eventType="valueChanged" id="YX3-Ri-8Iu"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
@@ -1412,7 +1425,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="similarlyRankedControl" destination="6aq-Pv-XyJ" id="ZWY-bF-ftT"/>
-                                            <outlet property="whoControl" destination="6aq-Pv-XyJ" id="ALu-ew-cLn"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1476,7 +1488,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XH2-D1-Wps" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="198" y="2058"/>
+            <point key="canvasLocation" x="198" y="-1654"/>
         </scene>
         <!--Next Game Pref Two-->
         <scene sceneID="Z2K-30-kKN">
@@ -1494,7 +1506,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="466"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nextgame_datetime_cell" rowHeight="90" id="fCJ-rY-BVz" customClass="RA_NextGameDateTimeCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="nextgame_datetime_cell" rowHeight="90" id="fCJ-rY-BVz" customClass="RA_NextGameDateTimeCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fCJ-rY-BVz" id="7qe-Xc-5xL">
@@ -1635,7 +1647,7 @@
                                             <outlet property="timeLabel" destination="ca9-o7-bMT" id="eZ1-ht-7tg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nextgame_addbackup_cell" textLabel="hJO-3h-ECT" detailTextLabel="0x2-7b-5y9" style="IBUITableViewCellStyleValue1" id="VdM-AY-PXI" customClass="RA_NextGameAddBackupCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="nextgame_addbackup_cell" textLabel="hJO-3h-ECT" detailTextLabel="0x2-7b-5y9" style="IBUITableViewCellStyleValue1" id="VdM-AY-PXI" customClass="RA_NextGameAddBackupCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VdM-AY-PXI" id="JDH-bQ-eeT">
@@ -1699,11 +1711,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityWheel" destination="rE6-RB-6HU" id="AwU-yu-AHK"/>
-                                            <outlet property="comingFromStaticLabel" destination="Ql5-N9-r6I" id="T5A-FA-TPt"/>
                                             <outlet property="iWillBeComingFromLabel" destination="Ql5-N9-r6I" id="viN-9D-cnJ"/>
-                                            <outlet property="loadingCircle" destination="rE6-RB-6HU" id="SoV-D6-EUm"/>
                                             <outlet property="locationLabel" destination="e3S-8c-TiY" id="uNr-R5-sXP"/>
-                                            <outlet property="locationOutlet" destination="e3S-8c-TiY" id="UGE-id-vBb"/>
                                             <segue destination="5gf-dj-aUT" kind="push" id="hQi-K5-PYA"/>
                                         </connections>
                                     </tableViewCell>
@@ -1767,7 +1776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JSQ-A0-cY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="690" y="2042"/>
+            <point key="canvasLocation" x="690" y="-1654"/>
         </scene>
         <!--Coming from-->
         <scene sceneID="uZS-Xd-7mk">
@@ -1885,13 +1894,13 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1174" y="2057"/>
+            <point key="canvasLocation" x="1170" y="-1654"/>
         </scene>
-        <!--PLAY-->
+        <!--Networks-->
         <scene sceneID="y8F-eS-L1j">
             <objects>
                 <navigationController definesPresentationContext="YES" id="BcX-z7-fmD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="PLAY" image="icon_play" id="BEv-gV-cbS"/>
+                    <tabBarItem key="tabBarItem" title="Networks" image="icon_leaderboard" id="BEv-gV-cbS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="O5B-TN-TaK">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1901,7 +1910,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNw-MX-oel" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-827" y="526"/>
+            <point key="canvasLocation" x="-827" y="-122"/>
         </scene>
         <!--LeagueTableView-->
         <scene sceneID="U7B-ky-wjs">
@@ -1937,7 +1946,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Cj-Me-QoA">
-                                            <rect key="frame" x="64" y="12" width="179" height="20"/>
+                                            <rect key="frame" x="64" y="10" width="179" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="179" id="IPu-LL-6rq"/>
                                             </constraints>
@@ -1953,7 +1962,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRh-yo-QEU">
-                                            <rect key="frame" x="251" y="11" width="49" height="21"/>
+                                            <rect key="frame" x="251" y="14" width="49" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="49" id="5nj-ba-61y"/>
                                             </constraints>
@@ -1963,13 +1972,13 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="1Cj-Me-QoA" firstAttribute="top" secondItem="tYG-4a-dfe" secondAttribute="topMargin" constant="4" id="4Lj-D4-yEf"/>
-                                        <constraint firstItem="rRh-yo-QEU" firstAttribute="centerY" secondItem="Xg3-2b-vej" secondAttribute="centerY" constant="-2" id="8IK-fD-bZr"/>
+                                        <constraint firstItem="1Cj-Me-QoA" firstAttribute="top" secondItem="tYG-4a-dfe" secondAttribute="top" constant="10" id="4Lj-D4-yEf"/>
+                                        <constraint firstItem="rRh-yo-QEU" firstAttribute="centerY" secondItem="Xg3-2b-vej" secondAttribute="centerY" id="8IK-fD-bZr"/>
                                         <constraint firstItem="Xg3-2b-vej" firstAttribute="centerY" secondItem="tYG-4a-dfe" secondAttribute="centerY" constant="1.75" id="O7O-hK-tpC"/>
                                         <constraint firstItem="1Cj-Me-QoA" firstAttribute="leading" secondItem="Xg3-2b-vej" secondAttribute="trailing" constant="3" id="imS-Cf-3MP"/>
                                         <constraint firstItem="rRh-yo-QEU" firstAttribute="leading" secondItem="1Cj-Me-QoA" secondAttribute="trailing" constant="8" symbolic="YES" id="rMG-yg-vul"/>
                                         <constraint firstItem="Xg3-2b-vej" firstAttribute="leading" secondItem="tYG-4a-dfe" secondAttribute="leading" constant="20" symbolic="YES" id="rpC-Hh-KAL"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="1Cj-Me-QoA" secondAttribute="bottom" constant="3.5" id="uxJ-Xm-gRv"/>
+                                        <constraint firstAttribute="bottom" secondItem="1Cj-Me-QoA" secondAttribute="bottom" constant="10" id="uxJ-Xm-gRv"/>
                                         <constraint firstItem="1Cj-Me-QoA" firstAttribute="bottom" secondItem="rRh-yo-QEU" secondAttribute="bottom" id="yqg-da-wUf"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -2067,7 +2076,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CIw-d6-rrv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="68" y="220"/>
+            <point key="canvasLocation" x="310" y="-658"/>
         </scene>
         <!--Network Collection-->
         <scene sceneID="n5s-ss-IpZ">
@@ -2118,6 +2127,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="My Networks" id="16q-Ce-VII">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="JyL-hl-4rl">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="tappedRefreshBarButton:" destination="00X-GO-er7" id="aOa-5g-ijp"/>
                             </connections>
@@ -2132,7 +2142,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lF0-zu-hn2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-369" y="526"/>
+            <point key="canvasLocation" x="-361" y="-122"/>
         </scene>
         <!--Create Network-->
         <scene sceneID="CIH-1z-SEl">
@@ -2535,7 +2545,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ht7-Lj-aI6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="68" y="861"/>
+            <point key="canvasLocation" x="310" y="-17"/>
         </scene>
         <!--Game Rules-->
         <scene sceneID="gYb-X1-rPZ">
@@ -2624,7 +2634,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gdg-dC-cnM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="408" y="861"/>
+            <point key="canvasLocation" x="782" y="-17"/>
         </scene>
         <!--Newsfeed-->
         <scene sceneID="hmL-fv-Rj4">
@@ -2640,7 +2650,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Qo-Pl-iCj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-827" y="-245"/>
+            <point key="canvasLocation" x="-827" y="-893"/>
         </scene>
         <!--News Feed-->
         <scene sceneID="am2-8Q-kqv">
@@ -2751,7 +2761,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-oT-Pkp" customClass="PFImageView">
-                                            <rect key="frame" x="12" y="40" width="50" height="40"/>
+                                            <rect key="frame" x="12" y="41" width="50" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="mpP-x2-GvR"/>
@@ -2759,7 +2769,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlV-s5-G7y">
-                                            <rect key="frame" x="137" y="14" width="158" height="12"/>
+                                            <rect key="frame" x="137" y="15" width="135" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="PEV-Tc-5qP"/>
                                             </constraints>
@@ -2775,7 +2785,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyK-9W-k4b">
-                                            <rect key="frame" x="70" y="48" width="154" height="23"/>
+                                            <rect key="frame" x="70" y="49" width="157" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="m8a-RA-XOk"/>
                                             </constraints>
@@ -2792,11 +2802,11 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4j3-Ja-VrV" customClass="PFImageView">
-                                            <rect key="frame" x="12" y="88" width="50" height="40"/>
+                                            <rect key="frame" x="12" y="89" width="50" height="47"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7U-fQ-5aR">
-                                            <rect key="frame" x="70" y="96" width="154" height="23"/>
+                                            <rect key="frame" x="70" y="97" width="157" height="30"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Name">
                                                     <attributes>
@@ -2810,7 +2820,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRU-vg-l9v">
-                                            <rect key="frame" x="12" y="8" width="117" height="23"/>
+                                            <rect key="frame" x="12" y="10" width="117" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="117" id="9uT-td-3Us"/>
                                             </constraints>
@@ -2827,7 +2837,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHk-TE-ytz">
-                                            <rect key="frame" x="237" y="40" width="42" height="40"/>
+                                            <rect key="frame" x="240" y="41" width="42" height="40"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="42" id="hfE-sU-Yo3"/>
@@ -2837,17 +2847,17 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pr-Iw-7tu">
-                                            <rect key="frame" x="237" y="88" width="42" height="40"/>
+                                            <rect key="frame" x="240" y="89" width="42" height="47"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jdy-Qr-Y3A">
-                                            <rect key="frame" x="27" y="50" width="20" height="20"/>
+                                            <rect key="frame" x="27" y="51" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pYu-yh-Qzh">
-                                            <rect key="frame" x="27" y="98" width="20" height="20"/>
+                                            <rect key="frame" x="27" y="103" width="20" height="20"/>
                                         </activityIndicatorView>
                                     </subviews>
                                     <constraints>
@@ -2860,24 +2870,24 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                         <constraint firstItem="XRU-vg-l9v" firstAttribute="leading" secondItem="8Er-PP-KAG" secondAttribute="leading" constant="12" id="FG0-48-9fZ"/>
                                         <constraint firstItem="NHk-TE-ytz" firstAttribute="leading" secondItem="qyK-9W-k4b" secondAttribute="trailing" constant="13" id="GRp-7a-eX4"/>
                                         <constraint firstItem="Jdy-Qr-Y3A" firstAttribute="leading" secondItem="pYu-yh-Qzh" secondAttribute="leading" id="Hhc-kT-mYN"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="4j3-Ja-VrV" secondAttribute="bottom" constant="14.5" id="HtS-T7-QzZ"/>
-                                        <constraint firstItem="AlV-s5-G7y" firstAttribute="top" secondItem="8Er-PP-KAG" secondAttribute="topMargin" constant="6" id="K3A-hZ-KbG"/>
+                                        <constraint firstAttribute="bottom" secondItem="4j3-Ja-VrV" secondAttribute="bottom" constant="14.5" id="HtS-T7-QzZ"/>
+                                        <constraint firstItem="AlV-s5-G7y" firstAttribute="top" secondItem="8Er-PP-KAG" secondAttribute="top" constant="15" id="K3A-hZ-KbG"/>
                                         <constraint firstItem="1Pr-Iw-7tu" firstAttribute="top" secondItem="NHk-TE-ytz" secondAttribute="bottom" constant="8" symbolic="YES" id="M1b-jl-BLB"/>
                                         <constraint firstItem="2Jc-oT-Pkp" firstAttribute="leading" secondItem="XRU-vg-l9v" secondAttribute="leading" id="MWa-5i-gGP"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="AlV-s5-G7y" secondAttribute="trailing" constant="-16" id="Njv-KY-RGu"/>
+                                        <constraint firstAttribute="trailing" secondItem="AlV-s5-G7y" secondAttribute="trailing" constant="15" id="Njv-KY-RGu"/>
                                         <constraint firstItem="qyK-9W-k4b" firstAttribute="leading" secondItem="2Jc-oT-Pkp" secondAttribute="trailing" constant="8" symbolic="YES" id="S0M-Vo-zIn"/>
                                         <constraint firstItem="qyK-9W-k4b" firstAttribute="top" secondItem="XRU-vg-l9v" secondAttribute="bottom" constant="17" id="cRW-iL-dLv"/>
                                         <constraint firstItem="W7U-fQ-5aR" firstAttribute="trailing" secondItem="qyK-9W-k4b" secondAttribute="trailing" id="dau-od-zmN"/>
-                                        <constraint firstItem="NHk-TE-ytz" firstAttribute="trailing" secondItem="8Er-PP-KAG" secondAttribute="trailingMargin" id="eq0-Aw-HgI"/>
+                                        <constraint firstAttribute="trailing" secondItem="NHk-TE-ytz" secondAttribute="trailing" constant="5" id="eq0-Aw-HgI"/>
                                         <constraint firstItem="AlV-s5-G7y" firstAttribute="leading" secondItem="XRU-vg-l9v" secondAttribute="trailing" constant="8" symbolic="YES" id="fbe-rb-QvN"/>
                                         <constraint firstItem="4j3-Ja-VrV" firstAttribute="top" secondItem="2Jc-oT-Pkp" secondAttribute="bottom" constant="8" symbolic="YES" id="flh-Az-jbP"/>
                                         <constraint firstItem="Jdy-Qr-Y3A" firstAttribute="centerX" secondItem="2Jc-oT-Pkp" secondAttribute="centerX" id="jxr-3i-XGd"/>
                                         <constraint firstItem="qyK-9W-k4b" firstAttribute="leading" secondItem="W7U-fQ-5aR" secondAttribute="leading" id="m5r-is-xhr"/>
-                                        <constraint firstItem="XRU-vg-l9v" firstAttribute="top" secondItem="8Er-PP-KAG" secondAttribute="topMargin" id="reW-aw-Pje"/>
+                                        <constraint firstItem="XRU-vg-l9v" firstAttribute="top" secondItem="8Er-PP-KAG" secondAttribute="top" constant="10" id="reW-aw-Pje"/>
                                         <constraint firstItem="1Pr-Iw-7tu" firstAttribute="bottom" secondItem="4j3-Ja-VrV" secondAttribute="bottom" id="rqD-Sp-7bB"/>
                                         <constraint firstItem="NHk-TE-ytz" firstAttribute="leading" secondItem="1Pr-Iw-7tu" secondAttribute="leading" id="uQV-Ml-reK"/>
                                         <constraint firstItem="pYu-yh-Qzh" firstAttribute="centerY" secondItem="4j3-Ja-VrV" secondAttribute="centerY" id="ugl-sj-uZJ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="W7U-fQ-5aR" secondAttribute="bottom" constant="23.5" id="vSz-A2-bb1"/>
+                                        <constraint firstAttribute="bottom" secondItem="W7U-fQ-5aR" secondAttribute="bottom" constant="23.5" id="vSz-A2-bb1"/>
                                         <constraint firstItem="1Pr-Iw-7tu" firstAttribute="trailing" secondItem="NHk-TE-ytz" secondAttribute="trailing" id="vvB-9G-vf1"/>
                                         <constraint firstItem="W7U-fQ-5aR" firstAttribute="leading" secondItem="4j3-Ja-VrV" secondAttribute="trailing" constant="8" symbolic="YES" id="yLc-Hy-eEG"/>
                                         <constraint firstItem="NHk-TE-ytz" firstAttribute="top" secondItem="2Jc-oT-Pkp" secondAttribute="top" id="yla-YJ-WY0"/>
@@ -2905,14 +2915,14 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="66b-GN-whg" customClass="PFImageView">
-                                            <rect key="frame" x="12" y="40" width="50" height="40"/>
+                                            <rect key="frame" x="12" y="40" width="49" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Ugp-4h-otk"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZc-fD-5Hf">
-                                            <rect key="frame" x="149" y="14" width="138" height="12"/>
+                                            <rect key="frame" x="149" y="15" width="128" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="lZG-Qw-YtN"/>
                                             </constraints>
@@ -2928,7 +2938,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgE-7N-fBl">
-                                            <rect key="frame" x="71" y="48" width="146" height="23"/>
+                                            <rect key="frame" x="70" y="48" width="155" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="5Kh-se-7Ex"/>
                                             </constraints>
@@ -2945,11 +2955,11 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ThR-mD-iGu" customClass="PFImageView">
-                                            <rect key="frame" x="12" y="105" width="50" height="40"/>
+                                            <rect key="frame" x="12" y="105" width="49" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYC-uL-FaJ">
-                                            <rect key="frame" x="71" y="113" width="146" height="23"/>
+                                            <rect key="frame" x="70" y="113" width="155" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="Tea-GE-TSF"/>
                                             </constraints>
@@ -2966,7 +2976,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rv-uR-xhh">
-                                            <rect key="frame" x="12" y="8" width="135" height="23"/>
+                                            <rect key="frame" x="12" y="10" width="135" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="135" id="bWM-dw-0YU"/>
                                             </constraints>
@@ -2983,7 +2993,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfm-pN-w76">
-                                            <rect key="frame" x="71" y="79" width="146" height="23"/>
+                                            <rect key="frame" x="70" y="79" width="155" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="BHc-v1-29p"/>
                                             </constraints>
@@ -3006,7 +3016,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <rect key="frame" x="27" y="50" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wy-rW-bSr">
-                                            <rect key="frame" x="12" y="153" width="267" height="41"/>
+                                            <rect key="frame" x="12" y="153" width="275" height="49"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -3014,13 +3024,13 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="hgE-7N-fBl" firstAttribute="trailing" secondItem="tfm-pN-w76" secondAttribute="trailing" id="0cU-Gt-YIv"/>
-                                        <constraint firstItem="tfm-pN-w76" firstAttribute="leading" secondItem="RgE-aq-kXH" secondAttribute="leadingMargin" constant="63" id="1n9-Im-Beq"/>
+                                        <constraint firstItem="tfm-pN-w76" firstAttribute="leading" secondItem="RgE-aq-kXH" secondAttribute="leading" constant="70" id="1n9-Im-Beq"/>
                                         <constraint firstItem="Rtg-Vq-V21" firstAttribute="centerX" secondItem="ThR-mD-iGu" secondAttribute="centerX" id="4OW-rg-J6H"/>
                                         <constraint firstItem="hgE-7N-fBl" firstAttribute="leading" secondItem="66b-GN-whg" secondAttribute="trailing" constant="9" id="50p-0Y-2Dv"/>
                                         <constraint firstItem="66b-GN-whg" firstAttribute="top" secondItem="1rv-uR-xhh" secondAttribute="bottom" constant="9" id="7zt-iq-Dva"/>
                                         <constraint firstItem="Rtg-Vq-V21" firstAttribute="leading" secondItem="Uz7-iL-gE8" secondAttribute="leading" id="8Ip-GR-IoV"/>
                                         <constraint firstItem="1rv-uR-xhh" firstAttribute="leading" secondItem="RgE-aq-kXH" secondAttribute="leading" constant="12" id="9fi-wu-ne6"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="hgE-7N-fBl" secondAttribute="trailing" constant="62" id="Eli-WR-J4E"/>
+                                        <constraint firstAttribute="trailing" secondItem="hgE-7N-fBl" secondAttribute="trailing" constant="62" id="Eli-WR-J4E"/>
                                         <constraint firstItem="ThR-mD-iGu" firstAttribute="top" secondItem="66b-GN-whg" secondAttribute="bottom" constant="25" id="Gvw-Ie-sMN"/>
                                         <constraint firstItem="tfm-pN-w76" firstAttribute="top" secondItem="hgE-7N-fBl" secondAttribute="bottom" constant="8" symbolic="YES" id="J2B-Te-BN0"/>
                                         <constraint firstItem="qYC-uL-FaJ" firstAttribute="top" secondItem="tfm-pN-w76" secondAttribute="bottom" constant="11" id="M9U-qH-8hw"/>
@@ -3030,14 +3040,14 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                         <constraint firstItem="Rtg-Vq-V21" firstAttribute="centerY" secondItem="ThR-mD-iGu" secondAttribute="centerY" id="V0f-u9-m9M"/>
                                         <constraint firstItem="qYC-uL-FaJ" firstAttribute="leading" secondItem="ThR-mD-iGu" secondAttribute="trailing" constant="9" id="YuG-wY-Mu9"/>
                                         <constraint firstItem="tfm-pN-w76" firstAttribute="trailing" secondItem="qYC-uL-FaJ" secondAttribute="trailing" id="Z9r-Hr-nJJ"/>
-                                        <constraint firstItem="1rv-uR-xhh" firstAttribute="top" secondItem="RgE-aq-kXH" secondAttribute="topMargin" id="b0c-3Q-Bwe"/>
-                                        <constraint firstItem="8Wy-rW-bSr" firstAttribute="trailing" secondItem="RgE-aq-kXH" secondAttribute="trailingMargin" id="dNg-eL-Cd7"/>
+                                        <constraint firstItem="1rv-uR-xhh" firstAttribute="top" secondItem="RgE-aq-kXH" secondAttribute="top" constant="10" id="b0c-3Q-Bwe"/>
+                                        <constraint firstItem="8Wy-rW-bSr" firstAttribute="trailing" secondItem="RgE-aq-kXH" secondAttribute="trailing" id="dNg-eL-Cd7"/>
                                         <constraint firstItem="Rtg-Vq-V21" firstAttribute="top" secondItem="66b-GN-whg" secondAttribute="bottom" constant="35" id="dYf-Vy-8JA"/>
                                         <constraint firstItem="Uz7-iL-gE8" firstAttribute="centerY" secondItem="66b-GN-whg" secondAttribute="centerY" id="h7W-JO-oSv"/>
                                         <constraint firstItem="8Wy-rW-bSr" firstAttribute="leading" secondItem="ThR-mD-iGu" secondAttribute="leading" id="iMh-Av-Yhz"/>
-                                        <constraint firstItem="IZc-fD-5Hf" firstAttribute="top" secondItem="RgE-aq-kXH" secondAttribute="topMargin" constant="6" id="kaY-LL-1q9"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="8Wy-rW-bSr" secondAttribute="bottom" constant="25.5" id="lUX-Uo-yfY"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="IZc-fD-5Hf" secondAttribute="trailing" constant="-8" id="nDJ-UD-X2o"/>
+                                        <constraint firstItem="IZc-fD-5Hf" firstAttribute="top" secondItem="RgE-aq-kXH" secondAttribute="top" constant="15" id="kaY-LL-1q9"/>
+                                        <constraint firstAttribute="bottom" secondItem="8Wy-rW-bSr" secondAttribute="bottom" constant="25.5" id="lUX-Uo-yfY"/>
+                                        <constraint firstAttribute="trailing" secondItem="IZc-fD-5Hf" secondAttribute="trailing" constant="10" id="nDJ-UD-X2o"/>
                                         <constraint firstItem="IZc-fD-5Hf" firstAttribute="leading" secondItem="1rv-uR-xhh" secondAttribute="trailing" constant="2" id="nFn-nX-s8P"/>
                                         <constraint firstItem="66b-GN-whg" firstAttribute="leading" secondItem="1rv-uR-xhh" secondAttribute="leading" id="ubV-cy-QUV"/>
                                         <constraint firstAttribute="bottom" secondItem="Rtg-Vq-V21" secondAttribute="bottom" constant="92.5" id="vHb-tP-dWN"/>
@@ -3066,7 +3076,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="News Feed" id="nug-2v-VAb">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="96F-3g-auS">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="96F-3g-auS">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="tappedRefreshBarButton:" destination="IRL-37-Kzc" id="Klf-MP-gAc"/>
@@ -3087,14 +3097,14 @@ Both players get one point for turning up. A player then scores 2 points for a m
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-361" y="-248"/>
+            <point key="canvasLocation" x="-361" y="-896"/>
         </scene>
     </scenes>
     <resources>
         <image name="Login" width="320" height="568"/>
         <image name="icon_announcer" width="24" height="25"/>
         <image name="icon_calendar" width="23" height="23"/>
-        <image name="icon_messages" width="34" height="25"/>
+        <image name="icon_leaderboard" width="25" height="20"/>
         <image name="icon_play" width="25" height="25"/>
         <image name="icon_settings" width="33" height="25"/>
         <image name="login-button-small" width="151" height="43"/>
@@ -3109,6 +3119,6 @@ Both players get one point for turning up. A player then scores 2 points for a m
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="u8R-g7-SXK"/>
+        <segue reference="Vsh-tA-HoL"/>
     </inferredMetricsTieBreakers>
 </document>

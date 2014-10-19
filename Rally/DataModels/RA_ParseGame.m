@@ -104,6 +104,21 @@
     return [self getOpponentToPlayer:[RA_ParseUser currentUser]];
 }
 
+-(NSArray *)getNetworksInCommonForPlayers // (BACKGROUND ONLY)
+{
+    NSMutableArray *networksInCommonMut = [NSMutableArray array];
+    RA_ParseUser *playerOne = self.players[0];
+    RA_ParseUser *playerTwo = self.players[1];
+    [playerOne fetchIfNeeded];
+    [playerTwo fetchIfNeeded];
+    NSArray *playerTwoNetworkIds = [playerTwo.networkMemberships valueForKeyPath:@"objectId"];
+    for (RA_ParseNetwork *network in playerOne.networkMemberships) {
+        if ([playerTwoNetworkIds containsObject:network.objectId]) {
+            [networksInCommonMut addObject:network];
+        }
+    }
+    return [NSArray arrayWithArray:networksInCommonMut];
+}
 
 
 -(BOOL)playerHasConfirmed:(RA_ParseUser *)player

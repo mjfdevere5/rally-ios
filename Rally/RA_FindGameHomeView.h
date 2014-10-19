@@ -11,11 +11,14 @@
 
 @interface RA_FindGameHomeView : UIViewController<UITableViewDataSource, UITableViewDelegate, MBProgressHUDDelegate>
 
+// Storyboard stuff
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *freshGameButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshBarButton;
 - (IBAction)tappedRefreshBarButton:(id)sender;
 
+// Dictionary for cell height purposes
+@property (strong, nonatomic) NSMutableDictionary *heights;
 
 @end
 

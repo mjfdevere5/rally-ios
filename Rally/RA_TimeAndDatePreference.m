@@ -18,17 +18,30 @@
 
 -(instancetype)initWithDay:(NSDate *)date andTimeInteger:(RA_GamePrefPossibleTimes)timeInteger
 {
-    return (RA_TimeAndDatePreference *)[NSArray arrayWithObjects:date,[NSNumber numberWithInteger:timeInteger],nil];
+    self = [super init];
+    if (self) {
+        self.valuesArray = @[ date, [NSNumber numberWithInteger:timeInteger] ];
+    }
+    return self;
 }
 
--(NSDate *)day
+-(instancetype)initWithDatabaseArray:(NSArray *)array
 {
-    return self[0];
+    self = [super init];
+    if (self) {
+        self.valuesArray = array; !!!!!!!!!!
+    }
+    return self;
+}
+
+-(NSDate *)getDay
+{
+    return self.valuesArray[0];
 }
 
 -(NSNumber *)timeNumber
 {
-    return self[1];
+    return self.valuesArray[1];
 }
 
 
@@ -37,21 +50,33 @@
 
 -(NSString *)timeStringCapitalized
 {
+    NSString *commentNumber = [NSString stringWithFormat:@"timeNumber = %@", [self timeNumber]];
+    COMMON_LOG_WITH_COMMENT(commentNumber)
+    
     NSInteger timeInteger = [[self timeNumber] integerValue];
+    
+    NSString *comment = [NSString stringWithFormat:@"timeInteger = %li", (long)timeInteger];
+    COMMON_LOG_WITH_COMMENT(comment)
+    
     switch (timeInteger) {
         case RA_GamePrefPossibleTimesEarlyMorning:
+            COMMON_LOG_WITH_COMMENT(@"0")
             return @"Early Morning";
             break;
         case RA_GamePrefPossibleTimesLateMorning:
+            COMMON_LOG_WITH_COMMENT(@"1")
             return @"Late Morning";
             break;
         case RA_GamePrefPossibleTimesEarlyAfternoon:
+            COMMON_LOG_WITH_COMMENT(@"2")
             return @"Early Afternoon";
             break;
         case RA_GamePrefPossibleTimesLateAfternoon:
+            COMMON_LOG_WITH_COMMENT(@"3")
             return @"Late Afternoon";
             break;
         case RA_GamePrefPossibleTimesEvening:
+            COMMON_LOG_WITH_COMMENT(@"4")
             return @"Evening";
             break;
         default:
@@ -63,14 +88,14 @@
 
 -(BOOL)isMinDay // we actually test for min or lower
 {
-    return ([[self day] isEqualToDateIgnoringTime:[NSDate date]] ||
-            [[self day] isEarlierThanDate:[NSDate date]]);
+    return ([[self getDay] isEqualToDateIgnoringTime:[NSDate date]] ||
+            [[self getDay] isEarlierThanDate:[NSDate date]]);
 }
 
 -(BOOL)isMaxDay // we actually test for max or higher
 {
-    return ([[self day] isEqualToDateIgnoringTime:[[NSDate date] dateByAddingDays:14]] ||
-            [[self day] isLaterThanDate:[[NSDate date] dateByAddingDays:14]]);
+    return ([[self getDay] isEqualToDateIgnoringTime:[[NSDate date] dateByAddingDays:14]] ||
+            [[self getDay] isLaterThanDate:[[NSDate date] dateByAddingDays:14]]);
 }
 
 -(BOOL)isMinTime // we actually test for min or lower
@@ -115,12 +140,12 @@
 
 -(NSArray *)databaseArray
 {
-    return @[ [self day] , [self databaseStringRepresentation] ];
+    return @[ [self getDay] , [self databaseStringRepresentation] ];
 }
 
 -(BOOL)bothActiveAndEqual:(RA_TimeAndDatePreference *)someOtherPreference
 {
-    return ([[self day] isEqualToDateIgnoringTime:[someOtherPreference day]] &&
+    return ([[self getDay] isEqualToDateIgnoringTime:[someOtherPreference getDay]] &&
             [[self timeNumber] isEqualToNumber:[someOtherPreference timeNumber]]);
 }
 

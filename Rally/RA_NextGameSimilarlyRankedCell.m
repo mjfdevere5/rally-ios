@@ -18,13 +18,24 @@ typedef NS_ENUM(NSInteger, RA_SimilarlyRankedTitle) {
 @implementation RA_NextGameSimilarlyRankedCell
 
 -(void)configureCell
-{
+{ COMMON_LOG
     // Formatting
     // TO DO
     
     // Segment titles
     [self.similarlyRankedControl setTitle:@"Everyone" forSegmentAtIndex:RA_SimilarlyRankedTitleAnyone];
     [self.similarlyRankedControl setTitle:@"Similarly ranked" forSegmentAtIndex:RA_SimilarlyRankedTitleSimilarlyRanked];
+    
+    // Default selection
+    if ([[RA_GamePrefConfig gamePrefConfig].simRanked isEqualToString:RA_SIMRANKED_EVERYONE]) {
+        self.similarlyRankedControl.selectedSegmentIndex = RA_SimilarlyRankedTitleAnyone;
+    }
+    else if ([[RA_GamePrefConfig gamePrefConfig].simRanked isEqualToString:RA_SIMRANKED_SIMRANKED_ONLY]) {
+        self.similarlyRankedControl.selectedSegmentIndex = RA_SimilarlyRankedTitleSimilarlyRanked;
+    }
+    else {
+        COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected simRanked value")
+    }
 }
 
 - (IBAction)userPickedSimilarlyRankedPreference:(id)sender

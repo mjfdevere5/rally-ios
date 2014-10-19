@@ -67,6 +67,12 @@
     // Super
     [super viewDidLoad];
     
+    // Navbar
+    self.navigationItem.title = [NSString stringWithFormat:@"User profile"];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
+    
     // Initialise dictionary
     self.cells = [NSMutableDictionary dictionary];
     

@@ -67,8 +67,10 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
     self.lenthPicker.textColor = [UIColor whiteColor];
     
     // Create duration array
-    self.duration= @[@"No limit", @"1 week", @"2 weeks", @"3 weeks", @"4 weeks", @"5 weeks", @"6 weeks", @"7 weeks", @"8 weeks", @"9 weeks", @"10 weeks", @"11 weeks", @"12 weeks"];
-    
+    self.duration= @[@"No limit", @"1 week", @"2 weeks",
+                     @"3 weeks", @"4 weeks", @"5 weeks",
+                     @"6 weeks", @"7 weeks", @"8 weeks",
+                     @"9 weeks", @"10 weeks", @"11 weeks", @"12 weeks"];
     
     // Prepare our stock images
     UIImage *squash = [UIImage imageNamed:@"squash_league_v04"];
@@ -118,9 +120,6 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
 
 -(void) resetToDefault
 {
-    // Must be a better way to do this
-    
-    
     // Always clear the username and password fields
     self.userName.text = @"";
     self.passwordField.text = @"";
@@ -181,32 +180,25 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     // Username
-    
     if(textField.tag == 1) {
-        
         MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
         [self.navigationController.view addSubview:HUD];
         HUD.delegate = self;
         [HUD showWhileExecuting:@selector(checkUsername:) onTarget:self withObject:self.userName.text animated:YES];
-
-        
     }
     
     // Password
     else if(textField.tag == 2){
         if ([self.passwordField.text length] < 6 || ![self isValidPassword:self.passwordField.text]) {
-
             self.passwordCorrect.image = [UIImage imageNamed:@"gray_cross_64x64"];
             self.passwordField.text = @"";
             self.correctPass = NO;
             [self showIncorrectPasswordAlert];
-            
         }
-        else{
+        else {
             self.passwordCorrect.image = [UIImage imageNamed:@"green_check_64x64"];
             self.correctPass = YES;
         }
-        
     }
     
     // Password confirm
@@ -274,8 +266,6 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
     
     [self.imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
 
 
@@ -390,69 +380,52 @@ self.lenthPicker.text = lengthString;
 - (IBAction)createNetworkPushed:(id)sender
 {
     if (self.correctName && self.correctPass && self.correctPassTwo) {
-        RA_ParseNetwork *newLadder = [RA_ParseNetwork object];
         
-        // Add the usernames and passwords
-        newLadder.name = self.userName.text;
-        newLadder.accessCode = self.passwordField.text;
-        
-        // Add the sport and league types
-        newLadder.sport = self.chosenSport;
-        newLadder.type = self.leagueType;
+        // Create the network object. Note this method initializes the scores dictionaries
+        RA_ParseNetwork *network = [RA_ParseNetwork networkWithName:self.userName.text
+                                                           andSport:self.chosenSport
+                                                            andType:self.leagueType
+                                                      andAccessCode:self.passwordField.text
+                                                           andAdmin:[RA_ParseUser currentUser]
+                                                        andDuration:[NSNumber numberWithFloat:self.lengthSlide.value]];
         
         // Add the photos
-        NSLog(@"%@",[self.largeLeaguePic description]);
-        NSLog(@"%@",[self.mediumLeaguePic description]);
-        //newLadder.leaguePicLarge = [PFFile fileWithData:UIImageJPEGRepresentation(self.largeLeaguePic, 0.9f)];
-        newLadder.leaguePicMedium = [PFFile fileWithData:UIImageJPEGRepresentation(self.mediumLeaguePic, 0.9f)];
+        network.leaguePicMedium = [PFFile fileWithData:UIImageJPEGRepresentation(self.mediumLeaguePic, 0.9f)];
         
-    
-        // Get the league duration
-        NSLog(@"picker for length slide %f",[self.lengthSlide value]);
-        NSNumber *NSDuration = [NSNumber numberWithFloat:[self.lengthSlide value]];
-        newLadder.duration = NSDuration;
-        
-        // Get the administrator who created the network
-        newLadder.administrator = [RA_ParseUser currentUser];
-        newLadder.adminDisplayName = newLadder.administrator.displayName;
-        
-        // Upload the ladder to his user account
+        // Save this network to admin's user account
         RA_ParseUser *cUser = [RA_ParseUser currentUser];
-        [cUser.networkMemberships addObject:newLadder];
+        [cUser.networkMemberships addObject:network];
         
-        //Add Bruno new code
-        if ([newLadder.type isEqualToString:@"Ladder"]) {
-            newLadder.userIdsToScores = [NSMutableDictionary dictionary];
+        // Add Bruno new code
+        if ([network.type isEqualToString:@"Ladder"]) {
+            network.userIdsToScores = [NSMutableDictionary dictionary];
             NSNumber *initialScore = [NSNumber numberWithFloat:1200.0];
-            [newLadder.userIdsToScores setObject:initialScore forKey:cUser.objectId];
+            [network.userIdsToScores setObject:initialScore forKey:cUser.objectId];
         }
-        else{
-            newLadder.userIdsToScores = [NSMutableDictionary dictionary];
+        else if ([network.type isEqualToString:@"League"]) {
+            network.userIdsToScores = [NSMutableDictionary dictionary];
             NSNumber *initialScore = [NSNumber numberWithFloat:0.0];
-            [newLadder.userIdsToScores setObject:initialScore forKey:cUser.objectId];
+            [network.userIdsToScores setObject:initialScore forKey:cUser.objectId];
+        }
+        else {
+            COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected network type")
         }
         
-        // Create an array to save the objects at once
-        NSArray *objectsToSave = [NSArray arrayWithObjects:newLadder,cUser, nil];
-
+        // Save all objects at once
+        NSArray *objectsToSave = [NSArray arrayWithObjects:network,cUser, nil];
         MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:HUD];
         HUD.delegate = self;
         [HUD show:YES];
-        
         [PFObject saveAllInBackground:objectsToSave block:^(BOOL succeeded, NSError *error) {
-//        [newLadder saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            
             // Hide HUD whatever the outcome
             [HUD hide:YES];
-            
             if (succeeded) { [self networkUploadedSuccessfully]; }
             else { [self networkFailedToUploadWithError:error]; }
-            
         }];
         
     }
-    else{
+    else {
         [self showMissingNetworkCredentials];
     }
 }

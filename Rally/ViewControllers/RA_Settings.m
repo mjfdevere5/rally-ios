@@ -41,6 +41,10 @@
     
     [super viewDidLoad];
     
+    // Navbar
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
     // Set the version number outlet
     self.versionOutlet.text = [NSString stringWithFormat:@"Version %@",
                                [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
@@ -99,13 +103,12 @@
     // The reason is here: http://stackoverflow.com/a/12653203/3364933
     // Therefore we do this 'manually' using the indexPath
     
-    if ([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:0]]) {
-        NSLog(@"Case: profile_pic");
+    if ([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:1]]) {
         
         // Size of the image plus some margin above and below
         // Note that the constraints I've put in the storyboard are simply the imageView height and that it is centered vertically. Therefore the 'gap to top' and 'gap to bottom' are effectively controlled here
-        float gapToTop = 4.0;
-        float gapToBottom = 4.0;
+        float gapToTop = 8.0;
+        float gapToBottom = 8.0;
         return (gapToTop + self.profileImage.frame.size.height + gapToBottom);
     }
     
@@ -125,6 +128,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%@ on thread %@", NSStringFromSelector(_cmd), [NSThread currentThread]);
+    
+    // Recent chats
+    // Segue programmed in Storyboard
     
     // Logout
     if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"logout"]) {
@@ -173,7 +179,6 @@
     }
 }
 
-
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     // Logout
@@ -189,9 +194,7 @@
 }
 
 
-
 #pragma mark - image picker
-
 
 - (void)imagePicker:(GKImagePicker *)imagePicker pickedImage:(UIImage *)image
 {
@@ -230,8 +233,6 @@
         else { NSLog(@"cUser with new pics failed to save with error: %@", [error localizedDescription]); }
     }];
 }
-
-
 
 - (void)hideImagePicker
 {

@@ -110,8 +110,9 @@
 { COMMON_LOG
     // Dequeue
     NSString *reuseIdentifier = self.cellArray[indexPath.section][indexPath.row];
+    COMMON_LOG_WITH_COMMENT(reuseIdentifier)
     RA_NextGameBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
+    COMMON_LOG_WITH_COMMENT(@"1")
     // Special case: need to know which preference we are
     if ([cell isKindOfClass:[RA_NextGameDateTimeCell class]]) {
         RA_NextGameDateTimeCell *castCell = (RA_NextGameDateTimeCell *)cell;
@@ -122,7 +123,7 @@
             castCell.preferenceNumber = 1;
         }
     }
-    
+    COMMON_LOG_WITH_COMMENT(@"2")
     // Configure
     cell.viewControllerDelegate = self;
     [cell configureCell];
@@ -149,13 +150,13 @@
             self.cellArray = @[@[@"nextgame_datetime_cell", @"nextgame_addbackup_cell", @"nextgame_datetime_cell"],
                                @[@"nextgame_location_cell"]];
             [tableView insertRowsAtIndexPaths:@[pathToInsertOrDelete]
-                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                             withRowAnimation:UITableViewRowAnimationFade];
         }
         else {
             self.cellArray = @[@[@"nextgame_datetime_cell", @"nextgame_addbackup_cell"],
                                @[@"nextgame_location_cell"]];
             [tableView deleteRowsAtIndexPaths:@[pathToInsertOrDelete]
-                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                             withRowAnimation:UITableViewRowAnimationFade];
         }
         // Change the outlets in the 'Add/remove backup' cell
         [cell configureCell];
