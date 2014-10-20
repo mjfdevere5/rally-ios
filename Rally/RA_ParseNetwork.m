@@ -76,8 +76,9 @@
     return network;
 }
 
--(NSInteger)getRankForPlayer:(RA_ParseUser *)player
+-(NSInteger)getRankForPlayer:(RA_ParseUser *)player // (BACKGROUND ONLY)
 {
+    [self fetchIfNeeded];
     if (self.userIdsToScores == nil) {
         COMMON_LOG_WITH_COMMENT(@"ERROR")
         return 0;

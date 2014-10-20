@@ -84,12 +84,14 @@
 
 -(void)removeNetwork:(RA_ParseNetwork *)network
 {
-    for (RA_ParseNetwork *containedNetwork in self.networks) {
+    NSMutableArray *newArray = [NSMutableArray arrayWithArray:self.networks];
+    for (RA_ParseNetwork *containedNetwork in newArray) {
         if ([containedNetwork.objectId isEqualToString:network.objectId]) {
-            [self.networks removeObject:containedNetwork];
+            [newArray removeObject:containedNetwork];
             break;
         }
     }
+    self.networks = newArray;
 }
 
 

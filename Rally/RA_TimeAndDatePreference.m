@@ -26,10 +26,31 @@
 }
 
 -(instancetype)initWithDatabaseArray:(NSArray *)array
-{
+{ COMMON_LOG
     self = [super init];
     if (self) {
-        self.valuesArray = array; !!!!!!!!!!
+        NSDate *date = array[0];
+        NSString *timeString = array[1];
+        NSNumber *timeNumber;
+        if ([timeString isEqualToString:RA_GAME_TIME_EARLY_MORNING]) {
+            timeNumber = [NSNumber numberWithInteger:RA_GamePrefPossibleTimesEarlyMorning];
+        }
+        else if ([timeString isEqualToString:RA_GAME_TIME_LATE_MORNING]) {
+            timeNumber = [NSNumber numberWithInteger:RA_GamePrefPossibleTimesLateMorning];
+        }
+        else if ([timeString isEqualToString:RA_GAME_TIME_EARLY_AFTERNOON]) {
+            timeNumber = [NSNumber numberWithInteger:RA_GamePrefPossibleTimesEarlyAfternoon];
+        }
+        else if ([timeString isEqualToString:RA_GAME_TIME_LATE_AFTERNOON]) {
+            timeNumber = [NSNumber numberWithInteger:RA_GamePrefPossibleTimesLateAfternoon];
+        }
+        else if ([timeString isEqualToString:RA_GAME_TIME_EVENING]) {
+            timeNumber = [NSNumber numberWithInteger:RA_GamePrefPossibleTimesEvening];
+        }
+        else {
+            COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected timeString")
+        }
+        self.valuesArray = @[ date, timeNumber ];
     }
     return self;
 }
