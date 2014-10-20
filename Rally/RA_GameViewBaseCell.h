@@ -14,7 +14,6 @@
 @interface RA_GameViewBaseCell : UITableViewCell
 
 // Let the cells have access to the game or game preference in question
-@property (nonatomic) RA_GameViewContext context;
 @property (strong, nonatomic) RA_ParseGame *game;
 @property (strong, nonatomic) RA_ParseGamePreferences *gamePref;
 

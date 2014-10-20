@@ -72,55 +72,33 @@
     COMMON_LOG
     
     NSMutableArray *cellArrayMut = [NSMutableArray array];
-    self.isUpcoming = [self.game.datetime isLaterThanDate:[[NSDate date] dateBySubtractingMinutes:30]];
+    self.isUpcoming = [self.game isUpcoming];
     
-    if (self.context == RA_GameViewContextGameManager) {
-        // Coloured status cell
-        [cellArrayMut addObject:@"game_status_cell"]; // will display "Confirmed", "Pending confirmation", "Cancelled"
-        
-        // 'Tap to confirm'
-        if (self.isUpcoming && [self.game actionRequiredByMe]) {
-            [cellArrayMut addObject:@"game_confirm_now_cell"];
-        }
-        
-        // Datetime cell
-        [cellArrayMut addObject:@"game_datetime_cell"];
-        
-        // Players cell
-        if (self.isUpcoming) {
-            [cellArrayMut addObject:@"game_players_upcoming_cell"];
-        }
-        else {
-            [cellArrayMut addObject:@"game_players_historic_cell"];
-        }
-        
-        // Facilities cell
-        [cellArrayMut addObject:@"game_facilities_cell"];
-        
-        // Cancel cell
-        if (self.isUpcoming) {
-            [cellArrayMut addObject:@"game_cancel_cell"];
-        }
+    // Coloured status cell
+    [cellArrayMut addObject:@"game_status_cell"]; // will display "Confirmed", "Pending confirmation", "Cancelled"
+    
+    // 'Tap to confirm'
+    if ([self.game actionForUpcomingGameRequiredByMe]) {
+        [cellArrayMut addObject:@"game_confirm_now_cell"];
     }
     
-    else if (self.context == RA_GameViewContextGamePref) {
-        // Coloured status cell
-        [cellArrayMut addObject:@"game_status_cell"]; // will display "Confirmed", "Pending confirmation", "Cancelled"
-        
-        // Network
-        // TO DO
-        
-        // 'Preferences 1, 2, 3'
-        [cellArrayMut addObject:@"game_preference_cell_1"];
-        if ([self.gamePref.dateTimePreferences count] > 1) {
-            [cellArrayMut addObject:@"game_preference_cell_2"];
-            if ([self.gamePref.dateTimePreferences count] > 2) {
-                [cellArrayMut addObject:@"game_preference_cell_3"];
-            }
-        }
-        
-        // Players cell
-        [cellArrayMut addObject:@"game_player_stats_cell"];
+    // Datetime cell
+    [cellArrayMut addObject:@"game_datetime_cell"];
+    
+    // Players cell
+    if (self.isUpcoming) {
+        [cellArrayMut addObject:@"game_players_upcoming_cell"];
+    }
+    else {
+        [cellArrayMut addObject:@"game_players_historic_cell"];
+    }
+    
+    // Facilities cell
+    [cellArrayMut addObject:@"game_facilities_cell"];
+    
+    // Cancel cell
+    if (self.isUpcoming) {
+        [cellArrayMut addObject:@"game_cancel_cell"];
     }
     
     self.cellArray = [NSArray arrayWithArray:cellArrayMut];
@@ -414,12 +392,17 @@
 #pragma mark - text field delegate (scores)
 // ******************** text field delegate (scores) ********************
 
-
-// TO DO implement double picker that pops over and perhaps UIToolBar with a 'Done' and 'Cancel' button
-// http://stackoverflow.com/questions/20883388/display-done-button-on-uipickerview
-// http://stackoverflow.com/questions/1870038/how-can-i-show-a-uidatepicker-instead-of-a-keyboard-when-a-user-selects-a-uitextf
-// http://stackoverflow.com/questions/6269244/how-can-i-present-a-picker-view-just-like-the-keyboard-does
-// Maybe make the 'score' a UITextField?
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if ([self.game requiresActionOnScore]) {
+        COMMON_LOG_WITH_COMMENT(@"yes")
+        return YES;
+    }
+    else {
+        COMMON_LOG_WITH_COMMENT(@"no")
+        return NO;
+    }
+}
 
 
 

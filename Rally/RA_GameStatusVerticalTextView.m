@@ -27,7 +27,7 @@
     
     // Prepare the label
     self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.height, self.bounds.size.width)]; // Height and width swapped ahead of rotation
-    self.textLabel.font = [UIFont systemFontOfSize:15.0];
+    self.textLabel.font = [UIFont systemFontOfSize:13.0];
     self.textLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.textLabel];
 }
@@ -79,7 +79,7 @@
         self.textLabel.textColor = [UIColor whiteColor];
         self.backgroundColor = CO_GREEN_CONFIRMED;
     }
-    else if ([status isEqualToString:RA_GAME_STATUS_PROPOSED]) {
+    else if ([status isEqualToString:RA_GAME_STATUS_PROPOSED] || [status isEqualToString:RA_GAME_STATUS_UNCONFIRMED]) {
         self.textLabel.text = @"TBC";
         self.textLabel.textColor = [UIColor whiteColor];
         self.backgroundColor = CO_AMBER_UNCONFIRMED_LIGHTER;
@@ -88,6 +88,16 @@
         self.textLabel.text = @"Cancelled";
         self.textLabel.textColor = [UIColor whiteColor];
         self.backgroundColor = CO_GRAY_CANCELLED;
+    }
+    else if ([status isEqualToString:RA_GAME_STATUS_COMPLETED]) {
+        self.textLabel.text = @"Completed";
+        self.textLabel.textColor = [UIColor whiteColor];
+        self.backgroundColor = CO_GREEN_CONFIRMED;
+    }
+    else if ([status isEqualToString:RA_GAME_STATUS_UNCONFIRMED]) {
+        self.textLabel.text = @"TBC";
+        self.textLabel.textColor = [UIColor whiteColor];
+        self.backgroundColor = CO_AMBER_UNCONFIRMED;
     }
     else {
         COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected style")

@@ -16,10 +16,9 @@
 
 @property (weak, nonatomic) IBOutlet RA_GameStatusVerticalTextView *verticalTextView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *networkLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sportLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *warningIcon;
 @property (weak, nonatomic) IBOutlet UILabel *warningLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *sportIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *opponentImage;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityWheel;
 

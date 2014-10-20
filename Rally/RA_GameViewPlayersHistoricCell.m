@@ -54,6 +54,9 @@
     
     // Score
     [self configureScores];
+    if (![[self.game gameStatus] isEqualToString:RA_GAME_STATUS_COMPLETED]) {
+        [self.scoreField removeFromSuperview];
+    }
     
     // Profile pics and activity wheels
     PFFile *leftPlayerPicFile = self.leftPlayer.profilePicMedium;
@@ -143,16 +146,6 @@
 
 #pragma mark - text field delegate and picker view date source
 // ******************** text field delegate and picker view date source ********************
-
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    if ([self.game hasScore]) {
-        return NO;
-    }
-    else {
-        return YES;
-    }
-}
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {

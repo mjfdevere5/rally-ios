@@ -52,12 +52,6 @@
                                                          UIRemoteNotificationTypeAlert |
                                                          UIRemoteNotificationTypeSound)];
     }
-
-    // Other singletons
-    // No need really to do this here, as these will initialise just fine one first calling anyway
-    [RA_FacebookLoginComms commsManager];
-    [RA_LocationSingleton locationSingleton];
-    [RA_GamePrefConfig gamePrefConfig];
     
     // Set appearance of navigation bar(s) and status bar for whole app:
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(RA_NAVBAR_COLOUR)];
@@ -67,12 +61,17 @@
                     [UIFont fontWithName:@"Gill Sans" size:20.0], NSFontAttributeName, nil]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    // Determine initial view
-    // http://stackoverflow.com/a/12799462/3364933
-    BOOL isLoggedIn = ([RA_ParseUser currentUser] &&
-                       [PFFacebookUtils isLinkedWithUser:[RA_ParseUser currentUser]]);
-    NSString *storyboardId = isLoggedIn ? @"initialtabview" : @"loginview";
-    self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:storyboardId];
+    // If responding to a notification
+    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSString *viewString = [notificationPayload objectForKey:@"view"];
+    if ([viewString isEqualToString:@"game_manager"]) {
+        COMMON_LOG_WITH_COMMENT(@"game_manager")
+        // TO DO: Take user to the Game Manager
+    }
+    else if ([viewString isEqualToString:@"recent_chats"]) {
+        COMMON_LOG_WITH_COMMENT(@"recent_chats")
+        // TO DO: Take user to the Chat View
+    }
     
     // Required BOOL response
     return YES;

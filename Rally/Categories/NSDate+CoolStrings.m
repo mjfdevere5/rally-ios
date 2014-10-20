@@ -33,10 +33,10 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     if ([self minute] == 0) {
-        [dateFormatter setDateFormat:@"hha"];
+        [dateFormatter setDateFormat:@"h a"];
     }
     else {
-        [dateFormatter setDateFormat:@"hh:mma"];
+        [dateFormatter setDateFormat:@"hh:mm a"];
     }
     return [dateFormatter stringFromDate:self];
 }
@@ -144,7 +144,7 @@
     }
     else {
         // Case: Some other day, either in the future or the past
-        result = [self getDayLong:YES dateOrdinal:YES monthLong:YES];
+        result = [self getDayLong:dayLong dateOrdinal:dateOrdinal monthLong:monthLong];
     }
     
     return result;

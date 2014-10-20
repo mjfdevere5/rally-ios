@@ -17,8 +17,14 @@
 {
     COMMON_LOG
     
-    // Score
-    if ([self.game.scores count] > 1) {
+    // Game status view
+    [self.verticalTextView configureForStatus:[self.game gameStatus]];
+    
+    // Score and warning stuff
+    if ([[self.game gameStatus] isEqualToString:RA_GAME_STATUS_CANCELLED]) {
+        self.scoreLabel.text = @"";
+    }
+    else if ([self.game hasScore]) {
         NSNumber *myScore = [self.game.scores objectForKey:[RA_ParseUser currentUser].objectId];
         NSNumber *theirScore = [self.game.scores objectForKey:[self.game opponent].objectId];
         NSString *scoreString = [NSString stringWithFormat:@"%@ - %@", [myScore stringValue], [theirScore stringValue]];
@@ -28,30 +34,20 @@
         self.scoreLabel.text = @"TBD";
     }
     
+    // Warning labels
+    if (![self.game requiresActionOnScore]) {
+        [self.warningIcon removeFromSuperview];
+        [self.reportScoreLabel removeFromSuperview];
+    }
+    
     // Date label
-    NSString *dateString = [self.game.datetime getDatePrettyString];
-    NSString *timeString = [self.game.datetime get24HourClockString];
-    NSString *dateTimeString = [NSString stringWithFormat:@"%@ at %@", dateString, timeString];
+    NSString *dateString = [self.game.datetime getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO];
+    NSString *timeString = [self.game.datetime getCommonSpeechClock];
+    NSString *dateTimeString = [NSString stringWithFormat:@"%@ %@", dateString, timeString];
     self.dateLabel.text = dateTimeString;
     
-    // Warning stuff
-    // TO DO some way of knowing if we require action from this player on reporting/ confirming the score
-    [self.warningIcon removeFromSuperview];
-    [self.reportScoreLabel removeFromSuperview];
-    
-    // Network label
-//    self.networkLabel.text = self.game.network.name; // TO DO
-    
-    // Sport icon
-    if ([self.game.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
-        self.sportIcon.image = [UIImage imageNamed:@"squash_ball"];
-    }
-    else if ([self.game.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
-        self.sportIcon.image = [UIImage imageNamed:@"tennis_ball"];
-    }
-    else {
-        COMMON_LOG_WITH_COMMENT(@"ERROR: game.network.sport was not one we expected")
-    }
+    // Sport label
+    self.sportLabel.text = self.game.sport;
     
     // Opponent image and activity wheel
     PFFile *opponentPicFile = [self.game opponent].profilePicMedium;

@@ -8,6 +8,7 @@
 
 #import "RA_ParseGame.h"
 #import <Parse/PFObject+Subclass.h>
+#import "NSDate+Utilities.h"
 
 
 @implementation RA_ParseGame
@@ -121,6 +122,12 @@
 }
 
 
+-(BOOL)isUpcoming
+{
+    return [self.datetime isLaterThanDate:[[NSDate date] dateBySubtractingMinutes:30]];
+}
+
+
 -(BOOL)playerHasConfirmed:(RA_ParseUser *)player
 {
     return [[self.playerStatuses objectForKey:player.objectId] isEqualToString:RA_GAME_STATUS_CONFIRMED];
@@ -168,7 +175,7 @@
 
 
 
--(BOOL)actionRequiredByPlayer:(RA_ParseUser *)player
+-(BOOL)actionForUpcomingGameRequiredByPlayer:(RA_ParseUser *)player
 {
     // Game has either been proposed by us (both players need to confirm/cancel)...
     // ...or proposed by a player (other player needs to confirm/cancel).
@@ -186,20 +193,20 @@
         return YES;
     }
 }
--(BOOL)actionRequiredByMe
+-(BOOL)actionForUpcomingGameRequiredByMe
 {
-    return [self actionRequiredByPlayer:[RA_ParseUser currentUser]];
+    return [self actionForUpcomingGameRequiredByPlayer:[RA_ParseUser currentUser]];
 }
--(BOOL)actionRequiredByOpponent
+-(BOOL)actionForUpcomingGameRequiredByOpponent
 {
-    return [self actionRequiredByPlayer:[self opponent]];
+    return [self actionForUpcomingGameRequiredByPlayer:[self opponent]];
 }
 
 
 
 -(BOOL)hasScore
 {
-    return ([self.scores count] > 0);
+    return ([self.scores count] > 1);
 }
 
 -(NSNumber *)myScore
@@ -226,6 +233,13 @@
 
 
 
+-(BOOL)requiresActionOnScore
+{
+    return ([[self gameStatus] isEqualToString:RA_GAME_STATUS_COMPLETED] && ![self hasScore]);
+}
+
+
+
 -(void)currentUserCancelGameWithReason:(NSString *)reason
 {
     [self.playerStatuses setValue:RA_GAME_STATUS_CANCELLED forKey:[RA_ParseUser currentUser].objectId];
@@ -233,8 +247,6 @@
 }
 
 
-
-// Should only be called for a game in the future
 -(NSString *)gameStatus
 {
     NSString *status;
@@ -244,26 +256,43 @@
     NSString *playerOneStatus = [self.playerStatuses objectForKey:playerOne.objectId];
     NSString *playerTwoStatus = [self.playerStatuses objectForKey:playerTwo.objectId];
     
-    if (([playerOneStatus isEqualToString:RA_GAME_STATUS_CONFIRMED] ||
-         [playerOneStatus isEqualToString:RA_GAME_STATUS_PROPOSED]) &&
-        ([playerTwoStatus isEqualToString:RA_GAME_STATUS_CONFIRMED] ||
-         [playerTwoStatus isEqualToString:RA_GAME_STATUS_PROPOSED])) {
-        // Both players have confirmed, therefore the game is cancelled
-        status = RA_GAME_STATUS_CONFIRMED;
+    if ([self isUpcoming]) {
+        if ([playerOneStatus isEqualToString:RA_GAME_STATUS_CANCELLED] ||
+            [playerTwoStatus isEqualToString:RA_GAME_STATUS_CANCELLED]) {
+            // At least one player has cancelled, therefore the game is cancelled
+            status = RA_GAME_STATUS_CANCELLED;
+        }
+        else if (([playerOneStatus isEqualToString:RA_GAME_STATUS_CONFIRMED] ||
+                  [playerOneStatus isEqualToString:RA_GAME_STATUS_PROPOSED]) &&
+                 ([playerTwoStatus isEqualToString:RA_GAME_STATUS_CONFIRMED] ||
+                  [playerTwoStatus isEqualToString:RA_GAME_STATUS_PROPOSED])) {
+                     // Both players have confirmed
+                     status = RA_GAME_STATUS_CONFIRMED;
+                 }
+        else {
+            // Any other status for a future game is "proposed"
+            status = RA_GAME_STATUS_PROPOSED;
+        }
     }
-    else if ([playerOneStatus isEqualToString:RA_GAME_STATUS_CANCELLED] ||
-             [playerTwoStatus isEqualToString:RA_GAME_STATUS_CANCELLED]) {
-        // At least one player has cancelled, therefore the game is cancelled
-        status = RA_GAME_STATUS_CANCELLED;
+    else { // Game is historic
+        if ([playerOneStatus isEqualToString:RA_GAME_STATUS_CANCELLED] ||
+            [playerTwoStatus isEqualToString:RA_GAME_STATUS_CANCELLED]) {
+            // At least one player has cancelled, therefore the game is cancelled
+            status = RA_GAME_STATUS_CANCELLED;
+        }
+        else if (([playerOneStatus isEqualToString:RA_GAME_STATUS_CONFIRMED] ||
+                  [playerOneStatus isEqualToString:RA_GAME_STATUS_PROPOSED]) &&
+                 ([playerTwoStatus isEqualToString:RA_GAME_STATUS_CONFIRMED] ||
+                  [playerTwoStatus isEqualToString:RA_GAME_STATUS_PROPOSED])) {
+                     // Both players have confirmed
+                     status = RA_GAME_STATUS_COMPLETED;
+                 }
+        else {
+            status = RA_GAME_STATUS_UNCONFIRMED;
+        }
     }
-    else {
-        // Any other status for a future game is "proposed"
-        status = RA_GAME_STATUS_PROPOSED;
-    }
-    
     return status;
 }
-
 
 
 @end

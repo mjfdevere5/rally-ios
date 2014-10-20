@@ -184,12 +184,9 @@
     // Logout
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Logout"]) {
         [RA_ParseUser logOut];
-        UIStoryboard *myStoryboard = self.storyboard;
-        UIViewController *loginViewController = [myStoryboard instantiateInitialViewController];
-        [self presentViewController:loginViewController
-                           animated:YES
-                         completion:nil];
-
+        [self.tabBarController dismissViewControllerAnimated:YES completion:^{
+            // Do nothing
+        }];
     }
 }
 

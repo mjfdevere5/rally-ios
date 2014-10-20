@@ -22,12 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *thumbnailActivityWheel;
 @property (weak, nonatomic) IBOutlet UILabel *lookingToPlayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *preferenceBulletsLabel;
-@property (weak, nonatomic) IBOutlet UIView *dividerLineView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *networksActivityWheel;
-@property (weak, nonatomic) IBOutlet UILabel *networksInCommonLabel;
-@property (weak, nonatomic) IBOutlet UILabel *networkBulletsLabel;
 
 -(void)configureCell;
--(void)configureCellForHeightPurposesOnly;
+-(void)configureEverythingExceptImages;
 
 @end

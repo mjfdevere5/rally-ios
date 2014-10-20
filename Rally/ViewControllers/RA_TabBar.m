@@ -8,6 +8,7 @@
 
 #import "RA_TabBar.h"
 #import "AppConstants.h"
+#import "RA_NetworkTests.h"
 
 
 @interface RA_TabBar ()
@@ -32,11 +33,9 @@
     self.tabBar.barTintColor = UIColorFromRGB(RA_TABBAR_COLOUR);
     self.tabBar.selectedImageTintColor = UIColorFromRGB(RA_TABBAR_SELECTED);
     
-    // Badges
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    if (currentInstallation.badge != 0) {
-        UITabBarItem *messagesTabBarItem = [self.tabBar.items objectAtIndex:3];
-        messagesTabBarItem.badgeValue = [NSString stringWithFormat:@"%li",(long)currentInstallation.badge];
+    // Calculate badges for Game Manager
+    if ([RA_NetworkTests hasConnection]) {
+        
     }
 }
 

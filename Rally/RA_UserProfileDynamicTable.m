@@ -16,6 +16,7 @@
 #import "RA_UserProfileChatCell.h"
 #import "RA_UserProfileAcceptGameCell.h"
 #import "RA_NewsFeed.h"
+#import "RA_ProposeGame.h"
 
 
 @interface RA_UserProfileDynamicTable ()
@@ -99,9 +100,7 @@
     // - userprofile_proposegame_cell
     // - userprofile_report_cell
     if ([self.user.objectId isEqualToString:[RA_ParseUser currentUser].objectId]) {
-        self.cellArray = @[@"userprofile_chat_cell",
-                           @"userprofile_proposegame_cell",
-                           @"userprofile_report_cell"]; // TO DO fix this
+        self.cellArray = @[];
     }
     else if (self.context == RA_UserProfileContextGameManager) {
         self.cellArray = @[@"userprofile_chat_cell",
@@ -238,10 +237,14 @@
 
 -(RA_UserProfileBaseCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    COMMON_LOG
-    
     // Dequeue
     RA_UserProfileBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:self.cellArray[indexPath.row] forIndexPath:indexPath];
+    
+    // Special case
+    if ([cell isKindOfClass:[RA_UserProfileAcceptGameCell class]]) {
+        RA_UserProfileAcceptGameCell *castCell = (RA_UserProfileAcceptGameCell *)cell;
+        castCell.preference = indexPath.row;
+    }
     
     // Configure the cell
     cell.user = self.user;
@@ -273,7 +276,6 @@
         NSString *addressee = @"mjf.devere@gmail.com";
         NSString *subject = @"Reporting user";
         NSString *body = [NSString stringWithFormat:@"Please include details of your complaint below:\n\n1. User ID: %@ (please do not delete)\n\n2. Please provide details of your complaint here: \n/n3. Can a member of the Rally team contact you for further information if necessary? Yes/No", self.user.objectId];
-//        NSString *mailtoParam = [[NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", addressee, subject, body] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *mailtoParam = [[NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", addressee, subject, body] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailtoParam]];
     }
@@ -301,36 +303,14 @@
         }
     }
     
-    // Propose game TO DO (currently just uploads a placeholder game)
-//    else if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"userprofile_proposegame_cell"]) {
-//        COMMON_LOG_WITH_COMMENT([tableView cellForRowAtIndexPath:indexPath].reuseIdentifier)
-//        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view]; // Not sure if alloc init works, because the tutorials say to use 'object'
-//        [self.navigationController.view addSubview:HUD];
-//        HUD.delegate = self;
-//        [HUD showAnimated:YES whileExecutingBlock:^{
-//            // Create the game
-//            RA_ParseGame *game = [[RA_ParseGame alloc] initAsProposalFromMeToOpponent:self.user andNetwork:[RA_ParseNetwork rallyUsersNetwork] andDatetime:[[NSDate date] dateByAddingDays:2]];
-//            [game save];
-//            
-//            // Send push
-//            [game.network fetchIfNeeded]; // Fetch the rallyUsersNetwork
-//            NSString *pushText = [NSString stringWithFormat:@"%@ is suggesting %@ %@",
-//                                  [RA_ParseUser currentUser].displayName,
-//                                  game.network.sport,
-//                                  [game.datetime getCommonSpeechWithOnDayLong:NO dateOrdinal:NO monthLong:NO]];
-//            PFPush *push = [self configurePushWithText:pushText];
-//            [push sendPushInBackground];
-//            
-//        } completionBlock:^{
-//            // Show congrats
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats, that works"
-//                                                            message:nil
-//                                                           delegate:nil
-//                                                  cancelButtonTitle:@"OK"
-//                                                  otherButtonTitles:nil];
-//            [alert show];
-//        }];
-//    }
+    // Propose game
+    else if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"userprofile_proposegame_cell"])
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        RA_ProposeGame *viewController = [storyboard instantiateViewControllerWithIdentifier:@"proposeGame"];
+        viewController.opponent = self.user;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
     
     // Accept game
     else if ([[tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"userprofile_acceptgame_cell"]) {
@@ -417,9 +397,9 @@
 {
     COMMON_LOG
     
-    RA_ParseChatroom *room = self.chatroom;
-    ChatView *chatView = [[ChatView alloc] initWith:room.objectId];
-    chatView.chatRoomObject = room;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ChatView *chatView = [storyboard instantiateViewControllerWithIdentifier:@"chat_view"];
+    chatView.chatRoomObject = self.chatroom;
     [self.navigationController pushViewController:chatView animated:YES];
 }
 
@@ -439,9 +419,10 @@
     
     // Push config
     NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-                          text, @"alert",
-                          @"cheering.caf", @"sound",
-                          @"Increment", @"badge",
+                          text, @"alert", // Text
+                          @"cheering.caf", @"sound", // Sound
+                          @"Increment", @"badge", // App badge action
+                          @"game_manager", @"view", // Arbitrary data
                           nil];
     [push setData:data];
     

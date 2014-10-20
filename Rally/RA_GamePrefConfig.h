@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "RA_ParseGamePreferences.h"
-#import "RA_TimeAndDatePreference.h"
 #import <CoreLocation/CoreLocation.h>
 
 
@@ -21,16 +20,17 @@
 @property (strong, nonatomic) NSArray *possibleDates;
 @property (strong, nonatomic) NSArray *possibleTimes;
 
+// Depends on RA_NextGamePrefOne context property
+@property (strong, nonatomic) RA_ParseUser *userForPrivateChallenge;
+
 // Selected by the user, game setup view
 @property (strong, nonatomic) NSString *sport;
 @property (strong, nonatomic) NSMutableArray *networks; // of RA_ParseNetwork objects
 @property (strong, nonatomic) NSString *simRanked;
 
 // Selected by the user, game logistics view
-@property (strong, nonatomic) RA_TimeAndDatePreference *firstPreference; // NSArray
+@property (strong, nonatomic) NSMutableArray *dateTimePreferences; // of NSDate objects
 @property (nonatomic) BOOL hasBackupPreference;
-@property (strong, nonatomic) RA_TimeAndDatePreference *backupPreference; // NSArray
-@property (strong, nonatomic) NSDictionary *prefDictionary;
 
 // Passed in from RA_ShoutMapView and RA_LocationSingleton
 @property (strong, nonatomic) CLLocation *ladderLocation;

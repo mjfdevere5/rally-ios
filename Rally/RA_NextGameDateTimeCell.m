@@ -8,13 +8,12 @@
 
 #import "RA_NextGameDateTimeCell.h"
 #import "RA_GamePrefConfig.h"
-#import "RA_TimeAndDatePreference.h"
 #import "NSDate+CoolStrings.h"
 #import "NSDate+Utilities.h"
 
 
 @interface RA_NextGameDateTimeCell()
-@property (strong, nonatomic) RA_TimeAndDatePreference *timeAndDate;
+@property (strong, nonatomic) NSDate *dateTime;
 @end
 
 
@@ -30,25 +29,25 @@
     // TO DO
     
     // Get the RA_TimeAndDatePreference object we're working with
-    if (self.preferenceNumber == 0) {
-        self.timeAndDate = [RA_GamePrefConfig gamePrefConfig].firstPreference;
-    }
-    else if (self.preferenceNumber == 1) {
-        self.timeAndDate = [RA_GamePrefConfig gamePrefConfig].backupPreference;
-    }
+    self.dateTime = [RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber];
     
-    self.dayLabel.text = [[(RA_TimeAndDatePreference *)self.timeAndDate getDay] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO];
+    self.dayLabel.text = [self.dateTime getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO];
     [self.dayLabel sizeToFit]; // TO DO: is this correct?
-    self.timeLabel.text = [(RA_TimeAndDatePreference *)self.timeAndDate timeStringCapitalized];
+    self.timeLabel.text = [self.dateTime getCommonSpeechClock];
     [self.timeLabel sizeToFit]; // TO DO: is this correct?
     
     // Set buttons active/inactive
-    [self.earlierDay setEnabled:(![self.timeAndDate isMinDay])];
-    [self.laterDay setEnabled:(![self.timeAndDate isMaxDay])];
-    [self.earlierTime setEnabled:(![self.timeAndDate isMinTime])];
-    [self.laterTime setEnabled:(![self.timeAndDate isMaxTime])];
+    BOOL earlierDayEnabled = [[self.dateTime dateBySubtractingDays:1] isLaterThanDate:[NSDate date]];
+    BOOL laterDayEnabled = [[self.dateTime dateByAddingDays:1] isEarlierThanDate:[[NSDate date] dateByAddingDays:14]];
+    BOOL earlierTimeEnabled = [[self.dateTime dateBySubtractingHours:1] isLaterThanDate:[NSDate date]];
+    BOOL laterTimeEnabled = [[self.dateTime dateByAddingHours:1] isEarlierThanDate:[[NSDate date] dateByAddingDays:14]];
+    [self.earlierDay setEnabled:earlierDayEnabled];
+    [self.laterDay setEnabled:laterDayEnabled];
+    [self.earlierTime setEnabled:earlierTimeEnabled];
+    [self.laterTime setEnabled:laterTimeEnabled];
     
     // Layout
+    [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
@@ -58,65 +57,25 @@
 
 - (IBAction)tappedEarlierDay:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate getDay];
-    NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
-    RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:[dateBeforeTap dateBySubtractingDays:1]
-                                                                    andTimeInteger:[timeBeforeTap integerValue]];
-    // Not pretty but works
-    if (self.preferenceNumber == 0) {
-        [RA_GamePrefConfig gamePrefConfig].firstPreference = pref;
-    }
-    else if (self.preferenceNumber == 1) {
-        [RA_GamePrefConfig gamePrefConfig].backupPreference = pref;
-    }
+    [RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] = [[RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] dateBySubtractingDays:1];
     [self configureCell];
 }
 
 - (IBAction)tappedLaterDay:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate getDay];
-    NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
-    RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:[dateBeforeTap dateByAddingDays:1]
-                                                                    andTimeInteger:[timeBeforeTap integerValue]];
-    // Not pretty but works
-    if (self.preferenceNumber == 0) {
-        [RA_GamePrefConfig gamePrefConfig].firstPreference = pref;
-    }
-    else if (self.preferenceNumber == 1) {
-        [RA_GamePrefConfig gamePrefConfig].backupPreference = pref;
-    }
+    [RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] = [[RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] dateByAddingDays:1];
     [self configureCell];
 }
 
 - (IBAction)tappedEarlierTime:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate getDay];
-    NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
-    RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:dateBeforeTap
-                                                                    andTimeInteger:([timeBeforeTap integerValue] - 1)];
-    // Not pretty but works
-    if (self.preferenceNumber == 0) {
-        [RA_GamePrefConfig gamePrefConfig].firstPreference = pref;
-    }
-    else if (self.preferenceNumber == 1) {
-        [RA_GamePrefConfig gamePrefConfig].backupPreference = pref;
-    }
+    [RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] = [[RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] dateBySubtractingHours:1];
     [self configureCell];
 }
 
 - (IBAction)tappedLaterTime:(id)sender
 {
-    NSDate *dateBeforeTap = [self.timeAndDate getDay];
-    NSNumber *timeBeforeTap = [self.timeAndDate timeNumber];
-    RA_TimeAndDatePreference *pref = [[RA_TimeAndDatePreference alloc] initWithDay:dateBeforeTap
-                                                                    andTimeInteger:([timeBeforeTap integerValue] + 1)];
-    // Not pretty but works
-    if (self.preferenceNumber == 0) {
-        [RA_GamePrefConfig gamePrefConfig].firstPreference = pref;
-    }
-    else if (self.preferenceNumber == 1) {
-        [RA_GamePrefConfig gamePrefConfig].backupPreference = pref;
-    }
+    [RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] = [[RA_GamePrefConfig gamePrefConfig].dateTimePreferences[self.preferenceNumber] dateByAddingHours:1];
     [self configureCell];
 }
 

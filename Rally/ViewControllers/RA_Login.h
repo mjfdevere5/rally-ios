@@ -12,7 +12,7 @@
 @interface RA_Login : UIViewController <RA_LoginLogoutDelegate>
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
-
+@property (weak, nonatomic) IBOutlet UIButton *button;
 - (IBAction)loginButtonTouchHandler:(id)sender;
 
 @end

@@ -12,7 +12,6 @@
 #import "RA_FeedCellShout.h"
 #import "RA_NextGamePrefOne.h"
 #import "RA_UserProfileDynamicTable.h"
-#import "RA_TimeAndDatePreference.h"
 #import "NSDate+Utilities.h"
 #import "NSIndexPath+Utilities.h"
 
@@ -156,34 +155,28 @@
     for (RA_ParseGamePreferences *gamePref in results) {
         // See if first pref is still in date
         BOOL firstPrefIsInDate = NO;
-        RA_TimeAndDatePreference *timeAndDatePrefFirst;
-        timeAndDatePrefFirst = [[RA_TimeAndDatePreference alloc] initWithDatabaseArray:gamePref.dateTimePreferences[0]];
-        firstPrefIsInDate = ([[timeAndDatePrefFirst getDay] isEqualToDateIgnoringTime:[NSDate date]] ||
-                             [[timeAndDatePrefFirst getDay] isLaterThanDate:[NSDate date]]);
+        firstPrefIsInDate = ([gamePref.dateTimePreferences[0] isLaterThanDate:[NSDate date]]);
         
         // See if second pref is still in date
         BOOL secondPrefIsInDate = NO;
-        RA_TimeAndDatePreference *timeAndDatePrefSecond;
         if ([gamePref.dateTimePreferences count] >1) {
-            timeAndDatePrefSecond = [[RA_TimeAndDatePreference alloc] initWithDatabaseArray:gamePref.dateTimePreferences[1]];
-            secondPrefIsInDate = ([[timeAndDatePrefSecond getDay] isEqualToDateIgnoringTime:[NSDate date]] ||
-                                  [[timeAndDatePrefSecond getDay] isLaterThanDate:[NSDate date]]);
+            secondPrefIsInDate = ([gamePref.dateTimePreferences[1] isLaterThanDate:[NSDate date]]);
         }
         
         // Overwrite the gamePref with which ones are in date
         if (firstPrefIsInDate) {
             if (secondPrefIsInDate) {
-                gamePref.dateTimePreferences = @[[timeAndDatePrefFirst databaseArray], [timeAndDatePrefSecond databaseArray]];
+                gamePref.dateTimePreferences = @[gamePref.dateTimePreferences[0], gamePref.dateTimePreferences[1]];
                 [prunedResultsMut addObject:gamePref];
             }
             else {
-                gamePref.dateTimePreferences = @[[timeAndDatePrefFirst databaseArray]];
+                gamePref.dateTimePreferences = @[gamePref.dateTimePreferences[0]];
                 [prunedResultsMut addObject:gamePref];
             }
         }
         else {
             if (secondPrefIsInDate) {
-                gamePref.dateTimePreferences = @[[timeAndDatePrefSecond databaseArray]];
+                gamePref.dateTimePreferences = @[gamePref.dateTimePreferences[1]];
                 [prunedResultsMut addObject:gamePref];
             }
             else {
@@ -226,27 +219,28 @@
     return [self.arrayOfBroadcastsMain count];
 }
 
--(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 230.0;
-}
+//-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 230.0;
+//}
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{ COMMON_LOG
-    // Configure
-    NSNumber *height = [self.heights objectForKey:[indexPath indexPathKey]];
-    if (height) {
-        return [height floatValue];
-    }
-    else {
-        RA_ParseGamePreferences *gamePref = self.arrayOfBroadcastsMain[indexPath.row];
-        self.prototypeCell.gamePref = gamePref;
-        [self.prototypeCell configureCellForHeightPurposesOnly];
-        [self.prototypeCell layoutIfNeeded];
-        CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return size.height;
-    }
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{ COMMON_LOG_WITH_COMMENT([indexPath description])
+//    static RA_FeedCellShout *sizingCell = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:@"shout_broadcast_cell"];
+//    });
+//    RA_ParseGamePreferences *gamePref = self.arrayOfBroadcastsMain[indexPath.row];
+//    sizingCell.gamePref = gamePref;
+//    sizingCell.myViewController = self;
+//    sizingCell.indexPath = indexPath;
+//    [sizingCell configureEverythingExceptImages];
+//    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+//    NSString *comment = [NSString stringWithFormat:@"Returning %f", size.height];
+//    COMMON_LOG_WITH_COMMENT(comment)
+//    return size.height;
+//}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 { COMMON_LOG_WITH_COMMENT([indexPath description])

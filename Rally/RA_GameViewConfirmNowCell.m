@@ -13,7 +13,8 @@
 
 -(void)configureCell
 {
-    if ([[self.game gameStatus] isEqualToString:RA_GAME_STATUS_PROPOSED]) {
+    if ([[self.game gameStatus] isEqualToString:RA_GAME_STATUS_PROPOSED] ||
+        [[self.game gameStatus] isEqualToString:RA_GAME_STATUS_UNCONFIRMED]) {
         self.tapToConfirmLabel.textColor = [UIColor whiteColor];
         self.backgroundColor = CO_AMBER_UNCONFIRMED_LIGHTER;
     }

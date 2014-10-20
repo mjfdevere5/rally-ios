@@ -18,7 +18,7 @@
 @property (strong, nonatomic) NSString *sport;
 @property (strong, nonatomic) NSArray *networks; // of RA_ParseNetwork objects
 @property (nonatomic) BOOL simRanked;
-@property (strong, nonatomic) NSArray *dateTimePreferences; // nested arrays of type @[NSDate, NSString]
+@property (strong, nonatomic) NSArray *dateTimePreferences; // of NSDate objects
 @property (strong, nonatomic) PFGeoPoint *location; // added for location of game
 @property (strong, nonatomic) NSString *locationDesc; // added for location of game
 

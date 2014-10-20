@@ -19,31 +19,19 @@
     [self.verticalTextView configureForStatus:[self.game gameStatus]];
     
     // Date label
-    NSString *dateString = [self.game.datetime getDatePrettyString];
-    NSString *timeString = [self.game.datetime get24HourClockString];
+    NSString *dateString = [self.game.datetime getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO];
+    NSString *timeString = [self.game.datetime getCommonSpeechClock];
     NSString *dateTimeString = [NSString stringWithFormat:@"%@ at %@", dateString, timeString];
     self.dateLabel.text = dateTimeString;
     
-    // Network label
-//    self.networkLabel.text = self.game.network.name; // TO DO
-    
     // Warning stuff
-    if (![self.game actionRequiredByMe]) {
+    if (![self.game actionForUpcomingGameRequiredByMe]) {
         [self.warningIcon removeFromSuperview];
         [self.warningLabel removeFromSuperview];
     }
     
-    // Sport icon
-    if ([self.game.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
-        self.sportIcon.image = [UIImage imageNamed:@"squash_ball"];
-    }
-    else if ([self.game.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
-        self.sportIcon.image = [UIImage imageNamed:@"tennis_ball"];
-    }
-    else {
-        NSString *comment = [NSString stringWithFormat:@"ERROR: Unexpected game.sport: '%@'", self.game.sport];
-        COMMON_LOG_WITH_COMMENT(comment)
-    }
+    // Sport label
+    self.sportLabel.text = self.game.sport;
     
     // Opponent image and activity wheel
     PFFile *opponentPicFile = [self.game opponent].profilePicMedium;

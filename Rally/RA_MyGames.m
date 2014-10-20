@@ -29,6 +29,9 @@
 // BOOL to decide whether viewDidAppear should trigger an automatic reload
 @property (nonatomic) BOOL shouldLoadInBackgroundInvisibly;
 
+// Badge value
+@property (nonatomic) NSInteger badgeCount;
+
 @end
 
 
@@ -76,9 +79,6 @@
     
     // Load up the table
     [self fullRefresh];
-    
-    // Update badge counter
-    [self updateBadges];
 }
 
 
@@ -260,16 +260,30 @@
 
 -(void)setTableRowArraysFromGamesOrderedByDateDescending:(NSArray *)gamesByDateDescending
 {
+    // This method also does some badge counting
+    self.badgeCount = 0;
+    
     NSMutableArray *upcomingGamesMut = [NSMutableArray array];
     NSMutableArray *historicGamesMut = [NSMutableArray array];
     for (RA_ParseGame *game in gamesByDateDescending) {
         [game fetchIfNeeded];
-        if ([game.datetime isLaterThanDate:[[NSDate date] dateBySubtractingMinutes:30]]) {
+        if ([game isUpcoming]) {
             [upcomingGamesMut insertObject:game atIndex:0];
+            // We also do some badge counting here
+            if ([game actionForUpcomingGameRequiredByMe]) {
+                COMMON_LOG_WITH_COMMENT(@"Adding to badge")
+                self.badgeCount ++;
+            }
         }
         else {
             [historicGamesMut addObject:game];
+            if ([game requiresActionOnScore]) {
+                COMMON_LOG_WITH_COMMENT(@"Adding to badge")
+                self.badgeCount ++;
+            }
         }
+        
+        
     }
     self.upcomingGamesArrayTemp = [NSArray arrayWithArray:upcomingGamesMut];
     self.historicGamesArrayTemp = [NSArray arrayWithArray:historicGamesMut];
@@ -292,6 +306,14 @@
     
     // Cancel the refresher if it is spinning
     [self.refreshControl endRefreshing];
+    
+    // Update badge
+    if (self.badgeCount > 0) {
+        self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)self.badgeCount];
+    }
+    else {
+        self.navigationController.tabBarItem.badgeValue = nil;
+    }
 }
 
 
@@ -431,7 +453,6 @@
                                 
     // Pass it forward
     destViewController.game = game;
-    destViewController.context = RA_GameViewContextGameManager;
 }
 
 

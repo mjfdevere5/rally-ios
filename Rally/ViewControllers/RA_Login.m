@@ -9,18 +9,45 @@
 #import "RA_Login.h"
 #import "RAAppDelegate.h"
 #import "AppConstants.h"
+#import "RA_TabBar.h"
 
 
 @interface RA_Login ()
-
-// Reference to button, for disabling and re-enabling
-@property (strong, nonatomic) UIButton *button;
 
 @end
 
 
 
 @implementation RA_Login
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    BOOL isLoggedIn = ([RA_ParseUser currentUser] &&
+                       [PFFacebookUtils isLinkedWithUser:[RA_ParseUser currentUser]]);
+    if (isLoggedIn) {
+        [self.button setHidden:YES];
+        self.activityIndicator.hidden = YES;
+    }
+    else {
+        self.button.hidden = NO;
+        self.button.enabled = YES;
+        self.activityIndicator.hidden = NO;
+        [self.activityIndicator stopAnimating];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    BOOL isLoggedIn = ([RA_ParseUser currentUser] &&
+                       [PFFacebookUtils isLinkedWithUser:[RA_ParseUser currentUser]]);
+    if (isLoggedIn) {
+        COMMON_LOG_WITH_COMMENT(@"logged in")
+        UIStoryboard *myStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        RA_TabBar *tabBarController = [myStoryboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
+        COMMON_LOG_WITH_COMMENT([tabBarController description])
+        [self presentViewController:tabBarController animated:YES completion:nil];
+    }
+}
 
 
 - (IBAction)loginButtonTouchHandler:(id)sender

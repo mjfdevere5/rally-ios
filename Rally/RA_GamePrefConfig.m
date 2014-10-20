@@ -10,6 +10,7 @@
 #import "RA_GamePrefConfig.h"
 #import "AppConstants.h"
 #import "NSDate+Utilities.h"
+#import "NSDate+UtilitiesMax.h"
 #import "NSDate+CoolStrings.h"
 
 
@@ -55,14 +56,8 @@
     self.simRanked = RA_SIMRANKED_EVERYONE;
     
     // Selected by the user, game logistics view
-    self.firstPreference = [[RA_TimeAndDatePreference alloc] initWithDay:[NSDate date]
-                                                          andTimeInteger:RA_GamePrefPossibleTimesEvening];
+    self.dateTimePreferences = [NSMutableArray arrayWithObjects:[[NSDate date] upcomingHour],[[NSDate date] upcomingHour],nil];
     self.hasBackupPreference = NO;
-    self.backupPreference = [[RA_TimeAndDatePreference alloc] initWithDay:[NSDate date]
-                                                           andTimeInteger:RA_GamePrefPossibleTimesEvening];
-    self.prefDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                           self.firstPreference,@"first",
-                           self.backupPreference,@"backup", nil];
     
     // Location stuff
     self.ladderLocation = nil;
@@ -121,7 +116,7 @@
 
 -(BOOL)validDatesAndTimes
 {
-    return !([self.firstPreference bothActiveAndEqual:self.backupPreference] &&
+    return !([self.dateTimePreferences[0] isEqualToDate:self.dateTimePreferences[1]] &&
              self.hasBackupPreference);
 }
 
@@ -145,10 +140,10 @@
     gamePref.simRanked = self.simRanked;
     
     if (self.hasBackupPreference) {
-        gamePref.dateTimePreferences = @[ [self.firstPreference databaseArray] , [self.backupPreference databaseArray] ];
+        gamePref.dateTimePreferences = [NSArray arrayWithArray:self.dateTimePreferences];
     }
     else {
-        gamePref.dateTimePreferences = @[ [self.firstPreference databaseArray] ];
+        gamePref.dateTimePreferences = @[ self.dateTimePreferences[0] ];
     }
     
     gamePref.location = [PFGeoPoint geoPointWithLocation:self.ladderLocation];

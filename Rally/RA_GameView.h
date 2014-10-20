@@ -10,15 +10,7 @@
 #import "RA_ParseGame.h"
 #import "RA_ParseGamePreferences.h"
 
-typedef NS_ENUM(NSInteger, RA_GameViewContext) {
-    RA_GameViewContextGameManager,
-    RA_GameViewContextGamePref
-};
-
 @interface RA_GameView : UITableViewController<UIAlertViewDelegate>
-
-// Tells the view what cells to load
-@property (nonatomic) RA_GameViewContext context;
 
 // If context is 'GamePref', then we need an RA_ParseGamePrererences object
 @property (strong, nonatomic) RA_ParseGamePreferences *gamePref;

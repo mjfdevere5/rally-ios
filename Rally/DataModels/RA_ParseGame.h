@@ -14,6 +14,8 @@
 #define RA_GAME_STATUS_CONFIRMED    @"confirmed"
 #define RA_GAME_STATUS_PROPOSED     @"proposed"
 #define RA_GAME_STATUS_CANCELLED    @"cancelled"
+#define RA_GAME_STATUS_COMPLETED    @"completed"
+#define RA_GAME_STATUS_UNCONFIRMED  @"unconfirmed"
 
 
 @interface RA_ParseGame : PFObject<PFSubclassing>
@@ -52,6 +54,8 @@
 -(RA_ParseUser *)opponent;
 -(NSArray *)getNetworksInCommonForPlayers; // (BACKGROUND ONLY)
 
+-(BOOL)isUpcoming;
+
 -(BOOL)playerHasConfirmed:(RA_ParseUser *)player;
 -(BOOL)playerHasProposed:(RA_ParseUser *)player;
 -(BOOL)playerHasCancelled:(RA_ParseUser *)player;
@@ -62,19 +66,20 @@
 -(BOOL)opponentHasProposed;
 -(BOOL)opponentHasCancelled;
 
--(BOOL)actionRequiredByPlayer:(RA_ParseUser *)player;
--(BOOL)actionRequiredByMe;
--(BOOL)actionRequiredByOpponent;
+-(BOOL)actionForUpcomingGameRequiredByPlayer:(RA_ParseUser *)player;
+-(BOOL)actionForUpcomingGameRequiredByMe;
+-(BOOL)actionForUpcomingGameRequiredByOpponent;
 
 -(BOOL)hasScore;
 -(NSNumber *)myScore;
 -(NSNumber *)opponentScore;
 -(void)setMyScore:(NSNumber *)score;
 -(void)setOpponentScore:(NSNumber *)score;
-
--(void)currentUserCancelGameWithReason:(NSString *)reason;
+-(BOOL)requiresActionOnScore;
 
 -(NSString *)gameStatus;
+
+-(void)currentUserCancelGameWithReason:(NSString *)reason;
 
 @end
 

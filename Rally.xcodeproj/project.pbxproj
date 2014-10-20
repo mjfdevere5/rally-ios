@@ -143,11 +143,15 @@
 		50468F5F19B7D8F1000883BF /* PLCameraSheetDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 50468F5119B7D8F1000883BF /* PLCameraSheetDoneButtonPressed.png */; };
 		50468F6019B7D8F1000883BF /* PLCameraSheetDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50468F5219B7D8F1000883BF /* PLCameraSheetDoneButtonPressed@2x.png */; };
 		5046B09319B4BB7D0002F215 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5046B09219B4BB7D0002F215 /* MapKit.framework */; };
-		5049007519F152CC003006F9 /* RA_TimeAndDatePreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 5049007419F152CC003006F9 /* RA_TimeAndDatePreference.m */; };
 		504BFC4019B21C38001EA73D /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 504BFC3F19B21C38001EA73D /* NSDate+Utilities.m */; };
 		5052AFB419EECA7C0074B076 /* RA_GameStatusVerticalTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052AFB319EECA7C0074B076 /* RA_GameStatusVerticalTextView.m */; };
 		50538E6419F46B6E00C5AEE5 /* NSIndexPath+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50538E6319F46B6E00C5AEE5 /* NSIndexPath+Utilities.m */; };
 		50538E6719F477CD00C5AEE5 /* PFObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50538E6619F477CD00C5AEE5 /* PFObject+Utilities.m */; };
+		50613F5919F54D480034A0B9 /* NSDate+UtilitiesMax.m in Sources */ = {isa = PBXBuildFile; fileRef = 50613F5819F54D480034A0B9 /* NSDate+UtilitiesMax.m */; };
+		50613F5C19F563760034A0B9 /* RA_ProposeGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 50613F5B19F563750034A0B9 /* RA_ProposeGame.m */; };
+		50613F6019F5643A0034A0B9 /* RA_ProposeGameBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50613F5F19F5643A0034A0B9 /* RA_ProposeGameBaseCell.m */; };
+		50613F6319F5647F0034A0B9 /* RA_ProposeGameSportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50613F6219F5647F0034A0B9 /* RA_ProposeGameSportCell.m */; };
+		50613F6619F564980034A0B9 /* RA_ProposeGameDateTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50613F6519F564980034A0B9 /* RA_ProposeGameDateTimeCell.m */; };
 		506C2DEE19E7516B00910B21 /* RA_GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506C2DED19E7516B00910B21 /* RA_GameView.m */; };
 		5071C24719E3092E006A208E /* RA_ParseUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5071C24619E3092E006A208E /* RA_ParseUser.m */; };
 		5071C24D19E4411F006A208E /* RA_ParseGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5071C24C19E4411F006A208E /* RA_ParseGame.m */; };
@@ -417,8 +421,6 @@
 		50468F5119B7D8F1000883BF /* PLCameraSheetDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PLCameraSheetDoneButtonPressed.png; sourceTree = "<group>"; };
 		50468F5219B7D8F1000883BF /* PLCameraSheetDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PLCameraSheetDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
 		5046B09219B4BB7D0002F215 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5049007319F152CC003006F9 /* RA_TimeAndDatePreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_TimeAndDatePreference.h; sourceTree = "<group>"; };
-		5049007419F152CC003006F9 /* RA_TimeAndDatePreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_TimeAndDatePreference.m; sourceTree = "<group>"; };
 		504BFC3E19B21C38001EA73D /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Utilities.h"; path = "NSDate+Utilities/NSDate+Utilities.h"; sourceTree = "<group>"; };
 		504BFC3F19B21C38001EA73D /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Utilities.m"; path = "NSDate+Utilities/NSDate+Utilities.m"; sourceTree = "<group>"; };
 		5052AFB219EECA7C0074B076 /* RA_GameStatusVerticalTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameStatusVerticalTextView.h; sourceTree = "<group>"; };
@@ -427,6 +429,16 @@
 		50538E6319F46B6E00C5AEE5 /* NSIndexPath+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+Utilities.m"; sourceTree = "<group>"; };
 		50538E6519F477CD00C5AEE5 /* PFObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+Utilities.h"; sourceTree = "<group>"; };
 		50538E6619F477CD00C5AEE5 /* PFObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Utilities.m"; sourceTree = "<group>"; };
+		50613F5719F54D480034A0B9 /* NSDate+UtilitiesMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+UtilitiesMax.h"; sourceTree = "<group>"; };
+		50613F5819F54D480034A0B9 /* NSDate+UtilitiesMax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+UtilitiesMax.m"; sourceTree = "<group>"; };
+		50613F5A19F563750034A0B9 /* RA_ProposeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ProposeGame.h; sourceTree = "<group>"; };
+		50613F5B19F563750034A0B9 /* RA_ProposeGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ProposeGame.m; sourceTree = "<group>"; };
+		50613F5E19F5643A0034A0B9 /* RA_ProposeGameBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ProposeGameBaseCell.h; sourceTree = "<group>"; };
+		50613F5F19F5643A0034A0B9 /* RA_ProposeGameBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ProposeGameBaseCell.m; sourceTree = "<group>"; };
+		50613F6119F5647F0034A0B9 /* RA_ProposeGameSportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ProposeGameSportCell.h; sourceTree = "<group>"; };
+		50613F6219F5647F0034A0B9 /* RA_ProposeGameSportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ProposeGameSportCell.m; sourceTree = "<group>"; };
+		50613F6419F564980034A0B9 /* RA_ProposeGameDateTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ProposeGameDateTimeCell.h; sourceTree = "<group>"; };
+		50613F6519F564980034A0B9 /* RA_ProposeGameDateTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ProposeGameDateTimeCell.m; sourceTree = "<group>"; };
 		506C2DEC19E7516B00910B21 /* RA_GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameView.h; sourceTree = "<group>"; };
 		506C2DED19E7516B00910B21 /* RA_GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameView.m; sourceTree = "<group>"; };
 		5071C24519E3092D006A208E /* RA_ParseUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RA_ParseUser.h; path = DataModels/RA_ParseUser.h; sourceTree = "<group>"; };
@@ -609,6 +621,7 @@
 				5039839B19EBE8D0007ED8D2 /* Chat */,
 				5071C24919E3FC3F006A208E /* Login */,
 				5039839619EBE781007ED8D2 /* User Profile */,
+				50613F5D19F5641B0034A0B9 /* Propose Game */,
 				5008550319AE40810071DDF4 /* Tabbar */,
 				50EF3ABF19F007930032510C /* Tabbar 0. Find game */,
 				50B9F79819D1E27200CA5F0E /* Tabbar 0. Next game */,
@@ -730,6 +743,8 @@
 				50EF3ABC19EFFC8B0032510C /* RA_NetworkTests.m */,
 				50330EEB19B9092100A03301 /* NSDate+CoolStrings.h */,
 				50330EEC19B9092100A03301 /* NSDate+CoolStrings.m */,
+				50613F5719F54D480034A0B9 /* NSDate+UtilitiesMax.h */,
+				50613F5819F54D480034A0B9 /* NSDate+UtilitiesMax.m */,
 				50330EE719B8FE6600A03301 /* UIImage+ProfilePicHandling.h */,
 				50330EE819B8FE6600A03301 /* UIImage+ProfilePicHandling.m */,
 				5039AD1119D566C100450556 /* NSString+StringsUtils.h */,
@@ -1067,6 +1082,21 @@
 			path = OpenSourceLibraries;
 			sourceTree = "<group>";
 		};
+		50613F5D19F5641B0034A0B9 /* Propose Game */ = {
+			isa = PBXGroup;
+			children = (
+				50613F5A19F563750034A0B9 /* RA_ProposeGame.h */,
+				50613F5B19F563750034A0B9 /* RA_ProposeGame.m */,
+				50613F5E19F5643A0034A0B9 /* RA_ProposeGameBaseCell.h */,
+				50613F5F19F5643A0034A0B9 /* RA_ProposeGameBaseCell.m */,
+				50613F6119F5647F0034A0B9 /* RA_ProposeGameSportCell.h */,
+				50613F6219F5647F0034A0B9 /* RA_ProposeGameSportCell.m */,
+				50613F6419F564980034A0B9 /* RA_ProposeGameDateTimeCell.h */,
+				50613F6519F564980034A0B9 /* RA_ProposeGameDateTimeCell.m */,
+			);
+			name = "Propose Game";
+			sourceTree = "<group>";
+		};
 		5071C24819E30C8F006A208E /* Parse classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1217,8 +1247,6 @@
 			children = (
 				503983C019EC3C01007ED8D2 /* RA_GamePrefConfig.h */,
 				503983C119EC3C01007ED8D2 /* RA_GamePrefConfig.m */,
-				5049007319F152CC003006F9 /* RA_TimeAndDatePreference.h */,
-				5049007419F152CC003006F9 /* RA_TimeAndDatePreference.m */,
 				503983C219EC3C01007ED8D2 /* RA_NextGamePrefOne.h */,
 				503983C319EC3C01007ED8D2 /* RA_NextGamePrefOne.m */,
 				503983C419EC3C01007ED8D2 /* RA_NextGamePrefTwo.h */,
@@ -1434,8 +1462,10 @@
 				5018103C19E8061A00018390 /* RA_GameViewStatusCell.m in Sources */,
 				5018104819E8069800018390 /* RA_GameViewFacilitiesCell.m in Sources */,
 				5071C24D19E4411F006A208E /* RA_ParseGame.m in Sources */,
+				50613F5919F54D480034A0B9 /* NSDate+UtilitiesMax.m in Sources */,
 				5043E9B219BD133D00A3E028 /* JSQMessagesCollectionView.m in Sources */,
 				501E2FC819B70DBA008927E8 /* UIImage+Resize.m in Sources */,
+				50613F6019F5643A0034A0B9 /* RA_ProposeGameBaseCell.m in Sources */,
 				508FA67B19E6DEE200B61767 /* RA_MyGamesHistoricCell.m in Sources */,
 				5043E9B819BD133D00A3E028 /* JSQMessagesComposerTextView.m in Sources */,
 				508AC44619F1843D008F1D1C /* RA_createNetwork.m in Sources */,
@@ -1444,6 +1474,7 @@
 				50330F0119BA033A00A03301 /* NSString+FontAwesome.m in Sources */,
 				5043E9A819BD133D00A3E028 /* JSQMessagesViewController.m in Sources */,
 				506C2DEE19E7516B00910B21 /* RA_GameView.m in Sources */,
+				50613F6319F5647F0034A0B9 /* RA_ProposeGameSportCell.m in Sources */,
 				50AC90A219EDAAB100606CA4 /* RA_UserProfileAcceptGameCell.m in Sources */,
 				5018103F19E8063400018390 /* RA_GameViewConfirmNowCell.m in Sources */,
 				503983D019EC3C01007ED8D2 /* RA_NextGamePrefTwo.m in Sources */,
@@ -1504,6 +1535,8 @@
 				508AC42B19F179A2008F1D1C /* RA_NextGameAddBackupCell.m in Sources */,
 				500854B719AE21FD0071DDF4 /* RAAppDelegate.m in Sources */,
 				507B094F19EB3DD100B482B4 /* FXBlurView.m in Sources */,
+				50613F5C19F563760034A0B9 /* RA_ProposeGame.m in Sources */,
+				50613F6619F564980034A0B9 /* RA_ProposeGameDateTimeCell.m in Sources */,
 				50E8AFE419D377250050544E /* RA_RecentChatCell.m in Sources */,
 				5039AD1319D566C100450556 /* NSString+StringsUtils.m in Sources */,
 				508AC43C19F18417008F1D1C /* RA_NetworksCell.m in Sources */,
@@ -1519,7 +1552,6 @@
 				507B094B19EB3B6200B482B4 /* JPBParallaxTableViewController.m in Sources */,
 				50468F5519B7D8F1000883BF /* GKImageCropView.m in Sources */,
 				50EF3AC819F07E600032510C /* RA_NextGameNetworkCheckmarkCell.m in Sources */,
-				5049007519F152CC003006F9 /* RA_TimeAndDatePreference.m in Sources */,
 				50EF3ABD19EFFC8B0032510C /* RA_NetworkTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

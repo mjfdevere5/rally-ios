@@ -32,27 +32,10 @@
     }
     
     // Set the text
-    if (self.indexPath.row == 0) {
-        COMMON_LOG_WITH_COMMENT(@"First preference")
-        NSString *whenString = [NSString stringWithFormat:@"%@, %@",
-                                [self.gamePref.dateTimePreferences[0] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
-                                [self.gamePref.dateTimePreferences[0] getCommonSpeechClock]];
-        self.textLabel.text = [NSString stringWithFormat:@"Accept game: %@", whenString];
-    }
-    else if (self.indexPath.row == 1) {
-        COMMON_LOG_WITH_COMMENT(@"Second preference")
-        NSString *whenString = [NSString stringWithFormat:@"%@, %@",
-                                [self.gamePref.dateTimePreferences[1] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
-                                [self.gamePref.dateTimePreferences[1] getCommonSpeechClock]];
-        self.textLabel.text = [NSString stringWithFormat:@"Accept game: %@", whenString];
-    }
-    else if (self.indexPath.row == 2) {
-        COMMON_LOG_WITH_COMMENT(@"First preference")
-        NSString *whenString = [NSString stringWithFormat:@"%@, %@",
-                                [self.gamePref.dateTimePreferences[2] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
-                                [self.gamePref.dateTimePreferences[2] getCommonSpeechClock]];
-        self.textLabel.text = [NSString stringWithFormat:@"Accept game: %@", whenString];
-    }
+    NSString *whenString = [NSString stringWithFormat:@"%@ at %@",
+                            [self.gamePref.dateTimePreferences[self.preferenceNumber] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],
+                            [self.gamePref.dateTimePreferences[self.preferenceNumber] getCommonSpeechClock]];
+    self.textLabel.text = [NSString stringWithFormat:@"Confirm: %@", whenString];
 }
 
 
