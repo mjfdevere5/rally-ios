@@ -28,6 +28,8 @@ typedef NS_ENUM(NSInteger, RA_SportPickerControlIndex) {
     // Titles
     [self.sportPickerControl setTitle:@"Squash" forSegmentAtIndex:RA_SportPickerControlIndexSquash];
     [self.sportPickerControl setTitle:@"Tennis" forSegmentAtIndex:RA_SportPickerControlIndexTennis];
+    
+    self.sportPickerControl.tintColor = RA_TEST_BLUE2;
 }
 
 

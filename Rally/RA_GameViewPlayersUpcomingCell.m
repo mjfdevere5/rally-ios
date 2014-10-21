@@ -116,19 +116,21 @@
 -(void)segueToLeftPlayer:(id)sender
 {
     COMMON_LOG
-    
-    RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.leftPlayer
-                                                                                    andContext:RA_UserProfileContextGameManager];
-    [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    if (![self.leftPlayer.objectId isEqualToString:[RA_ParseUser currentUser].objectId]) {
+        RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.leftPlayer
+                                                                                        andContext:RA_UserProfileContextGameManager];
+        [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    }
 }
 
 -(void)segueToRightPlayer:(id)sender
 {
     COMMON_LOG
-    
-    RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.rightPlayer
-                                                                                    andContext:RA_UserProfileContextGameManager];
-    [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    if (![self.rightPlayer.objectId isEqualToString:[RA_ParseUser currentUser].objectId]) {
+        RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.rightPlayer
+                                                                                        andContext:RA_UserProfileContextGameManager];
+        [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    }
 }
 
 

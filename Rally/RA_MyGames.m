@@ -74,7 +74,7 @@
     [self.tableView setContentInset:UIEdgeInsetsMake(6, 0, 0, 0)];
     
     // Background colour and footer view
-    self.tableView.backgroundColor = UIColorFromRGB(GENERIC_BACKGROUND_COLOUR);
+    self.tableView.backgroundColor = RA_TEST_WHITE;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     // Load up the table
@@ -119,8 +119,8 @@
     self.segmentControl.font = [UIFont fontWithName:@"EuphemiaUCAS" size:17.0];
     self.segmentControl.selectionIndicatorHeight = 2.5;
     self.segmentControl.backgroundColor = [UIColor whiteColor];
-    self.segmentControl.tintColor = UIColorFromRGB(FORMS_DARK_RED);
-    self.segmentControl.hairlineColor = UIColorFromRGB(FORMS_DARK_RED);
+    self.segmentControl.tintColor = RA_TEST_BLUE2;
+    self.segmentControl.hairlineColor = RA_TEST_BLUE2;
     
     // Animation bar thing
     self.segmentControl.autoAdjustSelectionIndicatorWidth = YES;

@@ -52,7 +52,7 @@
     
     // Setting some styles for the table
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = UIColorFromRGB(GENERIC_BACKGROUND_COLOUR);
+    self.tableView.backgroundColor = RA_TEST_WHITE;
     
     // Cell height dictionary
     self.heights = [NSMutableDictionary dictionary];
@@ -268,10 +268,12 @@
     RA_ParseGamePreferences *gamePref = self.arrayOfBroadcastsMain[indexPath.row];
     RA_ParseUser *user = gamePref.user;
     
-    // Segue to user profile
-    RA_UserProfileDynamicTable *userView = [[RA_UserProfileDynamicTable alloc] initWithUser:user andContext:RA_UserProfileContextShoutOut];
-    userView.gamePref = gamePref;
-    [self.navigationController pushViewController:userView animated:YES];
+    // Segue to user profile if not self
+    if (![user.objectId isEqualToString:[RA_ParseUser currentUser].objectId]) {
+        RA_UserProfileDynamicTable *userView = [[RA_UserProfileDynamicTable alloc] initWithUser:user andContext:RA_UserProfileContextShoutOut];
+        userView.gamePref = gamePref;
+        [self.navigationController pushViewController:userView animated:YES];
+    }
 }
 
 

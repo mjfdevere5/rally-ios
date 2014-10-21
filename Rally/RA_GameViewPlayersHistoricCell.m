@@ -208,7 +208,8 @@
             broadcast.userOne = self.leftPlayer;
             broadcast.userTwo = self.rightPlayer;
             broadcast.visibility = rightVisibilityArray;
-            broadcast.type = @"score";
+            broadcast.type = RA_BROADCAST_TYPE_SCORE;
+            broadcast.game = self.game;
             [objectsToBeSaved addObject:broadcast];
             
             // Upload everything
@@ -311,16 +312,20 @@
 
 -(void)segueToLeftPlayer:(id)sender
 { COMMON_LOG
-    RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.leftPlayer
-                                                                                    andContext:RA_UserProfileContextGameManager];
-    [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    if (![self.leftPlayer.objectId isEqualToString:[RA_ParseUser currentUser].objectId]) {
+        RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.leftPlayer
+                                                                                        andContext:RA_UserProfileContextGameManager];
+        [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    }
 }
 
 -(void)segueToRightPlayer:(id)sender
 { COMMON_LOG
-    RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.rightPlayer
-                                                                                    andContext:RA_UserProfileContextGameManager];
-    [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    if (![self.rightPlayer.objectId isEqualToString:[RA_ParseUser currentUser].objectId]) {
+        RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.rightPlayer
+                                                                                        andContext:RA_UserProfileContextGameManager];
+        [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    }
 }
 
 

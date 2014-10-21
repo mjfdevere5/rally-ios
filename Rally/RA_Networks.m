@@ -35,7 +35,7 @@ static NSString * const reuseIdentifier = @"Cell";
     NSLog(@"Got to view did load");
     
     // change the background colour
-    self.view.backgroundColor = UIColorFromRGB(GENERIC_BACKGROUND_COLOUR);
+    self.view.backgroundColor = RA_TEST_WHITE;
     
     // Populate the table
     [self loadTableData];
@@ -100,6 +100,8 @@ static NSString * const reuseIdentifier = @"Cell";
                                                                     andNetwork:nil];
     [rowsArrayMut addObject:detailsCreate];
     
+    
+    
     [[RA_ParseUser currentUser] fetch];
     for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
         
@@ -129,6 +131,8 @@ static NSString * const reuseIdentifier = @"Cell";
                                                                              andImage:[self getImageForNetwork:network]
                                                                             andAction:network.type
                                                                            andNetwork:network];
+            NSLog(@"network descriptions %@",[network description]);
+            
             [rowsArrayMut addObject:detailsThree];
             
         }
@@ -189,7 +193,7 @@ static NSString * const reuseIdentifier = @"Cell";
     RA_CollCellDetails *details = self.listOfNetworks[indexPath.row];
     
     UIImage *imageForResize = [details.image getImageResizedAndCropped:cell.ladderImage.frame.size];
-    UIImage *imageForRounding = [imageForResize getImageWithRoundedCorners:10];
+    UIImage *imageForRounding = [imageForResize getImageWithRoundedCorners:0];
     
 //    cell.ladderImage.layer.masksToBounds = YES;
 //    cell.ladderImage.layer.cornerRadius = 10.0;
@@ -209,11 +213,14 @@ static NSString * const reuseIdentifier = @"Cell";
     COMMON_LOG_WITH_COMMENT(details.action)
     
     if ([details.action isEqualToString:@"special"] || [details.action isEqualToString:@"League"] || [details.action isEqualToString:@"Ladder"]) {
-        RA_LeagueTables *view = [RA_LeagueTables new];
-        view.network = details.network;
-        [self presentViewController:view animated:YES completion:^{
-            // Nothing to do
-        }];
+        
+        [self performSegueWithIdentifier:@"goto_leaderboard" sender:details.network];
+        
+//        RA_LeagueTables *view = [RA_LeagueTables new];
+//        NSLog(@"fetching network to pass forward %@",details.network);
+//        view.network = details.network;
+//        [self presentViewController:view animated:YES completion:^{
+//            NSLog(@"trying to fetch the new view controller");
     }
     
     else if ([details.action isEqualToString:@"create_button"]) {
@@ -368,6 +375,14 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"goto_leaderboard"]) {
+        RA_LeagueTables *leagueTable = [segue destinationViewController];
+        leagueTable.network = sender;
+    }
 }
 
 

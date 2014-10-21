@@ -10,6 +10,8 @@
 	<string>Rally</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>3F889CB5D77BE93692B32EB876CFCAF7E032692B</key>
+		<string>github.com:mjfdevere5/rally-temp-max.git</string>
 		<key>AB69FDEF63A7C520D0F40EA1A0BABE934BECEC4E</key>
 		<string>github.com:mjfdevere5/rally-max.git</string>
 		<key>BAAAE7CD-B94C-43DC-994A-24BBE70B02EC</key>
@@ -21,19 +23,21 @@
 	<string>Rally.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>3F889CB5D77BE93692B32EB876CFCAF7E032692B</key>
+		<string>../..</string>
 		<key>AB69FDEF63A7C520D0F40EA1A0BABE934BECEC4E</key>
 		<string>../../../140910_1200_Rally</string>
 		<key>BAAAE7CD-B94C-43DC-994A-24BBE70B02EC</key>
 		<string>../../../140826_1200_Rally</string>
 		<key>CF221CB112A8075AD8863D6D881CE0E6B0AF0A7B</key>
-		<string>../..</string>
+		<string>../../../rally-master</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:mjfdevere5/rally-master.git</string>
+	<string>github.com:mjfdevere5/rally-temp-max.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CF221CB112A8075AD8863D6D881CE0E6B0AF0A7B</string>
+	<string>3F889CB5D77BE93692B32EB876CFCAF7E032692B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -59,6 +63,14 @@
 			<string>CF221CB112A8075AD8863D6D881CE0E6B0AF0A7B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>rally-master</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3F889CB5D77BE93692B32EB876CFCAF7E032692B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>rally-max-bruno%203</string>
 		</dict>
 	</array>
 </dict>

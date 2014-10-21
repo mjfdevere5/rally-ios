@@ -14,6 +14,7 @@
 
 @interface RA_ProposeGame()<MBProgressHUDDelegate>
 @property (strong, nonatomic) NSArray *cellArray;
+@property (strong, nonatomic) RA_ParseGame *game;
 @end
 
 @implementation RA_ProposeGame
@@ -99,11 +100,15 @@
 { COMMON_LOG_WITH_COMMENT([indexPath description])
     // Dequeue
     NSString *reuseIdentifier = self.cellArray[indexPath.section][indexPath.row];
+    COMMON_LOG_WITH_COMMENT(@"reuse id")
     RA_ProposeGameBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    COMMON_LOG_WITH_COMMENT([cell description])
     
     // Configuration
     cell.myViewController = self;
+    COMMON_LOG_WITH_COMMENT(@"1")
     [cell configureCell];
+    COMMON_LOG_WITH_COMMENT(@"2")
     
     // Return
     return cell;
@@ -126,7 +131,7 @@
     }
     
     // Prepare the game object for upload
-    RA_ParseGame *game = [[RA_ParseGame alloc] initAsProposalFromMeToOpponent:self.opponent
+    self.game = [[RA_ParseGame alloc] initAsProposalFromMeToOpponent:self.opponent
                                                                      andSport:self.sport
                                                                   andDatetime:self.dateTime];
     
@@ -137,15 +142,16 @@
     [HUD show:YES];
     
     // Upload
-    [game saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [self.game saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [HUD hide:YES];
-        if (succeeded) { [self configUploadedSuccessfully]; } // TO DO: Send a ping
+        if (succeeded) { [self configUploadedSuccessfully]; }
         else { [self configFailedToUploadWithError:error]; }
     }];
 }
 
 -(void)configUploadedSuccessfully
 {
+    
     // Throw a 'success' alert
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!"
                                                     message:[NSString stringWithFormat:@"You've proposed a game to %@. You'll get a ping when your match is confirmed.", self.opponent.displayName]
@@ -154,8 +160,37 @@
                                           otherButtonTitles: nil];
     [alert show];
     
+    // Push
+    NSString *pushText = [NSString stringWithFormat:@"%@ has sent you a game proposal", [RA_ParseUser currentUser].displayName];
+    PFPush *push = [self configurePushWithText:pushText];
+    [push sendPushInBackground];
+    
     // Unwind completely
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(PFPush *)configurePushWithText:(NSString *)text
+{
+    COMMON_LOG
+    
+    // Initialise our push
+    PFPush *push = [[PFPush alloc] init];
+    
+    // Push query
+    PFQuery *pushQuery = [PFInstallation query];
+    [pushQuery whereKey:@"user" equalTo:[self.game opponent]];
+    [push setQuery:pushQuery];
+    
+    // Push config
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          text, @"alert",
+                          @"cheering.caf", @"sound",
+                          @"Increment", @"badge",
+                          nil];
+    [push setData:data];
+    
+    // Return
+    return push;
 }
 
 -(void)configFailedToUploadWithError:(NSError *)error

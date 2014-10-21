@@ -60,8 +60,8 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
     [super viewDidLoad];
     
    // Adjust the colours of the cells and labels
-    self.tableView.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
-    self.view.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
+    self.tableView.backgroundColor = RA_TEST_BLUE2;
+    self.view.backgroundColor = RA_TEST_BLUE2;
     self.sportSelector.tintColor = [UIColor whiteColor];
     self.gameTypeSelector.tintColor = [UIColor whiteColor];
     self.lenthPicker.textColor = [UIColor whiteColor];
@@ -106,7 +106,7 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
 
 - (void)tableView: (UITableView*)tableView willDisplayCell: (UITableViewCell*)cell forRowAtIndexPath: (NSIndexPath*)indexPath
 {
-    cell.backgroundColor = UIColorFromRGB(FORMS_LIGHT_RED);
+    cell.backgroundColor = RA_TEST_BLUE3;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section

@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, RA_SimilarlyRankedTitle) {
     // Formatting
     // TO DO
     
+    self.similarlyRankedControl.tintColor = RA_TEST_BLUE2;
+    
     // Segment titles
     [self.similarlyRankedControl setTitle:@"Everyone" forSegmentAtIndex:RA_SimilarlyRankedTitleAnyone];
     [self.similarlyRankedControl setTitle:@"Similarly ranked" forSegmentAtIndex:RA_SimilarlyRankedTitleSimilarlyRanked];

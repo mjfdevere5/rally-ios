@@ -13,7 +13,6 @@
 // Passed in from the table view controller
 @property (nonatomic) NSInteger preference;
 
-@property (weak, nonatomic) IBOutlet UIImageView *leftImage;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityWheel;
 @property (weak, nonatomic) IBOutlet UILabel *textOutlet;
 

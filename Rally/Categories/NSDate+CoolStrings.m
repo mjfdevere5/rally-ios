@@ -36,7 +36,7 @@
         [dateFormatter setDateFormat:@"h a"];
     }
     else {
-        [dateFormatter setDateFormat:@"hh:mm a"];
+        [dateFormatter setDateFormat:@"h:mm a"];
     }
     return [dateFormatter stringFromDate:self];
 }

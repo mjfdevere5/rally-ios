@@ -58,24 +58,27 @@
     self.leftPlayerScore.text = [NSString stringWithFormat:@"%@",leftScore];
     self.rightPlayerScore.text = [NSString stringWithFormat:@"%@", rightScore];
     
+    NSLog(@"left score: %@ and right score: %@",leftScore, rightScore);
+    NSLog(@"game score description: %@",[self.broadcast.game.scores description]);
+    NSLog(@"game: %@",[self.broadcast.game description]);
+    
     // Format the text
     if ([leftScore integerValue] > [rightScore integerValue]) {
+        self.leftPlayerName.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        self.leftPlayerScore.backgroundColor = UIColorFromRGB(0xff6100);
         self.leftPlayerScore.textColor = [UIColor whiteColor];
         self.rightPlayerScore.textColor = [UIColor whiteColor];
-        self.leftPlayerScore.backgroundColor = [UIColor greenColor];
-        self.rightPlayerScore.backgroundColor = [UIColor redColor];
     }
     else if ([leftScore integerValue] < [rightScore integerValue]) {
+        self.rightPlayerName.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        self.rightPlayerScore.backgroundColor = UIColorFromRGB(0xff6100);
         self.leftPlayerScore.textColor = [UIColor whiteColor];
         self.rightPlayerScore.textColor = [UIColor whiteColor];
-        self.leftPlayerScore.backgroundColor = [UIColor redColor];
-        self.rightPlayerScore.backgroundColor = [UIColor greenColor];
-    }
+        
+        }
+    
     else {
-        self.leftPlayerScore.textColor = [UIColor blackColor];
-        self.rightPlayerScore.textColor = [UIColor blackColor];
-        self.leftPlayerScore.backgroundColor = [UIColor orangeColor];
-        self.rightPlayerScore.backgroundColor = [UIColor orangeColor];
+       
     }
     
     // Player images

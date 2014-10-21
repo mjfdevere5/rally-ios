@@ -81,7 +81,7 @@
     [preferenceBullets appendAttributedString:dayOne];
     [preferenceBullets appendAttributedString:at];
     [preferenceBullets appendAttributedString:timeOne];
-
+    
     // > Bullet 2
     if ([self.gamePref.dateTimePreferences count] > 1) {
         NSAttributedString *dayTwo = [[NSAttributedString alloc] initWithString:[self.gamePref.dateTimePreferences[1] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES]

@@ -20,17 +20,6 @@
     self.backgroundColor = CO_AMBER_UNCONFIRMED_LIGHTER;
     self.textLabel.textColor = [UIColor whiteColor];
     
-    // Set the image (say, to a squash ball)
-    if ([self.gamePref.sport isEqualToString:RA_SPORT_NAME_SQUASH]) {
-        self.leftImage.image = [UIImage imageNamed:@"squash_ball"];
-    }
-    else if ([self.gamePref.sport isEqualToString:RA_SPORT_NAME_TENNIS]) {
-        self.leftImage.image = [UIImage imageNamed:@"tennis_ball"];
-    }
-    else {
-        COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected sport name")
-    }
-    
     // Set the text
     NSString *whenString = [NSString stringWithFormat:@"%@ at %@",
                             [self.gamePref.dateTimePreferences[self.preferenceNumber] getCommonSpeechDayLong:NO dateOrdinal:NO monthLong:NO],

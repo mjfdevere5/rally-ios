@@ -45,7 +45,7 @@
     
     // Setting some early styles for the table
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = UIColorFromRGB(GENERIC_BACKGROUND_COLOUR);
+    self.tableView.backgroundColor = RA_TEST_WHITE;
     
     // Refresher control thing
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -127,6 +127,8 @@
     // Run query
     NSArray *results = [query findObjects];
     
+    NSLog(@"results count %lu",(unsigned long)[results count]);
+    
     // Logging
     NSString *logComment = [NSString stringWithFormat:@"Query results = %lu", (unsigned long)[results count]];
     COMMON_LOG_WITH_COMMENT(logComment)
@@ -199,10 +201,10 @@
     RA_ParseBroadcast *broadcast = self.cellArray[indexPath.row];
     
     if ([broadcast.type isEqualToString:RA_BROADCAST_TYPE_SCORE]) {
-        return 155.0;
+        return 172.0;
     }
     else if ([broadcast.type isEqualToString:RA_BROADCAST_TYPE_CONFIRMED]) {
-        return 44.0; // TO DO
+        return 191.0; // TO DO
     }
     else if ([broadcast.type isEqualToString:RA_BROADCAST_TYPE_RALLY_TEAM]) {
         UIFont *font = [UIFont fontWithName:@"Helvetica" size:14.0f];

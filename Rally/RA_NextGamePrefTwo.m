@@ -40,9 +40,9 @@
     self.navigationItem.backBarButtonItem = backButton;
     
     // Form formatting
-    self.tableView.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
-    self.view.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
-    self.separatorLine.backgroundColor = UIColorFromRGB(FORMS_LIGHT_RED);
+    self.tableView.backgroundColor = RA_TEST_WHITE;
+    self.view.backgroundColor = RA_TEST_WHITE;
+    self.separatorLine.backgroundColor = RA_TEST_BLUE2;
     
     // Set to auto-location-update and start updating location
     [RA_GamePrefConfig gamePrefConfig].ladderLocationManuallySelected = NO;

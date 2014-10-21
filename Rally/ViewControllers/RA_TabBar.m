@@ -23,21 +23,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.delegate = self;
-    
+
     // Set default tab bar selection to the middle tab
     self.selectedIndex = 0;
-    
+
     // Set colour
-    self.tabBar.barTintColor = UIColorFromRGB(RA_TABBAR_COLOUR);
-    self.tabBar.selectedImageTintColor = UIColorFromRGB(RA_TABBAR_SELECTED);
-    
-    // Calculate badges for Game Manager
-    if ([RA_NetworkTests hasConnection]) {
-        
+    self.tabBar.barTintColor = RA_TEST_BLUE1;
+
+    self.tabBar.selectedImageTintColor = RA_TEST_WHITE;
+
+    // Badges
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        UITabBarItem *messagesTabBarItem = [self.tabBar.items objectAtIndex:3];
+        messagesTabBarItem.badgeValue = [NSString stringWithFormat:@"%li",(long)currentInstallation.badge];
     }
 }
+
 
 
 

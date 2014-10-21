@@ -17,6 +17,7 @@
 #import "RA_UserProfileAcceptGameCell.h"
 #import "RA_NewsFeed.h"
 #import "RA_ProposeGame.h"
+#import "RA_ParseBroadcast.h"
 
 
 @interface RA_UserProfileDynamicTable ()
@@ -318,8 +319,9 @@
         
         // Handle the cell visuals
         RA_UserProfileAcceptGameCell *cell = [self.cells valueForKey:[NSString stringWithFormat:@"%@", [indexPath description]]];
-        cell.leftImage.hidden = YES; // Makes invisible
+        cell.activityWheel.hidden = NO;
         [cell.activityWheel startAnimating];
+        cell.textLabel.text = @"Just a moment...";
         
         // Now we want to do all of the following: 0. Ask for a proper time, 1. Delete the gamePref object. 2. If that is successful (i.e. we got there first) then create a game object 3. Delete the news feed item
         NSDate *selectedDate = self.gamePref.dateTimePreferences[indexPath.row];
@@ -358,6 +360,8 @@
                                 COMMON_LOG_WITH_COMMENT(@"ERROR: Push send failed")
                             }
                         }];
+                        
+                        [self performSelectorInBackground:@selector(uploadBroadcastForGame:) withObject:newGame];
 
                         // Say well done
                         COMMON_LOG_WITH_COMMENT(@"About to show alert")
@@ -391,6 +395,18 @@
     }
 }
 
+-(void)uploadBroadcastForGame:(RA_ParseGame *)game // (BACKGROUND ONLY)
+{
+    RA_ParseBroadcast *broadcast = [RA_ParseBroadcast object];
+    broadcast.type = RA_BROADCAST_TYPE_CONFIRMED;
+    broadcast.userOne = [RA_ParseUser currentUser];
+    broadcast.userTwo = self.user;
+    
+    broadcast.visibility = [game getNetworksInCommonForPlayers];
+    broadcast.game = game;
+    [broadcast save];
+}
+
 
 
 -(void)segueToChatroom
@@ -399,8 +415,7 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ChatView *chatView = [storyboard instantiateViewControllerWithIdentifier:@"chat_view"];
-    chatView.chatRoomObject = self.chatroom;
-    [self.navigationController pushViewController:chatView animated:YES];
+    [self presentViewController:chatView animated:YES completion:nil];
 }
 
 

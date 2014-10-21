@@ -13,6 +13,7 @@
 #import "RA_GameViewCancelCell.h"
 #import "NSDate+CoolStrings.h"
 #import "RA_UserProfileDynamicTable.h"
+#import "RA_ParseBroadcast.h"
 
 @interface RA_GameView ()
 
@@ -93,11 +94,10 @@
         [cellArrayMut addObject:@"game_players_historic_cell"];
     }
     
-    // Facilities cell
-    [cellArrayMut addObject:@"game_facilities_cell"];
-    
     // Cancel cell
-    if (self.isUpcoming) {
+    if ([[self.game gameStatus] isEqualToString:RA_GAME_STATUS_PROPOSED] ||
+        [[self.game gameStatus] isEqualToString:RA_GAME_STATUS_CONFIRMED] ||
+        [[self.game gameStatus] isEqualToString:RA_GAME_STATUS_UNCONFIRMED]) {
         [cellArrayMut addObject:@"game_cancel_cell"];
     }
     
@@ -223,6 +223,51 @@
     RA_GameViewConfirmNowCell *cell = [self.cells objectForKey:@"game_confirm_now_cell"];
     [cell.activityWheel startAnimating];
     cell.tapToConfirmLabel.text = @"Saving";
+    
+    
+    // Addition of broadcast code to save
+    
+    NSArray *array = [NSArray arrayWithObject:self.game.players];
+    
+    NSLog(@"count in the array %lu",(unsigned long)[array count]);
+    
+    NSLog(@"array description %@",[array[0]description]);
+    
+    RA_ParseBroadcast *broadcast = [RA_ParseBroadcast object];
+    
+    RA_ParseUser *one = self.game.players[0];
+    
+    RA_ParseUser *two = self.game.players[1];
+    [one fetchIfNeeded];
+    [two fetchIfNeeded];
+    
+    
+    
+    NSLog(@"log of parse user %@",[one description]);
+    NSLog(@"left user id %@",one.objectId);
+    NSLog(@"right user id %@", two.objectId);
+    
+    
+    broadcast.userOne = one;
+    broadcast.userTwo = two;
+    
+    NSMutableArray *visibility = [NSMutableArray arrayWithObject:one.networkMemberships];
+    NSMutableArray *visibilityRight = [NSMutableArray arrayWithObject:two.networkMemberships];
+    [visibility addObjectsFromArray:visibilityRight];
+    
+    broadcast.game = self.game;
+    broadcast.type = @"game_confirmed";
+    broadcast.visibility = visibility;
+    
+    NSLog(@"description of the broadcast %@",[broadcast description]);
+    
+    [broadcast saveInBackground];
+    
+    
+    // End of broadcast code to save
+    
+    
+    
     [self.game.playerStatuses setValue:RA_GAME_STATUS_CONFIRMED forKey:[RA_ParseUser currentUser].objectId];
     [self.game saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
@@ -233,6 +278,9 @@
                               [self.game.datetime getCommonSpeechClock]];
         PFPush *push = [self configurePushWithText:pushText];
         [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            // Upload broadcast
+            [self performSelectorInBackground:@selector(uploadBroadcastForGame:) withObject:self.game];
             
             // Delete cell
             [self loadCellArray]; // This modifies the array that drives the tableview methods. Important to prevent a crash.
@@ -249,7 +297,7 @@
 //-(void)processConfirmation
 //{
 //    COMMON_LOG
-//    
+//
 //    RA_GameViewConfirmNowCell *cell = [self.cells objectForKey:@"game_confirm_now_cell"];
 //    [cell.activityWheel startAnimating];
 //    cell.tapToConfirmLabel.text = @"Saving";
@@ -359,6 +407,18 @@
             }];
         }];
     }
+}
+
+-(void)uploadBroadcastForGame:(RA_ParseGame *)game // (BACKGROUND ONLY)
+{
+    RA_ParseBroadcast *broadcast = [RA_ParseBroadcast object];
+    broadcast.type = RA_BROADCAST_TYPE_CONFIRMED;
+    broadcast.userOne = [RA_ParseUser currentUser];
+    broadcast.userTwo = [game opponent];
+    
+    broadcast.visibility = [game getNetworksInCommonForPlayers];
+    broadcast.game = game;
+    [broadcast save];
 }
 
 

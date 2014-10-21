@@ -63,4 +63,13 @@
 #define     CO_AMBER_UNCONFIRMED_LIGHTER        UIColorFromRGB(0xFFB84D)
 #define     CO_GRAY_CANCELLED                   UIColorFromRGB(0xA0A0A0)
 
+//Bruno additions
+#define     RA_TEST_WHITE                       UIColorFromRGB(0xFFFFFF) // white
+#define     RA_TEST_BLUE1                       UIColorFromRGB(0x1785B5) // blue - quite dark
+#define     RA_TEST_BLUE2                       UIColorFromRGB(0x085476) // darkest
+#define     RA_TEST_BLUE3                       UIColorFromRGB(0x71BADA) // lightest
+#define     RA_TEST_ORANGE                      UIColorFromRGB(0xFF9116) // orange
+
+
+
 
