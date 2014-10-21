@@ -26,7 +26,7 @@
 // Selected by the user, game setup view
 @property (strong, nonatomic) NSString *sport;
 @property (strong, nonatomic) NSMutableArray *networks; // of RA_ParseNetwork objects
-@property (strong, nonatomic) NSString *simRanked;
+@property (nonatomic) BOOL simRanked;
 
 // Selected by the user, game logistics view
 @property (strong, nonatomic) NSMutableArray *dateTimePreferences; // of NSDate objects

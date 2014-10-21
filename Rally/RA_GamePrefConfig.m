@@ -53,7 +53,7 @@
     // Selected by the user, game setup view
     self.sport = nil;
     self.networks = [NSMutableArray array];
-    self.simRanked = RA_SIMRANKED_EVERYONE;
+    self.simRanked = NO;
     
     // Selected by the user, game logistics view
     self.dateTimePreferences = [NSMutableArray arrayWithObjects:[[NSDate date] upcomingHour],[[NSDate date] upcomingHour],nil];

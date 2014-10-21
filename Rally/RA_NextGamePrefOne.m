@@ -256,15 +256,6 @@
         [alert show];
         return;
     }
-    else if (![RA_GamePrefConfig gamePrefConfig].simRanked) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not so fast!"
-                                                        message:@"Play anyone, or only those similarly ranked?"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
     else {
         [self performSegueWithIdentifier:@"goto_preferences2" sender:self];
     }

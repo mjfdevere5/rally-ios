@@ -14,9 +14,6 @@
 #define     RA_SPORT_NAME_SQUASH                @"squash"
 #define     RA_SPORT_NAME_TENNIS                @"tennis"
 
-#define     RA_SIMRANKED_SIMRANKED_ONLY         @"sim_ranked_only"
-#define     RA_SIMRANKED_EVERYONE               @"everyone"
-
 
 #pragma mark - frequently used bits of code
 // ******************** frequently used bits of code ********************

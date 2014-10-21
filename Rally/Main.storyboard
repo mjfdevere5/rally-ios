@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vJL-FD-7ya">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Login-->
@@ -407,13 +407,16 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bKm-0z-Z0o" id="o3F-ZO-BwH">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaS-S5-Hga">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaS-S5-Hga">
                                                     <rect key="frame" x="38" y="12" width="192" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23" id="9s7-8I-8TG"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jO-VD-bdg">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jO-VD-bdg">
                                                     <rect key="frame" x="38" y="35" width="192" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2993,7 +2996,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     <outlet property="timeStamp" destination="7aH-VU-sJX" id="PFl-hn-p2G"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="score_update" rowHeight="172" id="Gnz-0w-Q0S" customClass="RA_NewsFeedScoreUpdateCell">
+                            <tableViewCell contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="score_update" rowHeight="189" id="Gnz-0w-Q0S" customClass="RA_NewsFeedScoreUpdateCell">
                                 <rect key="frame" x="0.0" y="259" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gnz-0w-Q0S" id="4T6-M9-Fbt">
@@ -3001,7 +3004,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aBe-U6-q5t" customClass="PFImageView">
-                                            <rect key="frame" x="20" y="53" width="50" height="50"/>
+                                            <rect key="frame" x="16" y="64" width="50" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="HsS-2j-fuk"/>
@@ -3009,25 +3012,25 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y1A-pX-54r">
-                                            <rect key="frame" x="145" y="20" width="147" height="26"/>
+                                            <rect key="frame" x="16" y="39" width="289" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="26" id="9SU-8S-VWE"/>
+                                                <constraint firstAttribute="height" constant="17" id="9SU-8S-VWE"/>
                                             </constraints>
                                             <attributedString key="attributedText">
                                                 <fragment content="time stamp">
                                                     <attributes>
                                                         <color key="NSColor" red="0.66290656887755106" green="0.66290656887755106" blue="0.66290656887755106" alpha="1" colorSpace="calibratedRGB"/>
                                                         <font key="NSFont" size="14" name="GillSans"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eh1-a1-ONE">
-                                            <rect key="frame" x="78" y="66" width="149" height="23"/>
+                                            <rect key="frame" x="78" y="79" width="169" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="0ck-sL-8j2"/>
+                                                <constraint firstAttribute="height" constant="21" id="0ck-sL-8j2"/>
                                             </constraints>
                                             <attributedString key="attributedText">
                                                 <fragment content="Name">
@@ -3042,16 +3045,13 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vMB-9e-i9o" customClass="PFImageView">
-                                            <rect key="frame" x="20" y="106" width="50" height="50"/>
+                                            <rect key="frame" x="16" y="122" width="50" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="UNW-dK-uq9"/>
-                                            </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzY-5r-97B">
-                                            <rect key="frame" x="78" y="115" width="149" height="31"/>
+                                            <rect key="frame" x="78" y="136" width="169" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="31" id="RZ7-Mh-BGs"/>
+                                                <constraint firstAttribute="height" constant="21" id="RZ7-Mh-BGs"/>
                                             </constraints>
                                             <attributedString key="attributedText">
                                                 <fragment content="Name">
@@ -3066,9 +3066,8 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xb6-ry-3mB">
-                                            <rect key="frame" x="20" y="20" width="117" height="24"/>
+                                            <rect key="frame" x="16" y="15" width="289" height="24"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="117" id="Hi0-gI-6Fw"/>
                                                 <constraint firstAttribute="height" constant="24" id="fiE-A4-xI2"/>
                                             </constraints>
                                             <attributedString key="attributedText">
@@ -3083,8 +3082,21 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJa-tB-Rue">
+                                            <rect key="frame" x="255" y="122" width="50" height="50"/>
+                                            <color key="backgroundColor" red="0.031372549020000001" green="0.3294117647" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yw0-w6-h2e">
+                                            <rect key="frame" x="31" y="79" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EbG-Ur-mhb">
+                                            <rect key="frame" x="31" y="137" width="20" height="20"/>
+                                        </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuo-Np-MI3">
-                                            <rect key="frame" x="242" y="53" width="50" height="50"/>
+                                            <rect key="frame" x="255" y="64" width="50" height="50"/>
                                             <color key="backgroundColor" red="0.031372549020000001" green="0.3294117647" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="MjX-oi-6tx"/>
@@ -3094,56 +3106,36 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJa-tB-Rue">
-                                            <rect key="frame" x="242" y="106" width="50" height="50"/>
-                                            <color key="backgroundColor" red="0.031372549020000001" green="0.3294117647" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="rhp-IA-nZT"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yw0-w6-h2e">
-                                            <rect key="frame" x="35" y="68" width="20" height="20"/>
-                                        </activityIndicatorView>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EbG-Ur-mhb">
-                                            <rect key="frame" x="35" y="121" width="20" height="20"/>
-                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="Y1A-pX-54r" secondAttribute="trailing" constant="28" id="1F8-RR-T5M"/>
-                                        <constraint firstItem="Xb6-ry-3mB" firstAttribute="leading" secondItem="4T6-M9-Fbt" secondAttribute="leading" constant="20" id="37t-yU-c9i"/>
-                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="bottom" secondItem="ZJa-tB-Rue" secondAttribute="bottom" constant="-0.5" id="39m-7Q-Gw0"/>
-                                        <constraint firstItem="ZJa-tB-Rue" firstAttribute="leading" secondItem="hzY-5r-97B" secondAttribute="trailing" constant="15" id="4TU-lY-j3W"/>
-                                        <constraint firstItem="eh1-a1-ONE" firstAttribute="leading" secondItem="aBe-U6-q5t" secondAttribute="trailing" constant="8" symbolic="YES" id="6Zm-fd-zGl"/>
-                                        <constraint firstItem="ZJa-tB-Rue" firstAttribute="trailing" secondItem="yuo-Np-MI3" secondAttribute="trailing" id="6hc-bj-BHu"/>
-                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="leading" secondItem="eh1-a1-ONE" secondAttribute="trailing" constant="15" id="7cu-vX-iUc"/>
-                                        <constraint firstItem="EbG-Ur-mhb" firstAttribute="leading" secondItem="yw0-w6-h2e" secondAttribute="leading" id="7vE-Vt-GcF"/>
-                                        <constraint firstItem="yw0-w6-h2e" firstAttribute="centerY" secondItem="aBe-U6-q5t" secondAttribute="centerY" id="9Ru-bA-Tua"/>
-                                        <constraint firstItem="aBe-U6-q5t" firstAttribute="leading" secondItem="Xb6-ry-3mB" secondAttribute="leading" id="AJY-va-uO7"/>
-                                        <constraint firstItem="hzY-5r-97B" firstAttribute="bottom" secondItem="vMB-9e-i9o" secondAttribute="bottom" constant="-10" id="EDl-PQ-hBo"/>
-                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="leading" secondItem="aBe-U6-q5t" secondAttribute="leading" id="HIV-Z7-5KO"/>
-                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="leading" secondItem="eh1-a1-ONE" secondAttribute="trailing" constant="15" id="Hm7-TV-T94"/>
-                                        <constraint firstItem="hzY-5r-97B" firstAttribute="leading" secondItem="vMB-9e-i9o" secondAttribute="trailing" constant="8" symbolic="YES" id="Jmb-TL-Bg1"/>
-                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="top" secondItem="Y1A-pX-54r" secondAttribute="bottom" constant="7" id="PDr-2n-8yS"/>
-                                        <constraint firstItem="ZJa-tB-Rue" firstAttribute="top" secondItem="yuo-Np-MI3" secondAttribute="bottom" constant="3" id="POs-R7-2Or"/>
-                                        <constraint firstItem="aBe-U6-q5t" firstAttribute="top" secondItem="Xb6-ry-3mB" secondAttribute="bottom" constant="9" id="Rqr-qO-v6c"/>
-                                        <constraint firstItem="eh1-a1-ONE" firstAttribute="top" secondItem="Xb6-ry-3mB" secondAttribute="bottom" constant="22" id="TiG-Nx-Kfa"/>
-                                        <constraint firstItem="hzY-5r-97B" firstAttribute="trailing" secondItem="eh1-a1-ONE" secondAttribute="trailing" id="VQa-hn-2sb"/>
-                                        <constraint firstItem="hzY-5r-97B" firstAttribute="top" secondItem="eh1-a1-ONE" secondAttribute="bottom" constant="26" id="YGg-hf-P22"/>
-                                        <constraint firstItem="yw0-w6-h2e" firstAttribute="centerX" secondItem="aBe-U6-q5t" secondAttribute="centerX" id="Zds-fH-qAd"/>
-                                        <constraint firstItem="Y1A-pX-54r" firstAttribute="leading" secondItem="Xb6-ry-3mB" secondAttribute="trailing" constant="8" symbolic="YES" id="bjc-rG-wHm"/>
-                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="top" secondItem="ZJa-tB-Rue" secondAttribute="top" id="cIg-r5-R6o"/>
-                                        <constraint firstAttribute="bottom" secondItem="vMB-9e-i9o" secondAttribute="bottom" constant="15.5" id="geH-eT-wi0"/>
-                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="leading" secondItem="ZJa-tB-Rue" secondAttribute="leading" id="hST-8b-GuW"/>
-                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="top" secondItem="aBe-U6-q5t" secondAttribute="bottom" constant="3" id="lV0-Wj-ngG"/>
-                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="top" secondItem="aBe-U6-q5t" secondAttribute="top" id="lz7-yv-Ng6"/>
-                                        <constraint firstItem="hzY-5r-97B" firstAttribute="leading" secondItem="eh1-a1-ONE" secondAttribute="leading" id="r0V-2H-qzq"/>
-                                        <constraint firstItem="Y1A-pX-54r" firstAttribute="top" secondItem="4T6-M9-Fbt" secondAttribute="top" constant="20" id="rUg-R9-HeM"/>
-                                        <constraint firstItem="EbG-Ur-mhb" firstAttribute="centerY" secondItem="vMB-9e-i9o" secondAttribute="centerY" id="vf8-np-eIf"/>
-                                        <constraint firstAttribute="trailing" secondItem="yuo-Np-MI3" secondAttribute="trailing" constant="28" id="yJv-xy-Wd6"/>
-                                        <constraint firstItem="Xb6-ry-3mB" firstAttribute="top" secondItem="4T6-M9-Fbt" secondAttribute="top" constant="20" id="ykx-L4-75p"/>
+                                        <constraint firstItem="Y1A-pX-54r" firstAttribute="top" secondItem="Xb6-ry-3mB" secondAttribute="bottom" id="3m5-Zj-D0l"/>
+                                        <constraint firstItem="ZJa-tB-Rue" firstAttribute="width" secondItem="yuo-Np-MI3" secondAttribute="width" id="5jR-yX-vfm"/>
+                                        <constraint firstItem="ZJa-tB-Rue" firstAttribute="trailing" secondItem="yuo-Np-MI3" secondAttribute="trailing" id="9YG-r1-eNN"/>
+                                        <constraint firstItem="eh1-a1-ONE" firstAttribute="leading" secondItem="aBe-U6-q5t" secondAttribute="trailing" constant="12" id="9zH-TV-7eh"/>
+                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="leading" secondItem="aBe-U6-q5t" secondAttribute="leading" id="Cpz-7Y-sgF"/>
+                                        <constraint firstItem="Xb6-ry-3mB" firstAttribute="top" secondItem="4T6-M9-Fbt" secondAttribute="top" constant="15" id="ELk-KF-c6k"/>
+                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="centerX" secondItem="EbG-Ur-mhb" secondAttribute="centerX" id="EvR-MO-lgg"/>
+                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="trailing" secondItem="Xb6-ry-3mB" secondAttribute="trailing" id="JJi-ga-4hl"/>
+                                        <constraint firstItem="Xb6-ry-3mB" firstAttribute="trailing" secondItem="Y1A-pX-54r" secondAttribute="trailing" id="K8C-V4-5i1"/>
+                                        <constraint firstItem="ZJa-tB-Rue" firstAttribute="height" secondItem="yuo-Np-MI3" secondAttribute="height" id="LC4-mC-DqU"/>
+                                        <constraint firstItem="Xb6-ry-3mB" firstAttribute="leading" secondItem="4T6-M9-Fbt" secondAttribute="leading" constant="16" id="PHJ-Sl-IpD"/>
+                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="centerY" secondItem="eh1-a1-ONE" secondAttribute="centerY" id="Vje-s9-H6U"/>
+                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="centerY" secondItem="hzY-5r-97B" secondAttribute="centerY" constant="0.5" id="WC6-pb-Teh"/>
+                                        <constraint firstItem="eh1-a1-ONE" firstAttribute="leading" secondItem="hzY-5r-97B" secondAttribute="leading" id="ZLj-pC-hue"/>
+                                        <constraint firstItem="aBe-U6-q5t" firstAttribute="centerX" secondItem="yw0-w6-h2e" secondAttribute="centerX" id="b2A-xZ-bZY"/>
+                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="height" secondItem="aBe-U6-q5t" secondAttribute="height" id="bC1-UZ-6Ch"/>
+                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="top" secondItem="aBe-U6-q5t" secondAttribute="bottom" constant="8" id="di7-R6-fkg"/>
+                                        <constraint firstItem="Xb6-ry-3mB" firstAttribute="leading" secondItem="Y1A-pX-54r" secondAttribute="leading" id="e4P-ce-7ro"/>
+                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="width" secondItem="aBe-U6-q5t" secondAttribute="width" id="ffg-eS-iQ2"/>
+                                        <constraint firstItem="aBe-U6-q5t" firstAttribute="top" secondItem="Y1A-pX-54r" secondAttribute="bottom" constant="8" id="h9Q-5v-SuJ"/>
+                                        <constraint firstItem="eh1-a1-ONE" firstAttribute="trailing" secondItem="hzY-5r-97B" secondAttribute="trailing" id="hmS-xe-qS6"/>
+                                        <constraint firstItem="ZJa-tB-Rue" firstAttribute="centerY" secondItem="hzY-5r-97B" secondAttribute="centerY" id="i3W-pc-VHe"/>
+                                        <constraint firstAttribute="trailing" secondItem="Xb6-ry-3mB" secondAttribute="trailing" constant="15" id="kU7-Sc-s8k"/>
+                                        <constraint firstItem="aBe-U6-q5t" firstAttribute="centerY" secondItem="eh1-a1-ONE" secondAttribute="centerY" id="lsw-cv-UQs"/>
+                                        <constraint firstItem="yuo-Np-MI3" firstAttribute="leading" secondItem="eh1-a1-ONE" secondAttribute="trailing" constant="8" id="nl5-u0-kIW"/>
+                                        <constraint firstItem="aBe-U6-q5t" firstAttribute="leading" secondItem="Xb6-ry-3mB" secondAttribute="leading" id="xIh-bt-eCD"/>
+                                        <constraint firstItem="aBe-U6-q5t" firstAttribute="centerY" secondItem="yw0-w6-h2e" secondAttribute="centerY" id="xmZ-Sm-AyF"/>
+                                        <constraint firstItem="vMB-9e-i9o" firstAttribute="centerY" secondItem="EbG-Ur-mhb" secondAttribute="centerY" id="xwU-ru-GZC"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3168,7 +3160,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WjI-kY-2n9" customClass="PFImageView">
-                                            <rect key="frame" x="20" y="60" width="50" height="50"/>
+                                            <rect key="frame" x="16" y="62" width="50" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="8Cd-kN-dd8"/>
@@ -3176,7 +3168,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBS-fn-6Pl">
-                                            <rect key="frame" x="78" y="71" width="155" height="24"/>
+                                            <rect key="frame" x="78" y="75" width="226" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="RWJ-Mm-JhQ"/>
                                             </constraints>
@@ -3193,15 +3185,54 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tmf-V6-7ba" customClass="PFImageView">
-                                            <rect key="frame" x="20" y="118" width="50" height="50"/>
+                                            <rect key="frame" x="16" y="120" width="50" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="T6a-Nq-5QH"/>
                                                 <constraint firstAttribute="width" constant="50" id="gfT-op-Itf"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ko-Kh-Lg1">
+                                            <rect key="frame" x="16" y="15" width="288" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="f4p-VI-64Y"/>
+                                            </constraints>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Match update">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                                        <font key="NSOriginalFont" size="14" name="Helvetica-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Oa0-0Z-uK4">
+                                            <rect key="frame" x="31" y="135" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="icM-sx-Ofc">
+                                            <rect key="frame" x="31" y="77" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7A-Rq-iU4">
+                                            <rect key="frame" x="16" y="37" width="288" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="HWK-aG-LQf"/>
+                                            </constraints>
+                                            <attributedString key="attributedText">
+                                                <fragment content="time stamp">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.66290656887755106" green="0.66290656887755106" blue="0.66290656887755106" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="14" name="GillSans"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmc-bm-bXv">
-                                            <rect key="frame" x="78" y="131" width="155" height="23"/>
+                                            <rect key="frame" x="78" y="134" width="226" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="aYm-wL-RPz"/>
                                             </constraints>
@@ -3217,26 +3248,8 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ko-Kh-Lg1">
-                                            <rect key="frame" x="20" y="15" width="135" height="22"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="22" id="f4p-VI-64Y"/>
-                                                <constraint firstAttribute="width" constant="135" id="uuC-qi-BPE"/>
-                                            </constraints>
-                                            <attributedString key="attributedText">
-                                                <fragment content="Match update">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="16" name="Helvetica-Bold"/>
-                                                        <font key="NSOriginalFont" size="14" name="Helvetica-Bold"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gG-Ac-gcW">
-                                            <rect key="frame" x="85" y="96" width="211" height="34"/>
+                                            <rect key="frame" x="78" y="99" width="226" height="35"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="is playing...">
                                                     <attributes>
@@ -3249,54 +3262,32 @@ Both players get one point for turning up. A player then scores 2 points for a m
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Oa0-0Z-uK4">
-                                            <rect key="frame" x="35" y="133" width="20" height="20"/>
-                                        </activityIndicatorView>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="icM-sx-Ofc">
-                                            <rect key="frame" x="35" y="75" width="20" height="20"/>
-                                        </activityIndicatorView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7A-Rq-iU4">
-                                            <rect key="frame" x="20" y="35" width="262" height="17"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="17" id="HWK-aG-LQf"/>
-                                            </constraints>
-                                            <attributedString key="attributedText">
-                                                <fragment content="time stamp">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.66290656887755106" green="0.66290656887755106" blue="0.66290656887755106" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="14" name="GillSans"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="B7A-Rq-iU4" secondAttribute="trailing" constant="38" id="1up-E4-FhU"/>
-                                        <constraint firstItem="Oa0-0Z-uK4" firstAttribute="centerY" secondItem="Tmf-V6-7ba" secondAttribute="centerY" id="9aI-T7-1qt"/>
-                                        <constraint firstItem="Oa0-0Z-uK4" firstAttribute="leading" secondItem="icM-sx-Ofc" secondAttribute="leading" id="Cgg-0s-MAh"/>
-                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="leading" secondItem="3Ko-Kh-Lg1" secondAttribute="leading" id="E9i-vx-16P"/>
-                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="leading" secondItem="WjI-kY-2n9" secondAttribute="trailing" constant="8" symbolic="YES" id="Htr-9h-qzS"/>
-                                        <constraint firstItem="Tmf-V6-7ba" firstAttribute="leading" secondItem="WjI-kY-2n9" secondAttribute="leading" id="Imz-1o-Xrl"/>
-                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="top" secondItem="B7A-Rq-iU4" secondAttribute="bottom" constant="19" id="Jif-qg-ngJ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="1gG-Ac-gcW" secondAttribute="trailing" constant="16" id="KXh-WO-wUS"/>
-                                        <constraint firstItem="3Ko-Kh-Lg1" firstAttribute="top" secondItem="odm-cM-JQG" secondAttribute="top" constant="15" id="L2T-GF-AbN"/>
-                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="top" secondItem="B7A-Rq-iU4" secondAttribute="bottom" constant="8" id="Lvs-dI-yXY"/>
-                                        <constraint firstItem="1gG-Ac-gcW" firstAttribute="leading" secondItem="WjI-kY-2n9" secondAttribute="trailing" constant="15" id="Pb0-0J-0dT"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="cmc-bm-bXv" secondAttribute="bottom" constant="28.5" id="S9C-w6-3uV"/>
-                                        <constraint firstItem="cmc-bm-bXv" firstAttribute="trailing" secondItem="bBS-fn-6Pl" secondAttribute="trailing" id="SKp-d6-BFT"/>
-                                        <constraint firstItem="3Ko-Kh-Lg1" firstAttribute="leading" secondItem="B7A-Rq-iU4" secondAttribute="leading" id="SjO-Hj-3QM"/>
-                                        <constraint firstItem="1gG-Ac-gcW" firstAttribute="top" secondItem="bBS-fn-6Pl" secondAttribute="bottom" constant="1" id="U0t-MJ-0cb"/>
-                                        <constraint firstItem="cmc-bm-bXv" firstAttribute="leading" secondItem="Tmf-V6-7ba" secondAttribute="trailing" constant="8" id="Xn3-yM-XxC"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bBS-fn-6Pl" secondAttribute="trailing" constant="79" id="aGm-l5-CG6"/>
-                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="centerY" secondItem="icM-sx-Ofc" secondAttribute="centerY" constant="-2" id="cRR-p3-1jr"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Tmf-V6-7ba" secondAttribute="bottom" constant="14.5" id="hue-ET-aL6"/>
-                                        <constraint firstItem="Tmf-V6-7ba" firstAttribute="top" secondItem="WjI-kY-2n9" secondAttribute="bottom" constant="8" symbolic="YES" id="jHQ-Z3-Bpr"/>
-                                        <constraint firstItem="Tmf-V6-7ba" firstAttribute="centerX" secondItem="icM-sx-Ofc" secondAttribute="centerX" id="knl-Yh-ZgG"/>
-                                        <constraint firstItem="3Ko-Kh-Lg1" firstAttribute="leading" secondItem="odm-cM-JQG" secondAttribute="leading" constant="20" id="luU-8b-lUd"/>
-                                        <constraint firstItem="B7A-Rq-iU4" firstAttribute="top" secondItem="3Ko-Kh-Lg1" secondAttribute="bottom" constant="-2" id="svc-t0-6oc"/>
-                                        <constraint firstItem="cmc-bm-bXv" firstAttribute="top" secondItem="1gG-Ac-gcW" secondAttribute="bottom" constant="1" id="t1X-cE-Dce"/>
+                                        <constraint firstItem="Tmf-V6-7ba" firstAttribute="centerY" secondItem="cmc-bm-bXv" secondAttribute="centerY" id="2qQ-mL-0Ur"/>
+                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="trailing" secondItem="cmc-bm-bXv" secondAttribute="trailing" id="519-q5-bnH"/>
+                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="leading" secondItem="WjI-kY-2n9" secondAttribute="trailing" constant="12" id="90h-zL-0Xa"/>
+                                        <constraint firstItem="Tmf-V6-7ba" firstAttribute="centerX" secondItem="Oa0-0Z-uK4" secondAttribute="centerX" id="Dxr-ID-K7x"/>
+                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="leading" secondItem="1gG-Ac-gcW" secondAttribute="leading" id="E6M-SM-oHp"/>
+                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="top" secondItem="B7A-Rq-iU4" secondAttribute="bottom" constant="8" id="EjF-nZ-bb6"/>
+                                        <constraint firstItem="Tmf-V6-7ba" firstAttribute="top" secondItem="WjI-kY-2n9" secondAttribute="bottom" constant="8" id="HWX-F0-6XM"/>
+                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="centerY" secondItem="bBS-fn-6Pl" secondAttribute="centerY" id="HkO-GS-YWi"/>
+                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="centerX" secondItem="icM-sx-Ofc" secondAttribute="centerX" id="ML0-g6-vJB"/>
+                                        <constraint firstItem="B7A-Rq-iU4" firstAttribute="leading" secondItem="3Ko-Kh-Lg1" secondAttribute="leading" id="NyA-Iy-JWP"/>
+                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="centerY" secondItem="icM-sx-Ofc" secondAttribute="centerY" id="O5J-9P-ufz"/>
+                                        <constraint firstItem="1gG-Ac-gcW" firstAttribute="top" secondItem="bBS-fn-6Pl" secondAttribute="bottom" id="Qfx-3f-hv2"/>
+                                        <constraint firstAttribute="trailing" secondItem="3Ko-Kh-Lg1" secondAttribute="trailing" constant="16" id="VSj-BI-PFR"/>
+                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="trailing" secondItem="1gG-Ac-gcW" secondAttribute="trailing" id="WyC-fg-VqP"/>
+                                        <constraint firstItem="B7A-Rq-iU4" firstAttribute="trailing" secondItem="3Ko-Kh-Lg1" secondAttribute="trailing" id="Znl-41-bPX"/>
+                                        <constraint firstItem="cmc-bm-bXv" firstAttribute="top" secondItem="1gG-Ac-gcW" secondAttribute="bottom" id="dBd-Tp-Q4A"/>
+                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="leading" secondItem="3Ko-Kh-Lg1" secondAttribute="leading" id="fob-dX-xkQ"/>
+                                        <constraint firstItem="3Ko-Kh-Lg1" firstAttribute="trailing" secondItem="bBS-fn-6Pl" secondAttribute="trailing" id="h00-CO-ywh"/>
+                                        <constraint firstItem="Tmf-V6-7ba" firstAttribute="centerY" secondItem="Oa0-0Z-uK4" secondAttribute="centerY" id="mhB-g0-uCK"/>
+                                        <constraint firstItem="3Ko-Kh-Lg1" firstAttribute="leading" secondItem="odm-cM-JQG" secondAttribute="leading" constant="16" id="oNw-Q3-MgP"/>
+                                        <constraint firstItem="3Ko-Kh-Lg1" firstAttribute="top" secondItem="odm-cM-JQG" secondAttribute="top" constant="15" id="oxa-BS-Mne"/>
+                                        <constraint firstItem="bBS-fn-6Pl" firstAttribute="leading" secondItem="cmc-bm-bXv" secondAttribute="leading" id="qqN-RT-ucC"/>
+                                        <constraint firstItem="WjI-kY-2n9" firstAttribute="leading" secondItem="Tmf-V6-7ba" secondAttribute="leading" id="wqQ-dH-AaQ"/>
+                                        <constraint firstItem="B7A-Rq-iU4" firstAttribute="top" secondItem="3Ko-Kh-Lg1" secondAttribute="bottom" id="zE1-ig-la8"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3340,7 +3331,7 @@ Both players get one point for turning up. A player then scores 2 points for a m
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-361" y="-893"/>
+            <point key="canvasLocation" x="-361" y="-909"/>
         </scene>
     </scenes>
     <resources>

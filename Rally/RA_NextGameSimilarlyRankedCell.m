@@ -29,10 +29,10 @@ typedef NS_ENUM(NSInteger, RA_SimilarlyRankedTitle) {
     [self.similarlyRankedControl setTitle:@"Similarly ranked" forSegmentAtIndex:RA_SimilarlyRankedTitleSimilarlyRanked];
     
     // Default selection
-    if ([[RA_GamePrefConfig gamePrefConfig].simRanked isEqualToString:RA_SIMRANKED_EVERYONE]) {
+    if (![RA_GamePrefConfig gamePrefConfig].simRanked) {
         self.similarlyRankedControl.selectedSegmentIndex = RA_SimilarlyRankedTitleAnyone;
     }
-    else if ([[RA_GamePrefConfig gamePrefConfig].simRanked isEqualToString:RA_SIMRANKED_SIMRANKED_ONLY]) {
+    else if ([RA_GamePrefConfig gamePrefConfig].simRanked) {
         self.similarlyRankedControl.selectedSegmentIndex = RA_SimilarlyRankedTitleSimilarlyRanked;
     }
     else {
@@ -44,10 +44,10 @@ typedef NS_ENUM(NSInteger, RA_SimilarlyRankedTitle) {
 {
     switch (self.similarlyRankedControl.selectedSegmentIndex) {
         case RA_SimilarlyRankedTitleAnyone:
-            [RA_GamePrefConfig gamePrefConfig].simRanked = RA_SIMRANKED_EVERYONE;
+            [RA_GamePrefConfig gamePrefConfig].simRanked = NO;
             break;
         case RA_SimilarlyRankedTitleSimilarlyRanked:
-            [RA_GamePrefConfig gamePrefConfig].simRanked = RA_SIMRANKED_SIMRANKED_ONLY;
+            [RA_GamePrefConfig gamePrefConfig].simRanked = YES;
             break;
         default:
             COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected index")

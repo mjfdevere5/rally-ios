@@ -1341,7 +1341,7 @@
 						};
 					};
 					500854C619AE21FD0071DDF4 = {
-						DevelopmentTeam = FPWZ2YRVM6;
+						DevelopmentTeam = Z3VF6LX3BN;
 						TestTargetID = 500854A219AE21FC0071DDF4;
 					};
 				};
