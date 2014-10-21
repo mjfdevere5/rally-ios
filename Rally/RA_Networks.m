@@ -34,6 +34,10 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSLog(@"Got to view did load");
     
+    // Navbar
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
     // change the background colour
     self.view.backgroundColor = RA_TEST_WHITE;
     

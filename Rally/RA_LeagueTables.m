@@ -132,10 +132,14 @@
 {
     NSLog(@"In getOrderedUserIds");
     
+    NSMutableArray *idArray = [NSMutableArray array];
+    for(NSString *key in [self.network.userIdsToScores allKeys]){
+        [idArray addObject:key];
+    }
+    
     // Get all users in this network
     PFQuery *query = [RA_ParseUser query];
-    query.cachePolicy = kPFCachePolicyNetworkOnly;
-    [query whereKey:@"networkMemberships" equalTo:self.network];
+    [query whereKey:@"objectId" containedIn:idArray];
     NSArray *networkMembers = [query findObjects];
     NSString *comment = [NSString stringWithFormat:@"%lu", (unsigned long)[networkMembers count]];
     COMMON_LOG_WITH_COMMENT(comment)

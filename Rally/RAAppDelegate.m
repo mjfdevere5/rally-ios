@@ -21,24 +21,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    COMMON_LOG
+    COMMON_LOG_WITH_COMMENT(@"1")
     
     // Parse credentials
     [Parse setApplicationId:@"GC47Noqr8CDojxqdBTPPr5tBVHl6d5DlqO01URpf"
                   clientKey:@"Top3pQFivnsXSnpGuHuYJEryqZkZHjcQYmoHoHbJ"];
-    
+    COMMON_LOG_WITH_COMMENT(@"2")
     // Used for Parse tracking
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
+    COMMON_LOG_WITH_COMMENT(@"3")
     // Hack to avoid Parse bug, 'Unknown class PFImageView in Interface Builder file.'
     // See http://stackoverflow.com/a/20933480/3364933
     [PFImageView class];
-    
+    COMMON_LOG_WITH_COMMENT(@"4")
     // Parse's Facebook Utilities singleton
     [PFFacebookUtils initializeFacebook];
-    
+    COMMON_LOG_WITH_COMMENT(@"5")
     // Register for Push Notitications, if running iOS 8
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        COMMON_LOG_WITH_COMMENT(@"6")
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |
                                                         UIUserNotificationTypeSound);
@@ -47,12 +48,13 @@
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
     } else {
+        COMMON_LOG_WITH_COMMENT(@"7")
         // Register for Push Notifications before iOS 8
         [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
                                                          UIRemoteNotificationTypeAlert |
                                                          UIRemoteNotificationTypeSound)];
     }
-    
+    COMMON_LOG_WITH_COMMENT(@"8")
     // Set appearance of navigation bar(s) and status bar for whole app:
     [[UINavigationBar appearance] setBarTintColor:RA_TEST_BLUE1];
     [[UINavigationBar appearance] setTintColor:UIColorFromRGB(RA_NAVBAR_TEXT_COLOUR)];
@@ -60,10 +62,12 @@
                                                            UIColorFromRGB(RA_NAVBAR_TEXT_COLOUR), NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"Gill Sans" size:20.0], NSFontAttributeName, nil]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+    COMMON_LOG_WITH_COMMENT(@"9")
     // If responding to a notification
     NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    COMMON_LOG_WITH_COMMENT(@"10")
     NSString *viewString = [notificationPayload objectForKey:@"view"];
+    COMMON_LOG_WITH_COMMENT(@"11")
     if ([viewString isEqualToString:@"game_manager"]) {
         COMMON_LOG_WITH_COMMENT(@"game_manager")
         // TO DO: Take user to the Game Manager
@@ -72,7 +76,7 @@
         COMMON_LOG_WITH_COMMENT(@"recent_chats")
         // TO DO: Take user to the Chat View
     }
-    
+    COMMON_LOG_WITH_COMMENT(@"12")
     // Required BOOL response
     return YES;
 }
@@ -86,7 +90,9 @@
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation.channels = @[ @"global" ];
-    currentInstallation[@"user"] = [RA_ParseUser currentUser];
+    if ([RA_ParseUser currentUser]) {
+        currentInstallation[@"user"] = [RA_ParseUser currentUser];
+    }
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"%@ %@: Saved currentInstallation", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -133,6 +139,7 @@
     
     // Facebook boilerplate
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    COMMON_LOG
 }
 
 
@@ -143,6 +150,7 @@
     
     // Facebook boilerplate
     [[PFFacebookUtils session] close];
+    COMMON_LOG
 }
 
 
@@ -154,6 +162,7 @@
     return [FBAppCall handleOpenURL:url
                   sourceApplication:sourceApplication
                         withSession:[PFFacebookUtils session]];
+    COMMON_LOG
 }
 
 

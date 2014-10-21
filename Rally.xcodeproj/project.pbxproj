@@ -1125,8 +1125,8 @@
 			children = (
 				50412F9119B5FB65004119B9 /* RA_Login.h */,
 				50412F9219B5FB65004119B9 /* RA_Login.m */,
-				50412F9419B6926D004119B9 /* RA_FacebookLoginComms.h */,
 				50412F9519B6926D004119B9 /* RA_FacebookLoginComms.m */,
+				50412F9419B6926D004119B9 /* RA_FacebookLoginComms.h */,
 			);
 			name = Login;
 			sourceTree = "<group>";

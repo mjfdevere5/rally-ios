@@ -111,11 +111,18 @@
              // Get and start saving the user to Parse (includes triggering the profile pic connection)
              RA_ParseNetwork *allRallySquashNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"Utu5aSM2ke"];
              RA_ParseNetwork *allRallyTennisNetwork = [RA_ParseNetwork objectWithoutDataWithObjectId:@"Y2IHHx2uu4"];
+             [allRallySquashNetwork fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                 [allRallySquashNetwork.userIdsToScores setValue:[NSNumber numberWithFloat:1200.0] forKey:user.objectId];
+                 [allRallySquashNetwork saveInBackground];
+             }];
+             [allRallyTennisNetwork fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                 [allRallyTennisNetwork.userIdsToScores setValue:[NSNumber numberWithFloat:1200.0] forKey:user.objectId];
+                 [allRallyTennisNetwork saveInBackground];
+             }];
              user.networkMemberships = [NSMutableArray arrayWithObjects:allRallySquashNetwork,allRallyTennisNetwork,nil];
              
              user.madeShoutBefore = NO;
              user.madeLeagueRequestBefore = NO;
-             user.aboutMe = @"New to this 'Rally' malarkey...";
              
              // Get the FB data and save to the user
              NSDictionary *userData = (NSDictionary *)result;
