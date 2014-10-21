@@ -33,12 +33,22 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     if ([self minute] == 0) {
-        [dateFormatter setDateFormat:@"h a"];
+        [dateFormatter setDateFormat:@"h"];
     }
     else {
-        [dateFormatter setDateFormat:@"h:mm a"];
+        [dateFormatter setDateFormat:@"h:mm"];
     }
-    return [dateFormatter stringFromDate:self];
+    NSString *numberPart = [dateFormatter stringFromDate:self];
+    
+    NSString *amOrPm;
+    if ([self hour] < 12) {
+        amOrPm = @"am";
+    }
+    else {
+        amOrPm = @"pm";
+    }
+    
+    return [numberPart stringByAppendingString:amOrPm];
 }
 
 

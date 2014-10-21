@@ -147,6 +147,12 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
 }
 
 
+- (IBAction)tappedAreaLabel:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 #pragma mark - map delegate
 // ******************** map delegate ********************
 
@@ -183,7 +189,6 @@ static void * const MyClassKVOContext = (void*)&MyClassKVOContext;
     // I think this reloads the mapview...
     [self.mapView setRegion:self.mapView.region animated:TRUE];
 }
-
 
 
 @end

@@ -972,7 +972,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dateTimeLabel" destination="FwE-Qo-SPG" id="WYY-5i-6S1"/>
-                                    <outlet property="networkLabel" destination="pVB-XI-kkY" id="xGT-wq-n4i"/>
+                                    <outlet property="sportLabel" destination="pVB-XI-kkY" id="VfX-5M-dca"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2092,7 +2092,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backAction:" destination="5gf-dj-aUT" eventType="touchUpInside" id="th4-hS-zJN"/>
+                                    <action selector="tappedAreaLabel:" destination="5gf-dj-aUT" eventType="touchUpInside" id="ge3-5B-PsU"/>
                                 </connections>
                             </button>
                         </subviews>

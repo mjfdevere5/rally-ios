@@ -12,7 +12,7 @@
 @interface RA_GameViewDateTimeCell : RA_GameViewBaseCell
 
 @property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *networkLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sportLabel;
 
 @end
 

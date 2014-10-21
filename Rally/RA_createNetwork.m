@@ -380,10 +380,20 @@ self.lenthPicker.text = lengthString;
 - (IBAction)createNetworkPushed:(id)sender
 {
     if (self.correctName && self.correctPass && self.correctPassTwo) {
+        NSString *sportForNetwork;
+        if ([self.chosenSport isEqualToString:@"Tennis"]) {
+            sportForNetwork = RA_SPORT_NAME_TENNIS;
+        }
+        else if ([self.chosenSport isEqualToString:@"Squash"]) {
+            sportForNetwork = RA_SPORT_NAME_SQUASH;
+        }
+        else {
+            COMMON_LOG_WITH_COMMENT(@"ERROR")
+        }
         
         // Create the network object. Note this method initializes the scores dictionaries
         RA_ParseNetwork *network = [RA_ParseNetwork networkWithName:self.userName.text
-                                                           andSport:self.chosenSport
+                                                           andSport:sportForNetwork
                                                             andType:self.leagueType
                                                       andAccessCode:self.passwordField.text
                                                            andAdmin:[RA_ParseUser currentUser]

@@ -218,8 +218,9 @@
     }
 }
 
--(void)executeScoreMovementsForNetwork:(RA_ParseNetwork *)network
+-(void)executeScoreMovementsForNetwork:(RA_ParseNetwork *)network // (BACKGROUND ONLY)
 { COMMON_LOG
+    [network fetchIfNeeded];
     if ([network.type isEqualToString:@"Ladder"]) {
         if (self.leftSelection > self.rightSelection) {
             self.resultLeft = 1.0;

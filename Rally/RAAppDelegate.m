@@ -139,7 +139,9 @@
     
     // Facebook boilerplate
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
-    COMMON_LOG
+    
+    // Badge counter
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 

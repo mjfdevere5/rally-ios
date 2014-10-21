@@ -314,6 +314,9 @@
     else {
         self.navigationController.tabBarItem.badgeValue = nil;
     }
+    
+    // Update app icon badge
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:self.badgeCount];
 }
 
 

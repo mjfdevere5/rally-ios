@@ -31,7 +31,7 @@
     }
     
     // Sport label
-    self.sportLabel.text = self.game.sport;
+    self.sportLabel.text = [self.game.sport capitalizedString];
     
     // Opponent image and activity wheel
     PFFile *opponentPicFile = [self.game opponent].profilePicMedium;

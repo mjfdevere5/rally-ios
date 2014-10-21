@@ -66,6 +66,7 @@
     // First make sure we have the network objects to hand
     [[RA_ParseUser currentUser] fetch];
     [PFObject fetchAllIfNeeded:[RA_ParseUser currentUser].networkMemberships];
+    COMMON_LOG_WITH_COMMENT([[RA_ParseUser currentUser].networkMemberships description])
     // Use NSPredicate to filter the array
     NSMutableArray *filteredArray = [NSMutableArray array];
     for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {

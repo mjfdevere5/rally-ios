@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UILabel *areaLabel;
+- (IBAction)tappedAreaLabel:(id)sender;
 -(IBAction)moveToCurrentLocation:(id)sender;
 
 @end

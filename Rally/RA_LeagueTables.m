@@ -139,6 +139,7 @@
     
     // Get all users in this network
     PFQuery *query = [RA_ParseUser query];
+    query.cachePolicy = kPFCachePolicyNetworkOnly;
     [query whereKey:@"objectId" containedIn:idArray];
     NSArray *networkMembers = [query findObjects];
     NSString *comment = [NSString stringWithFormat:@"%lu", (unsigned long)[networkMembers count]];
@@ -326,8 +327,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.orderedPlayersMain[indexPath.row] andContext:RA_UserProfileContextLeaderboard];
-    [self.navigationController pushViewController:userProfile animated:YES];
+    RA_ParseUser *userClicked = self.orderedPlayersMain[indexPath.row];
+    if (![userClicked.objectId isEqualToString:[RA_ParseUser currentUser].objectId]) {
+        RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:userClicked andContext:RA_UserProfileContextLeaderboard];
+        [self.navigationController pushViewController:userProfile animated:YES];
+    }
 }
 
 

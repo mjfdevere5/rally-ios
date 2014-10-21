@@ -244,7 +244,7 @@
     // Special case
     if ([cell isKindOfClass:[RA_UserProfileAcceptGameCell class]]) {
         RA_UserProfileAcceptGameCell *castCell = (RA_UserProfileAcceptGameCell *)cell;
-        castCell.preference = indexPath.row;
+        castCell.preferenceNumber = indexPath.row;
     }
     
     // Configure the cell

@@ -18,18 +18,21 @@
 
 -(UIImage *)getImageResizedAndCropped:(CGSize)size
 {
+    size = CGSizeMake(size.width*2, size.height*2);
     UIImage *pic = [self imageCroppedToFitSize:size];
     return pic;
 }
 
 -(UIImage *)getImageWithRoundedCorners:(NSInteger)radius
 {
+    radius = radius*2;
     UIImage *pic = [self roundedCornerImage:radius borderSize:0];
     return pic;
 }
 
 -(UIImage *)getImageCircularWithRadius:(CGFloat)radius
 {
+    radius = radius*2;
     UIImage *pic = [self imageCroppedToFitSize:CGSizeMake(radius,radius)];
     UIImageView *roundView = [[UIImageView alloc]initWithImage:pic];
     UIGraphicsBeginImageContextWithOptions(roundView.bounds.size, NO, 0.0);

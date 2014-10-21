@@ -15,7 +15,7 @@
 -(void)configureCell
 {
     self.dateTimeLabel.text = [[self.game.datetime getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES] uppercaseString];
-    self.networkLabel.text = self.game.sport;
+    self.sportLabel.text = [self.game.sport capitalizedString];
 }
 
 
