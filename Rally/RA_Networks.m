@@ -47,6 +47,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self loadTableData];
+}
+
 
 - (IBAction)tappedRefreshBarButton:(UIBarButtonItem *)sender
 {
@@ -245,13 +250,16 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - add ladder code
 
 
+// Changed on Bruno
 -(void)addLadder
 {
     COMMON_LOG
     
     UIAlertView *alert = [[UIAlertView alloc] init];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.title = @"Access code";
+    alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    [[alert textFieldAtIndex:0] setPlaceholder:@"League Name"];
+    [[alert textFieldAtIndex:1] setPlaceholder:@"League access code"];
+    alert.title = @"Join a League";
     [alert addButtonWithTitle:@"Cancel"];
     [alert addButtonWithTitle:@"Join"];
     alert.delegate = self;
@@ -259,7 +267,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-
+// Changed on Bruno
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     COMMON_LOG
@@ -267,26 +275,32 @@ static NSString * const reuseIdentifier = @"Cell";
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Join"]) {
         
         // Get the code entered
-        NSString *accessCode = [alertView textFieldAtIndex:0].text;
+        
+        NSString *leagueName = [alertView textFieldAtIndex:0].text;
+        NSString *accessCode = [alertView textFieldAtIndex:1].text;
+        NSArray *leagueAccess = [NSArray arrayWithObjects:leagueName,accessCode, nil];
+        
         
         // Show HUD while adding network
         MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
         [self.navigationController.view addSubview:HUD];
         HUD.delegate = self;
-        [HUD showWhileExecuting:@selector(addNetworkWithAccessCode:) onTarget:self withObject:accessCode animated:YES];
+        [HUD showWhileExecuting:@selector(addNetworkWithAccessCode:) onTarget:self withObject:leagueAccess animated:YES];
     }
 }
 
-
-
+// Changed on Bruno
 // This is run the background while the HUD spins
--(void)addNetworkWithAccessCode:(NSString *)accessCode
+-(void)addNetworkWithAccessCode:(NSArray *)leagueAccess
 {
     COMMON_LOG
     
+    NSString *leagueName = leagueAccess[0];
+    NSString *accessCode = leagueAccess[1];
     // Query for networks with this accessCode
     PFQuery *query = [RA_ParseNetwork query];
     query.cachePolicy = kPFCachePolicyNetworkOnly;
+    [query whereKey:@"name" containsString:leagueName];
     [query whereKey:@"accessCode" equalTo:accessCode];
     NSArray *results = [query findObjects];
     
@@ -314,14 +328,24 @@ static NSString * const reuseIdentifier = @"Cell";
                 NSNumber *initialScore = [NSNumber numberWithFloat:1200.0];
                 [network.userIdsToScores setObject:initialScore forKey:cUser.objectId];
                 [network save];
+                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                NSString *stringForNetwork = [NSString stringWithFormat:@"A%@",network.objectId];
+                [currentInstallation addUniqueObject:stringForNetwork forKey:@"channels"];
+                [currentInstallation save];
+
             }
             else{
                 NSNumber *initialScore = [NSNumber numberWithFloat:0.0];
                 [network.userIdsToScores setObject:initialScore forKey:cUser.objectId];
                 [network save];
+                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                NSString *stringNetwork = [NSString stringWithFormat:@"A%@",network.objectId];
+                [currentInstallation addUniqueObject:stringNetwork forKey:@"channels"];
+                [currentInstallation save];
             }
             
             [cUser save];
+            [self performSelectorOnMainThread:@selector(updateRanksForPlayers:) withObject:network waitUntilDone:YES];
             [self performSelectorOnMainThread:@selector(returnToPlayMenu) withObject:nil waitUntilDone:YES];
             [self performSelectorOnMainThread:@selector(showYoureInAlert) withObject:nil waitUntilDone:NO];
         }
@@ -333,13 +357,13 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
-
+// changed on Bruno
 
 -(void)showIncorrectCodeAlert
 {
     COMMON_LOG
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry, incorrect code"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry, incorrect code or league name"
                                                     message:nil
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
@@ -375,6 +399,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [alert show];
 }
 
+
+
 -(void)returnToPlayMenu
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -388,6 +414,25 @@ static NSString * const reuseIdentifier = @"Cell";
         leagueTable.network = sender;
     }
 }
+
+
+-(void)updateRanksForPlayers: (RA_ParseNetwork *)network
+{
+    [network fetch];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    dictionary = network.userIdsToScores;
+    NSArray *orderedIds = [dictionary keysSortedByValueUsingComparator:
+                           ^NSComparisonResult(id obj1, id obj2) {
+                               return [obj2 compare:obj1];
+                           }];
+    for(NSString *userIds in orderedIds){
+        unsigned long rank;
+        rank = [orderedIds indexOfObject:userIds] + 1;
+        NSNumber *rankNumber = [NSNumber numberWithLong:rank];
+        [network.userIdsToRanks setValue:rankNumber forKey:userIds];
+    }
+}
+
 
 
 @end

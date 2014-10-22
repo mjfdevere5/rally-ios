@@ -28,6 +28,14 @@ typedef NS_ENUM(NSInteger, RA_SimilarlyRankedTitle) {
     [self.similarlyRankedControl setTitle:@"Everyone" forSegmentAtIndex:RA_SimilarlyRankedTitleAnyone];
     [self.similarlyRankedControl setTitle:@"Similarly ranked" forSegmentAtIndex:RA_SimilarlyRankedTitleSimilarlyRanked];
     
+    
+    UIFont *font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                           forKey:NSFontAttributeName];
+    [self.similarlyRankedControl setTitleTextAttributes:attributes
+                                           forState:UIControlStateNormal];
+
+    
     // Default selection
     if (![RA_GamePrefConfig gamePrefConfig].simRanked) {
         self.similarlyRankedControl.selectedSegmentIndex = RA_SimilarlyRankedTitleAnyone;

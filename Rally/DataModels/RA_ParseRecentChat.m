@@ -26,14 +26,11 @@
 
 
 @dynamic user;
-@dynamic dateUpdated;
-@dynamic markAsSeen;
-@dynamic fromName;
-@dynamic thumbnailFile;
-@dynamic messagePreview;
 @dynamic fromUser;
-@dynamic chatroomId;
+@dynamic dateUpdated;
+@dynamic messagePreview;
 @dynamic chatroom;
+@dynamic markAsSeen;
 
 @end
 

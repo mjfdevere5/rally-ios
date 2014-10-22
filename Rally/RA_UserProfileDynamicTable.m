@@ -10,7 +10,6 @@
 #import "NSDate+CoolStrings.h"
 #import "RA_ParseChatroom.h"
 #import "RA_ParseGame.h"
-#import "ChatView.h"
 #import "RA_UserProfileBaseCell.h"
 #import "NSDate+Utilities.h"
 #import "RA_UserProfileChatCell.h"
@@ -18,6 +17,7 @@
 #import "RA_NewsFeed.h"
 #import "RA_ProposeGame.h"
 #import "RA_ParseBroadcast.h"
+#import "RA_ChatView.h"
 
 
 @interface RA_UserProfileDynamicTable ()
@@ -79,13 +79,13 @@
     self.cells = [NSMutableDictionary dictionary];
     
     // Register the nibs
-//    [self.tableView registerClass:[RA_UserProfileBaseCell class] forCellReuseIdentifier:@"userprofile_acceptgame_cell"];
-//    [self.tableView registerClass:[RA_UserProfileChatCell class] forCellReuseIdentifier:@"userprofile_chat_cell"];
-//    [self.tableView registerClass:[RA_UserProfileBaseCell class] forCellReuseIdentifier:@"userprofile_proposegame_cell"];
-//    [self.tableView registerClass:[RA_UserProfileBaseCell class] forCellReuseIdentifier:@"userprofile_report_cell"];
-//    [self.tableView registerNib:[UINib nibWithNibName:@"userprofile_chat_cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"userprofile_chat_cell"];
-//    [self.tableView registerNib:[UINib nibWithNibName:@"userprofile_proposegame_cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"userprofile_proposegame_cell"];
-//    [self.tableView registerNib:[UINib nibWithNibName:@"userprofile_report_cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"userprofile_report_cell"];
+    //    [self.tableView registerClass:[RA_UserProfileBaseCell class] forCellReuseIdentifier:@"userprofile_acceptgame_cell"];
+    //    [self.tableView registerClass:[RA_UserProfileChatCell class] forCellReuseIdentifier:@"userprofile_chat_cell"];
+    //    [self.tableView registerClass:[RA_UserProfileBaseCell class] forCellReuseIdentifier:@"userprofile_proposegame_cell"];
+    //    [self.tableView registerClass:[RA_UserProfileBaseCell class] forCellReuseIdentifier:@"userprofile_report_cell"];
+    //    [self.tableView registerNib:[UINib nibWithNibName:@"userprofile_chat_cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"userprofile_chat_cell"];
+    //    [self.tableView registerNib:[UINib nibWithNibName:@"userprofile_proposegame_cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"userprofile_proposegame_cell"];
+    //    [self.tableView registerNib:[UINib nibWithNibName:@"userprofile_report_cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"userprofile_report_cell"];
     UINib *nibFour = [UINib nibWithNibName:@"RA_UserProfileAcceptGameCell" bundle:nil];
     [self.tableView registerNib:nibFour forCellReuseIdentifier:@"userprofile_acceptgame_cell"];
     UINib *nib = [UINib nibWithNibName:@"RA_UserProfileChatCell" bundle:nil];
@@ -126,7 +126,7 @@
         [cellArrayMut addObjectsFromArray:@[@"userprofile_chat_cell",
                                             @"userprofile_proposegame_cell",
                                             @"userprofile_report_cell"]];
-         self.cellArray = [NSArray arrayWithArray:cellArrayMut];
+        self.cellArray = [NSArray arrayWithArray:cellArrayMut];
     }
     else {
         COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected self.context")
@@ -362,7 +362,7 @@
                         }];
                         
                         [self performSelectorInBackground:@selector(uploadBroadcastForGame:) withObject:newGame];
-
+                        
                         // Say well done
                         COMMON_LOG_WITH_COMMENT(@"About to show alert")
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congrats"
@@ -411,11 +411,8 @@
 
 -(void)segueToChatroom
 {
-    COMMON_LOG
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    ChatView *chatView = [storyboard instantiateViewControllerWithIdentifier:@"chat_view"];
-    [self presentViewController:chatView animated:YES completion:nil];
+    RA_ChatView *view = [[RA_ChatView alloc] initWithChatroom:self.chatroom];
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 

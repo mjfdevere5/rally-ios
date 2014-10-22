@@ -30,6 +30,12 @@ typedef NS_ENUM(NSInteger, RA_SportPickerControlIndex) {
     [self.sportPickerControl setTitle:@"Tennis" forSegmentAtIndex:RA_SportPickerControlIndexTennis];
     
     self.sportPickerControl.tintColor = RA_TEST_BLUE2;
+    
+    UIFont *font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                           forKey:NSFontAttributeName];
+    [self.sportPickerControl setTitleTextAttributes:attributes
+                                    forState:UIControlStateNormal];
 }
 
 

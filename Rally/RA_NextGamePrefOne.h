@@ -13,6 +13,8 @@
 
 // Storyboard stuff
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *button;
+
 @property (weak, nonatomic) IBOutlet UILabel *separatorLine;
 -(IBAction)setPrefButtonPushed:(UIButton *)button;
 

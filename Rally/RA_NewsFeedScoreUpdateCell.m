@@ -65,20 +65,22 @@
     // Format the text
     if ([leftScore integerValue] > [rightScore integerValue]) {
         self.leftPlayerName.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
-        self.leftPlayerScore.backgroundColor = UIColorFromRGB(0xff6100);
+        self.leftPlayerScore.backgroundColor = UIColorFromRGB(0xF59425);
         self.leftPlayerScore.textColor = [UIColor whiteColor];
         self.rightPlayerScore.textColor = [UIColor whiteColor];
+        self.gameWin.text = @"beats...";
     }
     else if ([leftScore integerValue] < [rightScore integerValue]) {
         self.rightPlayerName.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
-        self.rightPlayerScore.backgroundColor = UIColorFromRGB(0xff6100);
+        self.rightPlayerScore.backgroundColor = UIColorFromRGB(0xF59425);
         self.leftPlayerScore.textColor = [UIColor whiteColor];
         self.rightPlayerScore.textColor = [UIColor whiteColor];
+        self.gameWin.text = @"loses to...";
         
         }
     
     else {
-       
+       self.gameWin.text = @"draws against...";
     }
     
     // Player images
@@ -92,7 +94,8 @@
         }
         else {
             UIImage *thumbnailRaw = [UIImage imageWithData:data];
-            UIImage *thumbnailRoundedCorners = [thumbnailRaw getImageWithRoundedCorners:5];
+            UIImage *rightSizedPic = [thumbnailRaw getImageResizedAndCropped:self.leftPlayerImage.frame.size];
+            UIImage *thumbnailRoundedCorners = [rightSizedPic getImageWithRoundedCorners:3];
             self.leftPlayerImage.image = thumbnailRoundedCorners;
             [self.leftActivity stopAnimating];
         }
@@ -107,7 +110,8 @@
         }
         else {
             UIImage *thumbnailRaw = [UIImage imageWithData:data];
-            UIImage *thumbnailRoundedCorners = [thumbnailRaw getImageWithRoundedCorners:5];
+            UIImage *rightSizedPic = [thumbnailRaw getImageResizedAndCropped:self.rightPlayerImage.frame.size];
+            UIImage *thumbnailRoundedCorners = [rightSizedPic getImageWithRoundedCorners:3];
             self.rightPlayerImage.image = thumbnailRoundedCorners;
             [self.rightActivity stopAnimating];
         }

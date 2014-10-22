@@ -33,9 +33,9 @@
     self.navigationItem.title = @"Game setup";
     
     // Form formatting
-    self.tableView.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
-    self.view.backgroundColor = UIColorFromRGB(FORMS_DARK_RED);
-    self.separatorLine.backgroundColor = UIColorFromRGB(FORMS_LIGHT_RED);
+    self.tableView.backgroundColor = RA_TEST_WHITE;
+    self.view.backgroundColor = RA_TEST_WHITE;
+  
     
     // Set a default dateTime
     self.dateTime = [[NSDate date] upcomingHour];

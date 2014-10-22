@@ -34,6 +34,7 @@
 @dynamic duration;
 @dynamic administrator;
 @dynamic adminDisplayName;
+@dynamic userIdsToRanks;
 
 
 

@@ -41,8 +41,12 @@
     self.view.backgroundColor = RA_TEST_WHITE;
     self.separatorLine.backgroundColor = RA_TEST_BLUE2;
     
-    // Additional formatting
     
+    
+    // Additional formatting
+    CALayer *btnLayer = [self.button layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:0.0f];
     
     // Set the gamePrefConfig defaults
     [[RA_GamePrefConfig gamePrefConfig] resetToDefaults];
@@ -126,13 +130,13 @@
 {
     NSString *cellId = self.cellArray[indexPath.section][indexPath.row];
     if ([cellId isEqualToString:@"nextgame_picksport_cell"]) {
-        return 56.0;
+        return 65.0;
     }
     else if ([cellId isEqualToString:@"nextgame_network_cell"]) {
         return 44.0;
     }
     else if ([cellId isEqualToString:@"nextgame_similarlyranked_cell"]) {
-        return 46.0; // TO DO
+        return 65.0; // TO DO
     }
     else {
         return 44.0;

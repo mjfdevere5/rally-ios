@@ -45,7 +45,7 @@
     
     // Setting some early styles for the table
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = RA_TEST_WHITE;
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     // Refresher control thing
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -201,7 +201,7 @@
     RA_ParseBroadcast *broadcast = self.cellArray[indexPath.row];
     
     if ([broadcast.type isEqualToString:RA_BROADCAST_TYPE_SCORE]) {
-        return 172.0;
+        return 189.0;
     }
     else if ([broadcast.type isEqualToString:RA_BROADCAST_TYPE_CONFIRMED]) {
         return 191.0; // TO DO

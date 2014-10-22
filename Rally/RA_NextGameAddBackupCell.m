@@ -20,7 +20,7 @@
     // Configure labels
     BOOL hasBackupPreference = [RA_GamePrefConfig gamePrefConfig].hasBackupPreference;
     self.textLabel.text = hasBackupPreference ? @"Remove backup?" : @"Add backup?" ;
-    self.detailTextLabel.font = [UIFont systemFontOfSize:20.0];
+    self.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Book" size:20.0];
     self.detailTextLabel.text = hasBackupPreference ? @"-" : @"+" ;
 }
 

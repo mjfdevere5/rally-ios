@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-  self.view.backgroundColor = UIColorFromRGB(FORMS_LIGHT_RED);
+  self.view.backgroundColor = RA_TEST_WHITE;
 
     self.navigationItem.backBarButtonItem.title = @"";
     

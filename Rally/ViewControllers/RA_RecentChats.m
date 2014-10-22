@@ -214,6 +214,10 @@
     // Order by date ascending
     [query orderByDescending:@"dateUpdated"];
     
+    // Include the users and chatroom
+    [query includeKey:@"fromUser"];
+    [query includeKey:@"chatroom"];
+    
     // Fetch only 40. We are going to prune down to 20 for the view
     query.limit = 40;
     
@@ -234,10 +238,10 @@
     NSMutableArray *blackList = [NSMutableArray array];
     
     for (RA_ParseRecentChat *message in queryResults) {
-        if (![blackList containsObject:message.chatroomId]) {
+        if (![blackList containsObject:message.chatroom]) {
             // We have not added this chatroom yet
             NSLog(@"Loop: new chatroom, add as a row");
-            [blackList addObject:message.chatroomId];
+            [blackList addObject:message.chatroom];
             [filteredResults addObject:message];
         }
         else {
@@ -287,7 +291,7 @@
         // Add to the cellContentForShoutMut
         [contentForCellsMut setObject:cellConfiguration forKey:message.objectId];
     }
-
+    
     self.contentForCellsTemp = contentForCellsMut;
 }
 
@@ -386,12 +390,7 @@
 
 -(void)segueToChatRoomForMessage:(RA_ParseRecentChat *)message
 {
-    COMMON_LOG
-    
-    RA_ParseChatroom *room = (RA_ParseChatroom *)message.chatroom;
-    ChatView *chatView = [[ChatView alloc] initWith:room.objectId];
-    chatView.chatRoomObject = room;
-    [self.navigationController pushViewController:chatView animated:YES];
+    COMMON_LOG_WITH_COMMENT(@"Not implemented")
 }
 
 

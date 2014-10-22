@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *accessCode;
 @property (nonatomic, strong) NSMutableDictionary *userIdsToScores;
 @property (nonatomic, strong) NSMutableDictionary *userIdsToLastWeekScores; // TO DO think about this
+@property (nonatomic, strong) NSMutableDictionary *userIdsToRanks;
 @property (strong, nonatomic) RA_ParseUser *administrator;
 @property (strong, nonatomic) NSString *adminDisplayName;
 @property (strong, nonatomic) PFFile *leaguePicLarge;

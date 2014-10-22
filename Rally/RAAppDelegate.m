@@ -56,11 +56,11 @@
     }
     COMMON_LOG_WITH_COMMENT(@"8")
     // Set appearance of navigation bar(s) and status bar for whole app:
-    [[UINavigationBar appearance] setBarTintColor:RA_TEST_BLUE1];
+    [[UINavigationBar appearance] setBarTintColor:RA_TEST_BLUE2];
     [[UINavigationBar appearance] setTintColor:UIColorFromRGB(RA_NAVBAR_TEXT_COLOUR)];
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            UIColorFromRGB(RA_NAVBAR_TEXT_COLOUR), NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"Gill Sans" size:20.0], NSFontAttributeName, nil]];
+                                                           [UIFont fontWithName:@"Avenir-Light" size:20.0], NSFontAttributeName, nil]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     COMMON_LOG_WITH_COMMENT(@"9")
     // If responding to a notification

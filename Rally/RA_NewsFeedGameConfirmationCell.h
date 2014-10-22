@@ -14,8 +14,8 @@
 @interface RA_NewsFeedGameConfirmationCell : RA_NewsFeedBaseCell
 
 // Storyboard stuff
-@property (weak, nonatomic) IBOutlet PFImageView *leftConfirmed;
-@property (weak, nonatomic) IBOutlet PFImageView *rightConfirmed;
+@property (weak, nonatomic) IBOutlet UIImageView *leftConfirmed;
+@property (weak, nonatomic) IBOutlet UIImageView *rightConfirmed;
 @property (weak, nonatomic) IBOutlet UILabel *leftNameConfirmed;
 @property (weak, nonatomic) IBOutlet UILabel *rightNameConfirmed;
 @property (weak, nonatomic) IBOutlet UILabel *timeStamp;

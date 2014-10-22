@@ -62,9 +62,38 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
    // Adjust the colours of the cells and labels
     self.tableView.backgroundColor = RA_TEST_BLUE2;
     self.view.backgroundColor = RA_TEST_BLUE2;
-    self.sportSelector.tintColor = [UIColor whiteColor];
-    self.gameTypeSelector.tintColor = [UIColor whiteColor];
-    self.lenthPicker.textColor = [UIColor whiteColor];
+    self.sportSelector.tintColor = RA_TEST_BLUE2;
+    self.gameTypeSelector.tintColor = RA_TEST_BLUE2;
+    self.lenthPicker.textColor = RA_TEST_BLUE2;
+    
+    self.leagueTitle.textColor = RA_TEST_BLUE2;
+    self.leagueTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.userName.textColor = RA_TEST_BLUE2;
+    self.userName.tintColor = RA_TEST_BLUE2;
+    self.durationTitle.textColor = RA_TEST_BLUE2;
+    self.durationTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.passwordTitle.textColor = RA_TEST_BLUE2;
+    self.passwordField.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
+    self.passwordTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.passwordField.tintColor = RA_TEST_BLUE2;
+    self.passwordField.textColor = RA_TEST_BLUE2;
+    self.confirmPasswordTitle.textColor = RA_TEST_BLUE2;
+    self.confirmPasswordTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.passwordFieldTwo.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
+    self.passwordFieldTwo.tintColor = RA_TEST_BLUE2;
+    self.passwordFieldTwo.textColor = RA_TEST_BLUE2;
+    self.gameTypeTitle.textColor = RA_TEST_BLUE2;
+    self.gameTypeTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.sportTitle.textColor = RA_TEST_BLUE2;
+    self.sportTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.photoTitle.textColor = RA_TEST_BLUE2;
+    self.photoTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.gameTypeBlurb.textColor = RA_TEST_BLUE2;
+    self.gameTypeBlurb.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
+    self.photoBlurb.textColor = RA_TEST_BLUE2;
+    self.photoBlurb.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
+    self.lenthPicker.textColor = RA_TEST_BLUE2;
+    self.lenthPicker.font = [UIFont fontWithName:@"Avenir-Book" size:20.0];
     
     // Create duration array
     self.duration= @[@"No limit", @"1 week", @"2 weeks",
@@ -106,7 +135,7 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
 
 - (void)tableView: (UITableView*)tableView willDisplayCell: (UITableViewCell*)cell forRowAtIndexPath: (NSIndexPath*)indexPath
 {
-    cell.backgroundColor = RA_TEST_BLUE3;
+    cell.backgroundColor = RA_TEST_WHITE;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
@@ -114,7 +143,7 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
     // Text Color
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     [header.textLabel setTextColor:[UIColor whiteColor]];
-    [header.textLabel setFont:[UIFont boldSystemFontOfSize:18]];
+    [header.textLabel setFont:[UIFont boldSystemFontOfSize:15]];
 }
 
 
@@ -379,6 +408,7 @@ self.lenthPicker.text = lengthString;
 
 - (IBAction)createNetworkPushed:(id)sender
 {
+    NSLog(@"create network button pushed");
     if (self.correctName && self.correctPass && self.correctPassTwo) {
         NSString *sportForNetwork;
         if ([self.chosenSport isEqualToString:@"Tennis"]) {
@@ -391,6 +421,8 @@ self.lenthPicker.text = lengthString;
             COMMON_LOG_WITH_COMMENT(@"ERROR")
         }
         
+        NSLog(@"about to create the parse network object");
+        
         // Create the network object. Note this method initializes the scores dictionaries
         RA_ParseNetwork *network = [RA_ParseNetwork networkWithName:self.userName.text
                                                            andSport:sportForNetwork
@@ -398,6 +430,7 @@ self.lenthPicker.text = lengthString;
                                                       andAccessCode:self.passwordField.text
                                                            andAdmin:[RA_ParseUser currentUser]
                                                         andDuration:[NSNumber numberWithFloat:self.lengthSlide.value]];
+        NSLog(@"created the parse object");
         
         // Add the photos
         network.leaguePicMedium = [PFFile fileWithData:UIImageJPEGRepresentation(self.mediumLeaguePic, 0.9f)];
@@ -406,16 +439,28 @@ self.lenthPicker.text = lengthString;
         RA_ParseUser *cUser = [RA_ParseUser currentUser];
         [cUser.networkMemberships addObject:network];
         
+        NSLog(@"Break point 2");
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:cUser.objectId];
+        NSLog(@"Break point 3");
+        network.userIdsToRanks = dictionary;
+        NSLog(@"Break point 4");
+        
+        NSLog(@"Break point 1");
+        
         // Add Bruno new code
         if ([network.type isEqualToString:@"Ladder"]) {
             network.userIdsToScores = [NSMutableDictionary dictionary];
             NSNumber *initialScore = [NSNumber numberWithFloat:1200.0];
             [network.userIdsToScores setObject:initialScore forKey:cUser.objectId];
+            
+            NSLog(@"about to create player ranks");
+         
         }
         else if ([network.type isEqualToString:@"League"]) {
             network.userIdsToScores = [NSMutableDictionary dictionary];
             NSNumber *initialScore = [NSNumber numberWithFloat:0.0];
             [network.userIdsToScores setObject:initialScore forKey:cUser.objectId];
+
         }
         else {
             COMMON_LOG_WITH_COMMENT(@"ERROR: Unexpected network type")
@@ -430,17 +475,37 @@ self.lenthPicker.text = lengthString;
         [PFObject saveAllInBackground:objectsToSave block:^(BOOL succeeded, NSError *error) {
             // Hide HUD whatever the outcome
             [HUD hide:YES];
-            if (succeeded) { [self networkUploadedSuccessfully]; }
+            if (succeeded) { [self networkUploadedSuccessfully:network]; }
             else { [self networkFailedToUploadWithError:error]; }
         }];
-        
     }
     else {
         [self showMissingNetworkCredentials];
     }
 }
 
--(void)networkUploadedSuccessfully
+-(void)networkUploadedSuccessfully: (RA_ParseNetwork *)network
+{
+    NSLog(@"about to create the pfinstallation");
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    
+    NSString *stringForNetwork = [NSString stringWithFormat:@"A%@",network.objectId];
+    
+    [currentInstallation addUniqueObject:stringForNetwork forKey:@"channels"];
+    
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [HUD hide:YES];
+        if(succeeded){[self showPositiveMessage];}
+        else{[self networkFailedToUploadWithError:error];}
+    }];
+}
+
+-(void)showPositiveMessage
 {
     // Throw a 'success' alert
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!"
@@ -542,6 +607,7 @@ self.lenthPicker.text = lengthString;
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 
 
 

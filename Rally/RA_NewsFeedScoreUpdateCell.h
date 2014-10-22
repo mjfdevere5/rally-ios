@@ -15,13 +15,14 @@
 
 // Storyboard stuff
 @property (weak, nonatomic) IBOutlet UILabel *timeStamp;
-@property (weak, nonatomic) IBOutlet PFImageView *leftPlayerImage;
-@property (weak, nonatomic) IBOutlet PFImageView *rightPlayerImage;
+@property (weak, nonatomic) IBOutlet UIImageView *leftPlayerImage;
+@property (weak, nonatomic) IBOutlet UIImageView *rightPlayerImage;
 @property (weak, nonatomic) IBOutlet UILabel *leftPlayerName;
 @property (weak, nonatomic) IBOutlet UILabel *rightPlayerName;
 @property (weak, nonatomic) IBOutlet UILabel *leftPlayerScore;
 @property (weak, nonatomic) IBOutlet UILabel *rightPlayerScore;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *leftActivity;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *rightActivity;
+@property (weak, nonatomic) IBOutlet UILabel *gameWin;
 
 @end

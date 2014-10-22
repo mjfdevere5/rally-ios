@@ -31,24 +31,23 @@
 
 -(NSString *)getCommonSpeechClock
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    if ([self minute] == 0) {
-        [dateFormatter setDateFormat:@"h"];
+    if ([self minute] != 0) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"h:mma"];
+        return [[dateFormatter stringFromDate:self] lowercaseString];
     }
     else {
-        [dateFormatter setDateFormat:@"h:mm"];
+        if ([self hour] < 12) {
+            // Morning
+            return [NSString stringWithFormat:@"%luam", (unsigned long)[self hour]];
+        }
+        else if ([self hour] == 12) {
+            return @"12pm";
+        }
+        else {
+            return [NSString stringWithFormat:@"%lupm", (unsigned long)([self hour] - 12)];
+        }
     }
-    NSString *numberPart = [dateFormatter stringFromDate:self];
-    
-    NSString *amOrPm;
-    if ([self hour] < 12) {
-        amOrPm = @"am";
-    }
-    else {
-        amOrPm = @"pm";
-    }
-    
-    return [numberPart stringByAppendingString:amOrPm];
 }
 
 

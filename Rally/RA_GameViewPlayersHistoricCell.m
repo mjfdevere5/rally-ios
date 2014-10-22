@@ -215,12 +215,24 @@
             // Upload everything
             [PFObject saveAll:objectsToBeSaved];
         }];
+        
+        MBProgressHUD *HUDTWO = [[MBProgressHUD alloc] initWithView:self.parentViewController.navigationController.view];
+        [self.parentViewController.navigationController.view addSubview:HUD];
+        [HUDTWO showAnimated:YES whileExecutingBlock:^{
+        
+            NSArray *networks = [self.game getNetworksInCommonForPlayers]; // Takes a while
+            for (RA_ParseNetwork *network in networks) {
+                [self updateRanksForPlayers:network];
+                [network save];
+            }
+        }];
+
     }
 }
 
 -(void)executeScoreMovementsForNetwork:(RA_ParseNetwork *)network // (BACKGROUND ONLY)
 { COMMON_LOG
-    [network fetchIfNeeded];
+    [network fetch];
     if ([network.type isEqualToString:@"Ladder"]) {
         if (self.leftSelection > self.rightSelection) {
             self.resultLeft = 1.0;
@@ -326,6 +338,25 @@
         RA_UserProfileDynamicTable *userProfile = [[RA_UserProfileDynamicTable alloc] initWithUser:self.rightPlayer
                                                                                         andContext:RA_UserProfileContextGameManager];
         [self.parentViewController.navigationController pushViewController:userProfile animated:YES];
+    }
+}
+
+
+
+-(void)updateRanksForPlayers: (RA_ParseNetwork *)network
+{
+    [network fetch];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    dictionary = network.userIdsToScores;
+    NSArray *orderedIds = [dictionary keysSortedByValueUsingComparator:
+                           ^NSComparisonResult(id obj1, id obj2) {
+                               return [obj2 compare:obj1];
+                           }];
+    for(NSString *userIds in orderedIds){
+        unsigned long rank;
+        rank = [orderedIds indexOfObject:userIds] + 1;
+        NSNumber *rankNumber = [NSNumber numberWithLong:rank];
+        [network.userIdsToRanks setValue:rankNumber forKey:userIds];
     }
 }
 

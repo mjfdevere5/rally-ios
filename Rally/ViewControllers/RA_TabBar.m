@@ -30,7 +30,7 @@
     self.selectedIndex = 0;
 
     // Set colour
-    self.tabBar.barTintColor = RA_TEST_BLUE1;
+    self.tabBar.barTintColor = RA_TEST_BLUE2;
 
     self.tabBar.selectedImageTintColor = RA_TEST_WHITE;
 

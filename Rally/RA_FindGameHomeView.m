@@ -52,7 +52,7 @@
     
     // Setting some styles for the table
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = RA_TEST_WHITE;
+    //self.tableView.backgroundColor = RA_TEST_WHITE;
     
     // Cell height dictionary
     self.heights = [NSMutableDictionary dictionary];
@@ -62,9 +62,13 @@
     
     // Configure refresher control thing
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.tintColor = [UIColor redColor]; // TO DO
+    self.refreshControl.tintColor = RA_TEST_BLUE2;
     [self.refreshControl addTarget:self action:@selector(refreshInBackground) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
+    
+    CALayer *btnLayer = [self.freshGameButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:0.0f];
     
     // Load the table
     self.shouldRefreshInBackground = NO; // Prevents loading the table twice upon first load
@@ -126,14 +130,14 @@
     PFQuery *query = [RA_ParseGamePreferences query];
     query.cachePolicy = kPFCachePolicyNetworkOnly;
     [query setLimit:50];
-
+    
     // Only what's been made visible to me
     [query whereKey:@"networks" containedIn:[RA_ParseUser currentUser].networkMemberships];
     // The above seems unusual ("array contained in array") but actually returns all results where any item in PF_SHOUT_VISIBILITY is contained in the user's networks. See https://www.parse.com/questions/query-where-relation-contains-any-object-from-array
-
+    
     // Order by created descending
     [query orderByDescending:@"createdAt"];
-
+    
     // Bring back the user as well;
     [query includeKey:@"user"]; // we'll want to look into the user's network memberships, for the cell configuration
     [query includeKey:@"network"]; // we are going to look into the network's scores dictionary, for the cell configuration
@@ -287,7 +291,6 @@
         // Don't think we need to
     }
 }
-
 
 
 @end

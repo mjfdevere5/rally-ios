@@ -23,6 +23,14 @@ typedef NS_ENUM(NSInteger, RA_SportPickerControlIndex) {
     // Titles
     [self.sportPicker setTitle:@"Squash" forSegmentAtIndex:RA_SportPickerControlIndexSquash];
     [self.sportPicker setTitle:@"Tennis" forSegmentAtIndex:RA_SportPickerControlIndexTennis];
+    
+    self.sportPicker.tintColor = RA_TEST_BLUE2;
+    
+    UIFont *font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                           forKey:NSFontAttributeName];
+    [self.sportPicker setTitleTextAttributes:attributes
+                                           forState:UIControlStateNormal];
 }
 
 - (IBAction)userDidPickSport:(id)sender

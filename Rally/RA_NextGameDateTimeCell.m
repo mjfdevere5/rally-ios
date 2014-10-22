@@ -46,6 +46,11 @@
     [self.earlierTime setEnabled:earlierTimeEnabled];
     [self.laterTime setEnabled:laterTimeEnabled];
     
+    self.earlierDay.tintColor = RA_TEST_BLUE2;
+    self.laterDay.tintColor = RA_TEST_BLUE2;
+    self.earlierTime.tintColor = RA_TEST_BLUE2;
+    self.laterTime.tintColor = RA_TEST_BLUE2;
+    
     // Layout
     [self setNeedsLayout];
     [self layoutIfNeeded];

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 -(IBAction)setPrefButtonPushed:(UIButton *)button;
 @property (weak, nonatomic) IBOutlet UILabel *separatorLine;
+@property (weak, nonatomic) IBOutlet UIButton *button;
 
 // Optional cell delegate methods
 //-(void)turnOffPrefThree; // TO DO

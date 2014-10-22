@@ -52,6 +52,11 @@
     // Set the formCellArray
     self.cellArray = @[@[@"nextgame_datetime_cell", @"nextgame_addbackup_cell"], @[@"nextgame_location_cell"]];
     
+    CALayer *btnLayer = [self.button layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:0.0f];
+
+    
     // Reload
     [self.tableView reloadData];
 }
@@ -194,6 +199,7 @@
     // Prepare the Parse object for upload
     self.ladderPref = [[RA_GamePrefConfig gamePrefConfig] createParseGamePreferencesObject];
     
+    
     // Prepare the progress HUD
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
@@ -206,6 +212,8 @@
         if (succeeded) { [self configUploadedSuccessfully]; }
         else { [self configFailedToUploadWithError:error]; }
     }];
+    
+    [self performSelectorInBackground:@selector(sendPushNotifications) withObject:self];
 }
 
 -(void)configUploadedSuccessfully
@@ -256,6 +264,188 @@
     
     // Stop the locationSingleton from hunting down your address
     [RA_GamePrefConfig gamePrefConfig].ladderLocationManuallySelected = YES;
+}
+
+
+
+-(void)sendPushNotifications
+{
+    RA_ParseUser *cUser = [RA_ParseUser currentUser];
+    NSMutableArray *channels = [NSMutableArray array];
+    
+    for(RA_ParseNetwork *network in self.ladderPref.networks){
+        NSLog(@"network name is %@",network.name);
+        if ([network.name isEqualToString:@"All Rally Squash"] || [network.name isEqualToString:@"All Rally Tennis"]) {
+            NSLog(@"only all rally squash or tennis selected");
+        }
+        else{
+            NSString *stringToAdd = [NSString stringWithFormat:@"A%@",network.objectId];
+            [channels addObject:stringToAdd];
+            NSLog(@"channels description %@",[channels description]);
+        }
+        
+    }
+    if ([channels count] > 0) {
+       
+        if (!self.ladderPref.simRanked) {
+            PFPush *push = [[PFPush alloc] init];
+            
+            [push setChannels:channels];
+            
+            NSString *message;
+            
+            if ([self.ladderPref.user isEqual:cUser] ) {
+                NSLog(@"user is the same as me");
+                message = @"A push has been sent to your networks!";
+            }
+            else{
+                NSLog(@"user is not the same as me");
+                message = [NSString stringWithFormat: @"%@ has sent his networks a %@ game request",self.ladderPref.user.displayName, self.ladderPref.sport]; // TO DO add more information in push request
+            }
+            [push setMessage:message];
+            NSLog(@"Breaking 4");
+            NSLog(@"push description %@",[push description]);
+            [push sendPushInBackground];
+            NSLog(@"Breaking 5");
+        }
+        else{
+            PFQuery *pushQuery = [PFInstallation query];
+            
+            NSLog(@"creating similarly ranked push");
+            
+            [pushQuery whereKey:@"user" matchesQuery:[self getUserArrayForPush]];
+            
+            PFPush *push = [[PFPush alloc] init];
+            [push setQuery:pushQuery];
+            
+            NSString *message;
+            
+            if ([self.ladderPref.user isEqual:cUser] ) {
+                NSLog(@"user is the same as me");
+                message = @"A push has been sent to your networks!";
+            }
+            else{
+                NSLog(@"user is not the same as me");
+                message = [NSString stringWithFormat: @"%@ has sent his networks a %@ game request",self.ladderPref.user.displayName, self.ladderPref.sport]; // TO DO add more information in push request
+            }
+            [push setMessage:message];
+            [push sendPushInBackground];
+            NSLog(@"push sent in background");
+        }
+
+    }
+    
+}
+
+
+-(PFQuery *)getUserArrayForPush
+{
+    NSLog(@"In user array for push");
+    
+    RA_ParseUser *cUser = [RA_ParseUser currentUser];
+    
+    [cUser fetch];
+    
+    NSMutableArray *userArrays = [NSMutableArray array];
+    NSMutableArray *idArray = [NSMutableArray array];
+    
+    for(RA_ParseNetwork *network in self.ladderPref.networks){
+        [network fetch];
+        
+        if ([network.type isEqualToString:@"special"]) {
+            NSLog(@"network is classified as special - no push sent");
+        }
+        else{
+            NSLog(@"added network to idArray");
+            [idArray addObject:network];
+        }
+    }
+    
+    for(RA_ParseNetwork *network in idArray){
+        
+        NSLog(@"going through the ranking stuff now");
+        
+        NSInteger myRank = [[network.userIdsToRanks valueForKey:cUser.objectId]integerValue];
+        
+        NSLog(@"my rank is %li",myRank);
+        
+        NSMutableArray *newArray = [NSMutableArray array];
+        for(NSString *key in [network.userIdsToScores allKeys]){
+        [newArray addObject:key];
+        }
+        NSLog(@"newArray description %@",newArray);
+        NSLog(@"newArray count %lu",(unsigned long)[newArray count]);
+        
+        NSMutableArray *membersMut = [NSMutableArray array];
+        
+        if ([newArray count] < 10) {
+            NSLog(@"newArray is less than 10 people");
+            [userArrays addObjectsFromArray:newArray];
+        }
+        else if([newArray count] > 10 && [newArray count] <21){
+            for (id key in network.userIdsToRanks) {
+                
+                NSInteger ranks = [[network.userIdsToRanks valueForKey:key]integerValue];
+                if (ranks < myRank + 5 || ranks > myRank -5 ) {
+                    [membersMut addObject:key];
+                }
+                else{
+                    NSLog(@"Do nothing since he's not in the right ranking area");
+                }
+            }
+            [userArrays addObjectsFromArray:membersMut];
+        }
+        else if ([newArray count] > 20 && [newArray count] <31){
+            for (id key in network.userIdsToRanks) {
+                
+                NSInteger ranks = [[network.userIdsToRanks valueForKey:key]integerValue];
+                if (ranks < myRank + 8 || ranks > myRank -8 ) {
+                    [membersMut addObject:key];
+                }
+                else{
+                    NSLog(@"Do nothing since he's not in the right ranking area");
+                }
+            }
+            [userArrays addObjectsFromArray:membersMut];
+        }
+        else if ([newArray count] > 30 && [newArray count] <51){
+            for (id key in network.userIdsToRanks) {
+                
+                NSInteger ranks = [[network.userIdsToRanks valueForKey:key]integerValue];
+                if (ranks < myRank + 12 || ranks > myRank -12 ) {
+                    [membersMut addObject:key];
+                }
+                else{
+                    NSLog(@"Do nothing since he's not in the right ranking area");
+                }
+            }
+            [userArrays addObjectsFromArray:membersMut];
+        }
+        else if ([newArray count] > 50){
+            for (id key in network.userIdsToRanks) {
+                
+                NSInteger ranks = [[network.userIdsToRanks valueForKey:key]integerValue];
+                if (ranks < myRank + 15 || ranks > myRank -15 ) {
+                    [membersMut addObject:key];
+                }
+                else{
+                    NSLog(@"Do nothing since he's not in the right ranking area");
+                }
+            }
+            [userArrays addObjectsFromArray:membersMut];
+        }
+        NSLog(@"userArrays description again %@",[userArrays description]);
+
+    }
+    
+    NSLog(@"running query");
+    PFQuery *query = [RA_ParseUser query];
+    query.cachePolicy = kPFCachePolicyNetworkOnly;
+    [query whereKey:@"objectId" containedIn:userArrays];
+    
+    [query findObjects];
+    NSLog(@"query description %@",[query description]);
+    return query;
 }
 
 

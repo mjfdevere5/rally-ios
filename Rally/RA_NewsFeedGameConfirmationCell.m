@@ -72,7 +72,8 @@
         }
         else {
             UIImage *thumbnailRaw = [UIImage imageWithData:data];
-            UIImage *thumbnailRoundedCorners = [thumbnailRaw getImageWithRoundedCorners:5];
+            UIImage *rightSizedPic = [thumbnailRaw getImageResizedAndCropped:self.leftConfirmed.frame.size];
+            UIImage *thumbnailRoundedCorners = [rightSizedPic getImageWithRoundedCorners:3];
             self.leftConfirmed.image = thumbnailRoundedCorners;
             [self.leftActivity stopAnimating];
         }
@@ -87,7 +88,8 @@
         }
         else {
             UIImage *thumbnailRaw = [UIImage imageWithData:data];
-            UIImage *thumbnailRoundedCorners = [thumbnailRaw getImageWithRoundedCorners:5];
+            UIImage *rightSizedPic = [thumbnailRaw getImageResizedAndCropped:self.rightConfirmed.frame.size];
+            UIImage *thumbnailRoundedCorners = [rightSizedPic getImageWithRoundedCorners:3];
             self.rightConfirmed.image = thumbnailRoundedCorners;
             [self.rightActivity stopAnimating];
         }
