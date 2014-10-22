@@ -202,7 +202,7 @@
 
 
 
--(NSArray *)runQueryForMessages
+-(NSArray *)runQueryForMessages // (BACKGROUND ONLY)
 {
     COMMON_LOG
     
@@ -229,7 +229,7 @@
 
 
 
--(NSArray *)pruneFromArrayAndCleanDatabaseOfDuplicates:(NSArray *)queryResults
+-(NSArray *)pruneFromArrayAndCleanDatabaseOfDuplicates:(NSArray *)queryResults // (BACKGROUND ONLY)
 {
     COMMON_LOG
     
@@ -240,17 +240,18 @@
     NSMutableArray *blackList = [NSMutableArray array];
     
     for (RA_ParseRecentChat *message in queryResults) {
-        if (![blackList containsObject:message.chatroom]) {
+        [message.chatroom fetchIfNeeded];
+        if (![blackList containsObject:message.chatroom.objectId]) {
             // We have not added this chatroom yet
             NSLog(@"Loop: new chatroom, add as a row");
-            [blackList addObject:message.chatroom];
+            [blackList addObject:message.chatroom.objectId];
             [filteredResults addObject:message];
         }
         else {
             // We already have a more up-to-date message for this chatroom
             // We never require this message object again
             NSLog(@"Loop: existing chatroom, delete forever");
-            [message deleteEventually];
+            [message delete];
         }
     }
     
@@ -260,7 +261,7 @@
 
 
 
--(void)prepareContentsForCells
+-(void)prepareContentsForCells // (BACKGROUND ONLY)
 {
     COMMON_LOG
     
@@ -384,14 +385,7 @@
     message.markAsSeen = YES;
     [message saveEventually];
     
-    // Run the HUD while establishing the chatroom ID and loading the messages, etc.
-    [HUD showWhileExecuting:@selector(segueToChatRoomForMessage:) onTarget:self withObject:message animated:YES];
-}
-
-
-
--(void)segueToChatRoomForMessage:(RA_ParseRecentChat *)message
-{
+    // Segue
     RA_ChatView *view = [[RA_ChatView alloc] initWithChatroom:message.chatroom];
     [self.navigationController pushViewController:view animated:YES];
 }
@@ -427,8 +421,6 @@
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     currentInstallation.badge = (NSInteger)i;
     [currentInstallation saveEventually];
-    
-    NSLog(@"applicationIconBadgeNumber = %i", i);
 }
 
 

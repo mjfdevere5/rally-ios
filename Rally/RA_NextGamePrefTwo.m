@@ -270,7 +270,6 @@
 
 -(void)sendPushNotifications
 {
-    RA_ParseUser *cUser = [RA_ParseUser currentUser];
     NSMutableArray *channels = [NSMutableArray array];
     
     for(RA_ParseNetwork *network in self.ladderPref.networks){

@@ -49,6 +49,7 @@
     [super viewDidLoad];
     
     // Navbar
+    self.navigationItem.title = @"Game Manager";
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     
@@ -332,8 +333,6 @@
     return 1;
 }
 
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.segmentControl.selectedSegmentIndex == 0) {
@@ -358,7 +357,55 @@
     }
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (self.segmentControl.selectedSegmentIndex == 0) {
+        // Case: upcoming games
+        NSInteger i = [self.upcomingGamesArray count];
+        if (i == 0) {
+            return @"No upcoming games to display";
+        }
+        else {
+            return nil;
+        }
+    }
+    
+    else if (self.segmentControl.selectedSegmentIndex == 1) {
+        // Case: historic games
+        NSInteger i = [self.historicGamesArray count];
+        if (i == 0) {
+            return @"No historic games to display";
+        }
+        else {
+            return nil;
+        }
+    }
+    
+    else {
+        COMMON_LOG_WITH_COMMENT(@"ERROR: selectedSegmentIndex not 0 or 1")
+        return 0;
+    }
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.segmentControl.selectedSegmentIndex == 0) {
+        COMMON_LOG_WITH_COMMENT(@"Upcoming")
+        // Case: upcoming games
+        return 100.0;
+    }
+    
+    else if (self.segmentControl.selectedSegmentIndex == 1) {
+        COMMON_LOG_WITH_COMMENT(@"Historic")
+        // Case: historic games
+        return 85.0;
+    }
+    
+    else {
+        COMMON_LOG_WITH_COMMENT(@"ERROR: selectedSegmentIndex not 0 or 1")
+        return 44.0;
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -389,29 +436,6 @@
     
     return cell;
 }
-
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.segmentControl.selectedSegmentIndex == 0) {
-        COMMON_LOG_WITH_COMMENT(@"Upcoming")
-        // Case: upcoming games
-        return 100.0;
-    }
-    
-    else if (self.segmentControl.selectedSegmentIndex == 1) {
-        COMMON_LOG_WITH_COMMENT(@"Historic")
-        // Case: historic games
-        return 85.0;
-    }
-    
-    else {
-        COMMON_LOG_WITH_COMMENT(@"ERROR: selectedSegmentIndex not 0 or 1")
-        return 44.0;
-    }
-}
-
 
 
 #pragma mark - badges

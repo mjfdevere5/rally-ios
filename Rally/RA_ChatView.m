@@ -121,6 +121,8 @@
 -(void)updateRecentChatsWithText:text;
 {
     [self.chatroom fetchIfNeeded];
+    
+    // One for my opponent
     RA_ParseRecentChat *recentChat = [RA_ParseRecentChat object];
     recentChat.user = self.opponent;
     recentChat.fromUser = [RA_ParseUser currentUser];
@@ -128,7 +130,18 @@
     recentChat.messagePreview = [text getMessagePreview];
     recentChat.chatroom = self.chatroom;
     recentChat.markAsSeen = NO;
-    [recentChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    
+    // ... and one for me
+    RA_ParseRecentChat *recentChatTwo = [RA_ParseRecentChat object];
+    recentChatTwo.user = [RA_ParseUser currentUser];
+    recentChatTwo.fromUser = self.opponent;
+    recentChatTwo.dateUpdated = [NSDate date];
+    recentChatTwo.messagePreview = [text getMessagePreview];
+    recentChatTwo.chatroom = self.chatroom;
+    recentChatTwo.markAsSeen = YES;
+    
+    // Save these
+    [PFObject saveAllInBackground:@[recentChat, recentChatTwo] block:^(BOOL succeeded, NSError *error) {
         if (error) {
             COMMON_LOG_WITH_COMMENT(@"ERROR")
         }
