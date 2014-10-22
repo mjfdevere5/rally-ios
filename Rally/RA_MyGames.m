@@ -66,7 +66,7 @@
     
     // Prepare the refresher thing
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.tintColor = [UIColor redColor];
+    self.refreshControl.tintColor = RA_TEST_BLUE2;
     [self.refreshControl addTarget:self action:@selector(prepareTableInBackground) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
     

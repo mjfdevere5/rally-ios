@@ -101,6 +101,7 @@
 		50468F6019B7D8F1000883BF /* PLCameraSheetDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50468F5219B7D8F1000883BF /* PLCameraSheetDoneButtonPressed@2x.png */; };
 		5046B09319B4BB7D0002F215 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5046B09219B4BB7D0002F215 /* MapKit.framework */; };
 		504BFC4019B21C38001EA73D /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 504BFC3F19B21C38001EA73D /* NSDate+Utilities.m */; };
+		50529E3B19F81E60002CEE70 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50529E3A19F81E60002CEE70 /* Images.xcassets */; };
 		5052AFB419EECA7C0074B076 /* RA_GameStatusVerticalTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052AFB319EECA7C0074B076 /* RA_GameStatusVerticalTextView.m */; };
 		50538E6419F46B6E00C5AEE5 /* NSIndexPath+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50538E6319F46B6E00C5AEE5 /* NSIndexPath+Utilities.m */; };
 		50538E6719F477CD00C5AEE5 /* PFObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50538E6619F477CD00C5AEE5 /* PFObject+Utilities.m */; };
@@ -224,7 +225,6 @@
 		508AC44719F1843D008F1D1C /* RA_Rules.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC44519F1843D008F1D1C /* RA_Rules.m */; };
 		508AC45819F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC45719F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m */; };
 		508AC45B19F18B02008F1D1C /* RA_ParseBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 508AC45A19F18B02008F1D1C /* RA_ParseBroadcast.m */; };
-		508DDC2619AF5D2E00DA3CD1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508DDC2519AF5D2E00DA3CD1 /* Images.xcassets */; };
 		508FA67819E6DED000B61767 /* RA_MyGamesUpcomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508FA67719E6DED000B61767 /* RA_MyGamesUpcomingCell.m */; };
 		508FA67B19E6DEE200B61767 /* RA_MyGamesHistoricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 508FA67A19E6DEE200B61767 /* RA_MyGamesHistoricCell.m */; };
 		508FA67E19E6DEF500B61767 /* RA_MyGames.m in Sources */ = {isa = PBXBuildFile; fileRef = 508FA67D19E6DEF500B61767 /* RA_MyGames.m */; };
@@ -407,6 +407,7 @@
 		5046B09219B4BB7D0002F215 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		504BFC3E19B21C38001EA73D /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Utilities.h"; path = "NSDate+Utilities/NSDate+Utilities.h"; sourceTree = "<group>"; };
 		504BFC3F19B21C38001EA73D /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Utilities.m"; path = "NSDate+Utilities/NSDate+Utilities.m"; sourceTree = "<group>"; };
+		50529E3A19F81E60002CEE70 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5052AFB219EECA7C0074B076 /* RA_GameStatusVerticalTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_GameStatusVerticalTextView.h; sourceTree = "<group>"; };
 		5052AFB319EECA7C0074B076 /* RA_GameStatusVerticalTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameStatusVerticalTextView.m; sourceTree = "<group>"; };
 		50538E6219F46B6E00C5AEE5 /* NSIndexPath+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+Utilities.h"; sourceTree = "<group>"; };
@@ -620,7 +621,6 @@
 		508AC45719F18695008F1D1C /* RA_GameViewPlayersHistoricCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_GameViewPlayersHistoricCell.m; sourceTree = "<group>"; };
 		508AC45919F18B02008F1D1C /* RA_ParseBroadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RA_ParseBroadcast.h; sourceTree = "<group>"; };
 		508AC45A19F18B02008F1D1C /* RA_ParseBroadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RA_ParseBroadcast.m; sourceTree = "<group>"; };
-		508DDC2519AF5D2E00DA3CD1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		508DDC2719AF627B00DA3CD1 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		508FA67619E6DED000B61767 /* RA_MyGamesUpcomingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RA_MyGamesUpcomingCell.h; path = CustomCells/RA_MyGamesUpcomingCell.h; sourceTree = "<group>"; };
 		508FA67719E6DED000B61767 /* RA_MyGamesUpcomingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RA_MyGamesUpcomingCell.m; path = CustomCells/RA_MyGamesUpcomingCell.m; sourceTree = "<group>"; };
@@ -742,12 +742,12 @@
 			isa = PBXGroup;
 			children = (
 				50EF3AB619EFF2200032510C /* Main.storyboard */,
-				5069DD8219F808A900945E7F /* Launch Screen.xib */,
 				500854B519AE21FC0071DDF4 /* RAAppDelegate.h */,
 				500854B619AE21FD0071DDF4 /* RAAppDelegate.m */,
 				508DDC2719AF627B00DA3CD1 /* AppConstants.h */,
 				50CEE83419E53FB0005C61E4 /* GlobalConstants.h */,
-				508DDC2519AF5D2E00DA3CD1 /* Images.xcassets */,
+				5069DD8219F808A900945E7F /* Launch Screen.xib */,
+				50529E3A19F81E60002CEE70 /* Images.xcassets */,
 				503983B819EC3AD1007ED8D2 /* Rally sport selector */,
 				5071C24819E30C8F006A208E /* Parse classes */,
 				5039839B19EBE8D0007ED8D2 /* Chat */,
@@ -1604,7 +1604,7 @@
 				ORGANIZATIONNAME = Rally;
 				TargetAttributes = {
 					500854A219AE21FC0071DDF4 = {
-						DevelopmentTeam = FPWZ2YRVM6;
+						DevelopmentTeam = Z3VF6LX3BN;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -1612,7 +1612,7 @@
 						};
 					};
 					500854C619AE21FD0071DDF4 = {
-						DevelopmentTeam = FPWZ2YRVM6;
+						DevelopmentTeam = Z3VF6LX3BN;
 						TestTargetID = 500854A219AE21FC0071DDF4;
 					};
 				};
@@ -1662,7 +1662,7 @@
 				5069DE6A19F80AEA00945E7F /* bubble_tailless@2x.png in Resources */,
 				5069DE5B19F80AEA00945E7F /* bubble@2x.png in Resources */,
 				5069DD9D19F80AC700945E7F /* tab_messages@2x.png in Resources */,
-				508DDC2619AF5D2E00DA3CD1 /* Images.xcassets in Resources */,
+				50529E3B19F81E60002CEE70 /* Images.xcassets in Resources */,
 				50468F5D19B7D8F1000883BF /* PLCameraSheetDoneButton.png in Resources */,
 				50468F5B19B7D8F1000883BF /* PLCameraSheetButtonPressed.png in Resources */,
 				50468F5A19B7D8F1000883BF /* PLCameraSheetButton@2x.png in Resources */,
@@ -1990,6 +1990,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2001,7 +2002,7 @@
 				INFOPLIST_FILE = "Rally/Rally-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6ad0228d-994f-40d5-9f4c-99c3577f489d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2010,6 +2011,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2021,7 +2023,7 @@
 				INFOPLIST_FILE = "Rally/Rally-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6ad0228d-994f-40d5-9f4c-99c3577f489d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

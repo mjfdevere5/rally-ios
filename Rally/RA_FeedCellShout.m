@@ -70,7 +70,7 @@
     NSAttributedString *at = [[NSAttributedString alloc] initWithString:@" at "
                                                                 attributes:stdAttributes];
     
-    NSLog(@"[dateTimePreferences count] = %lu", [self.gamePref.dateTimePreferences count]);
+    NSLog(@"[dateTimePreferences count] = %lu", (unsigned long)[self.gamePref.dateTimePreferences count]);
     
     // > Bullet 1
     NSAttributedString *dayOne = [[NSAttributedString alloc] initWithString:[self.gamePref.dateTimePreferences[0] getCommonSpeechDayLong:YES dateOrdinal:YES monthLong:YES]

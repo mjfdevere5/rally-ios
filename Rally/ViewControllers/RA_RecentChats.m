@@ -11,6 +11,8 @@
 #import "RA_RecentChatCell.h"
 #import "NSDate+CoolStrings.h"
 #import "Reachability.h"
+#import "RA_ChatView.h"
+
 
 // Basic idea here is that we want to:
 
@@ -390,7 +392,8 @@
 
 -(void)segueToChatRoomForMessage:(RA_ParseRecentChat *)message
 {
-    COMMON_LOG_WITH_COMMENT(@"Not implemented")
+    RA_ChatView *view = [[RA_ChatView alloc] initWithChatroom:message.chatroom];
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 

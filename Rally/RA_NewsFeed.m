@@ -49,7 +49,7 @@
     
     // Refresher control thing
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.tintColor = [UIColor redColor];
+    refreshControl.tintColor = RA_TEST_BLUE2;
     [refreshControl addTarget:self action:@selector(refreshInBackground) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
@@ -165,6 +165,7 @@
 {
     return [self.cellArray count];
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

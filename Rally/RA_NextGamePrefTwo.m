@@ -293,15 +293,8 @@
             [push setChannels:channels];
             
             NSString *message;
+            message = [NSString stringWithFormat: @"%@ has sent his networks a %@ game request",self.ladderPref.user.displayName, self.ladderPref.sport]; // TO DO add more information in push request
             
-            if ([self.ladderPref.user isEqual:cUser] ) {
-                NSLog(@"user is the same as me");
-                message = @"A push has been sent to your networks!";
-            }
-            else{
-                NSLog(@"user is not the same as me");
-                message = [NSString stringWithFormat: @"%@ has sent his networks a %@ game request",self.ladderPref.user.displayName, self.ladderPref.sport]; // TO DO add more information in push request
-            }
             [push setMessage:message];
             NSLog(@"Breaking 4");
             NSLog(@"push description %@",[push description]);
@@ -319,15 +312,8 @@
             [push setQuery:pushQuery];
             
             NSString *message;
+            message = [NSString stringWithFormat: @"%@ has requested a game of %@",self.ladderPref.user.displayName, self.ladderPref.sport]; // TO DO add more information in push request
             
-            if ([self.ladderPref.user isEqual:cUser] ) {
-                NSLog(@"user is the same as me");
-                message = @"A push has been sent to your networks!";
-            }
-            else{
-                NSLog(@"user is not the same as me");
-                message = [NSString stringWithFormat: @"%@ has sent his networks a %@ game request",self.ladderPref.user.displayName, self.ladderPref.sport]; // TO DO add more information in push request
-            }
             [push setMessage:message];
             [push sendPushInBackground];
             NSLog(@"push sent in background");
@@ -367,7 +353,7 @@
         
         NSInteger myRank = [[network.userIdsToRanks valueForKey:cUser.objectId]integerValue];
         
-        NSLog(@"my rank is %li",myRank);
+        NSLog(@"my rank is %li",(long)myRank);
         
         NSMutableArray *newArray = [NSMutableArray array];
         for(NSString *key in [network.userIdsToScores allKeys]){

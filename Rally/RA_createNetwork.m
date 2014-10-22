@@ -67,33 +67,33 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
     self.lenthPicker.textColor = RA_TEST_BLUE2;
     
     self.leagueTitle.textColor = RA_TEST_BLUE2;
-    self.leagueTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.leagueTitle.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     self.userName.textColor = RA_TEST_BLUE2;
     self.userName.tintColor = RA_TEST_BLUE2;
     self.durationTitle.textColor = RA_TEST_BLUE2;
-    self.durationTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.durationTitle.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     self.passwordTitle.textColor = RA_TEST_BLUE2;
     self.passwordField.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
-    self.passwordTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.passwordTitle.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     self.passwordField.tintColor = RA_TEST_BLUE2;
     self.passwordField.textColor = RA_TEST_BLUE2;
     self.confirmPasswordTitle.textColor = RA_TEST_BLUE2;
-    self.confirmPasswordTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.confirmPasswordTitle.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     self.passwordFieldTwo.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
     self.passwordFieldTwo.tintColor = RA_TEST_BLUE2;
     self.passwordFieldTwo.textColor = RA_TEST_BLUE2;
     self.gameTypeTitle.textColor = RA_TEST_BLUE2;
-    self.gameTypeTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.gameTypeTitle.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     self.sportTitle.textColor = RA_TEST_BLUE2;
-    self.sportTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.sportTitle.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     self.photoTitle.textColor = RA_TEST_BLUE2;
-    self.photoTitle.font = [UIFont fontWithName:@"Avenir-Medium" size:20.0];
+    self.photoTitle.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     self.gameTypeBlurb.textColor = RA_TEST_BLUE2;
     self.gameTypeBlurb.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
     self.photoBlurb.textColor = RA_TEST_BLUE2;
     self.photoBlurb.font = [UIFont fontWithName:@"Avenir-Book" size:15.0];
     self.lenthPicker.textColor = RA_TEST_BLUE2;
-    self.lenthPicker.font = [UIFont fontWithName:@"Avenir-Book" size:20.0];
+    self.lenthPicker.font = [UIFont fontWithName:@"Avenir-Book" size:17.0];
     
     // Create duration array
     self.duration= @[@"No limit", @"1 week", @"2 weeks",
@@ -102,8 +102,8 @@ UINavigationControllerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
                      @"9 weeks", @"10 weeks", @"11 weeks", @"12 weeks"];
     
     // Prepare our stock images
-    UIImage *squash = [UIImage imageNamed:@"squash_league_v04"];
-    UIImage *tennis = [UIImage imageNamed:@"tennis_league_v04"];
+    UIImage *squash = [UIImage imageNamed:@"squash_square_v01"];
+    UIImage *tennis = [UIImage imageNamed:@"tennis_square_v02"];
     
    self.mediumStockSquash = [squash resizedImage:PF_USER_PIC_TEST_SIZE interpolationQuality:kCGInterpolationDefault];
    // self.mediumStockSquash = [self.largeStockSquash getImageResizedAndCropped:PF_USER_PIC_MEDIUM_SIZE];

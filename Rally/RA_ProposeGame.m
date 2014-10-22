@@ -43,6 +43,10 @@
     // Simple cell array
     self.cellArray = @[ @[@"proposegame_picksport_cell"] , @[@"proposegame_datetime_cell"] ];
     
+    CALayer *btnLayer = [self.setPrefButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:0.0f];
+    
     // Reload the table
     [self.tableView reloadData];
 }

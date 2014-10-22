@@ -223,6 +223,11 @@
     return [self.arrayOfBroadcastsMain count];
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"Games waiting to clear";
+}
+
 //-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    return 230.0;

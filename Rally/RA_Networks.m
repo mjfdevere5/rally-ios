@@ -97,14 +97,14 @@ static NSString * const reuseIdentifier = @"Cell";
     NSMutableArray *rowsArrayMut = [NSMutableArray array];
     
     RA_CollCellDetails *detailsJoin = [[RA_CollCellDetails alloc] initWithName:@"Join a network"
-                                                                      andImage:[UIImage imageNamed:@"add_button_v03"]
+                                                                      andImage:[UIImage imageNamed:@"join_network_v01"]
                                                                      andAction:@"join_button"
                                                                     andNetwork:nil];
     [rowsArrayMut addObject:detailsJoin];
     
     
     RA_CollCellDetails *detailsCreate = [[RA_CollCellDetails alloc] initWithName:@"Create a network"
-                                                                      andImage:[UIImage imageNamed:@"add_button"]
+                                                                      andImage:[UIImage imageNamed:@"create_network_v05"]
                                                                      andAction:@"create_button"
                                                                     andNetwork:nil];
     [rowsArrayMut addObject:detailsCreate];
@@ -113,22 +113,17 @@ static NSString * const reuseIdentifier = @"Cell";
     
     [[RA_ParseUser currentUser] fetch];
     for (RA_ParseNetwork *network in [RA_ParseUser currentUser].networkMemberships) {
-        
-        NSLog(@"number of networks %lu", (unsigned long)[[RA_ParseUser currentUser].networkMemberships count]);
-        
-        
         [network fetch];
-        
         if ([network.type isEqualToString:@"special"]) {
             if ([network.name isEqualToString:@"All Rally Squash"]) {
-                RA_CollCellDetails *detailsOne = [[RA_CollCellDetails alloc]initWithName:network.name andImage:[UIImage imageNamed:@"squash_league_v04"] andAction:network.type andNetwork:network];
+                RA_CollCellDetails *detailsOne = [[RA_CollCellDetails alloc]initWithName:network.name andImage:[UIImage imageNamed:@"squash_square_v01"] andAction:network.type andNetwork:network];
                 [rowsArrayMut addObject:detailsOne];
                 
                 
                 NSLog(@"%lu", (unsigned long)[rowsArrayMut count]);
             }
             else{
-                RA_CollCellDetails *detailsTwo = [[RA_CollCellDetails alloc]initWithName:network.name andImage:[UIImage imageNamed:@"tennis_league_v04"] andAction:network.type andNetwork:network];
+                RA_CollCellDetails *detailsTwo = [[RA_CollCellDetails alloc]initWithName:network.name andImage:[UIImage imageNamed:@"tennis_square_v02"] andAction:network.type andNetwork:network];
                 [rowsArrayMut addObject:detailsTwo];
                 
                
@@ -432,7 +427,6 @@ static NSString * const reuseIdentifier = @"Cell";
         [network.userIdsToRanks setValue:rankNumber forKey:userIds];
     }
 }
-
 
 
 @end
