@@ -1991,8 +1991,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Max de Vere (DG5S329S8J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Max de Vere (DG5S329S8J)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Max de Vere (Z3VF6LX3BN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Max de Vere (Z3VF6LX3BN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2002,7 +2002,7 @@
 				INFOPLIST_FILE = "Rally/Rally-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6ad0228d-994f-40d5-9f4c-99c3577f489d";
+				PROVISIONING_PROFILE = "cad2ec81-096f-438f-8b8a-9256fd426aa1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2012,8 +2012,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Max de Vere (DG5S329S8J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Max de Vere (DG5S329S8J)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Max de Vere (Z3VF6LX3BN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Max de Vere (Z3VF6LX3BN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2023,7 +2023,7 @@
 				INFOPLIST_FILE = "Rally/Rally-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6ad0228d-994f-40d5-9f4c-99c3577f489d";
+				PROVISIONING_PROFILE = "cad2ec81-096f-438f-8b8a-9256fd426aa1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

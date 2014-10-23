@@ -43,6 +43,7 @@
     
     // Bail if the current state matches the desired state
     if ([self tabBarIsVisible] == visible) {
+        COMMON_LOG_WITH_COMMENT(@"Nothing to do")
         return;
     }
     
@@ -61,7 +62,12 @@
 
 - (BOOL)tabBarIsVisible
 {
-    return self.tabBarController.tabBar.frame.origin.y < CGRectGetMaxY(self.view.frame);
+    NSLog(@"self.tabBarController.tabBar.frame.origin.y = %f", self.tabBarController.tabBar.frame.origin.y);
+    NSLog(@"CGRectGetMaxY(self.view.frame) = %f", CGRectGetMaxY(self.view.frame));
+    BOOL isVisible = self.tabBarController.tabBar.frame.origin.y < CGRectGetMaxY(self.view.frame);
+    BOOL exceptionSix = self.tabBarController.tabBar.frame.origin.y == 618.0;
+    BOOL exceptionSixPlus = self.tabBarController.tabBar.frame.origin.y == 687.0;
+    return (isVisible || exceptionSix || exceptionSixPlus);
 }
 
 
